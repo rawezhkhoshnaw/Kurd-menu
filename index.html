@@ -1,5 +1,4 @@
 
-
 <!DOCTYPE html>
 <html lang="ku" dir="rtl">
 <head>
@@ -13,7 +12,7 @@
     <!-- QRious for QR Codes -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
     
-    <!-- Firebase SDK Compat (Realtime Database version) -->
+    <!-- Firebase SDK Compat -->
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
 
@@ -609,16 +608,16 @@
         let posCart = {};
 
         // ==========================================
-        // لێرەدا زانیارییە کاتییەکانی فایەربەیس بگۆڕە:
+        // کلیلەکانی بەستنەوەی فایەربەیسی تۆ بە تەواوی:
         // ==========================================
         const firebaseConfig = {
-            apiKey: "YOUR_API_KEY",
-            authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-            databaseURL: "https://YOUR_PROJECT_ID-default-rtdb.firebaseio.com",
-            projectId: "YOUR_PROJECT_ID",
-            storageBucket: "YOUR_PROJECT_ID.appspot.com",
-            messagingSenderId: "YOUR_SENDER_ID",
-            appId: "YOUR_APP_ID"
+            apiKey: "AIzaSyBor4H77rpMeLSTdJgmVRJnNYrdqOBvKdI",
+            authDomain: "kurdmenu.firebaseapp.com",
+            databaseURL: "https://kurdmenu-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "kurdmenu",
+            storageBucket: "kurdmenu.appspot.com",
+            messagingSenderId: "30410029152",
+            appId: "1:30410029152:web:57284cb72c8965240beb05"
         };
 
         if (firebaseConfig.apiKey !== "YOUR_API_KEY") {
@@ -875,7 +874,6 @@
             renderServiceAlerts();
 
             if (isFirebaseConnected && firebaseDb) {
-                // گوێگرتنی ڕاستەوخۆ بە فۆرماتی سادەی Realtime Database
                 window.liveOrderInterval = firebaseDb.ref("merchants/" + currentMerchant.username)
                     .on("value", (snapshot) => {
                         const data = snapshot.val();
@@ -1848,7 +1846,7 @@
                                 <p class="text-[11px] text-slate-400 mt-1 line-clamp-2">${desc}</p>
                             </div>
                             <div class="flex justify-between items-center mt-3">
-                                <span class="text-orange-500 font-extrabold text-xs md:text-sm whitespace-nowrap">${food.price.toLocaleString()} د.ع</span>
+                                <span class="text-orange-500 font-extrabold text-xs md:text-sm whitespace-nowrap">${food.price.toLocaleString()} ...</span>
                                 <div class="flex items-center gap-2">
                                     ${isOutOfStock ? `
                                         <span class="text-[10px] text-red-500 font-bold">تەواوبووە</span>
@@ -2039,3 +2037,4 @@
     </script>
 </body>
 </html>
+

@@ -1,5 +1,6 @@
 
-‏<!DOCTYPE html>
+
+<!DOCTYPE html>
 <html lang="ku" dir="rtl">
 <head>
     <meta charset="UTF-8">
@@ -11,8 +12,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     <!-- QRious for QR Codes -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
-    <!-- Lucide Icons -->
-    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Firebase SDK Compat (Realtime Database version) -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
 
     <style>
         body { font-family: 'Vazirmatn', sans-serif; background-color: #02040a; }
@@ -24,6 +27,19 @@
         .pos-btn:active { transform: scale(0.95); }
         .premium-card { transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s; }
         .premium-card:hover { transform: translateY(-3px); border-color: rgba(249, 115, 22, 0.3); box-shadow: 0 10px 20px -10px rgba(249, 115, 22, 0.1); }
+        
+        @keyframes pulse-ring {
+            0% { transform: scale(0.95); opacity: 1; }
+            50% { transform: scale(1.1); opacity: 0.5; }
+            100% { transform: scale(0.95); opacity: 1; }
+        }
+        .pulse-notification { animation: pulse-ring 2s infinite ease-in-out; }
+
+        @media print {
+            body * { visibility: hidden; }
+            .print-area, .print-area * { visibility: visible; }
+            .print-area { position: absolute; left: 0; top: 0; width: 100%; }
+        }
     </style>
 </head>
 <body class="text-slate-100 min-h-screen flex flex-col justify-between overflow-x-hidden">
@@ -42,7 +58,7 @@
             <div class="w-full max-w-md text-center mb-8">
                 <span class="px-4 py-1.5 bg-gradient-to-r from-orange-500/10 to-pink-500/10 border border-orange-500/20 text-orange-500 text-xs font-bold rounded-full">سیستمی کاشێری و مینیوی یەکگرتوو</span>
                 <h1 class="text-4xl font-black mt-4 text-white tracking-tight">Byteline <span class="gradient-text">Ultimate POS</span></h1>
-                <p class="text-slate-400 text-xs mt-2">سیستەمی فرۆشتن، کۆگا و مینیوی کڵاودی شاهانە بەبێ پێویستی بە سێرڤەر</p>
+                <p class="text-slate-400 text-xs mt-2">ڕێکخستنی فرۆش، کۆگا، خەرجییەکان و مینیوی دیجیتاڵی لۆکس بۆ چێشتخانەکان</p>
             </div>
 
             <div class="w-full max-w-md glass-panel rounded-[32px] p-8 shadow-2xl relative z-10 border border-slate-800/80">
@@ -54,7 +70,7 @@
                 <div id="portal-merchant-form" class="space-y-4">
                     <div>
                         <label class="block text-xs font-bold text-slate-400 mb-2">ناوی بەکارهێنەری چێشتخانە</label>
-                        <input type="text" id="merchant-user-input" placeholder="Username" class="w-full bg-slate-950/90 border border-slate-800 rounded-2xl p-4 text-sm focus:outline-none focus:border-orange-500 text-white animate-pulse-none">
+                        <input type="text" id="merchant-user-input" placeholder="Username" class="w-full bg-slate-950/90 border border-slate-800 rounded-2xl p-4 text-sm focus:outline-none focus:border-orange-500 text-white">
                     </div>
                     <div>
                         <label class="block text-xs font-bold text-slate-400 mb-2">تێپەڕەوشە</label>
@@ -68,7 +84,7 @@
                         <label class="block text-xs font-bold text-slate-400 mb-2">تێپەڕەوشەی سەرپەرشتیاری سەرەکی</label>
                         <input type="password" id="super-pass-input" placeholder="••••••••" class="w-full bg-slate-950/90 border border-slate-800 rounded-2xl p-4 text-sm focus:outline-none focus:border-orange-500 text-white">
                     </div>
-                    <button onclick="attemptSuperLogin()" class="w-full bg-slate-100 hover:bg-slate-200 text-slate-950 font-bold py-4 rounded-2xl transition-all text-xs">چوونەژوورەوەی فەرمی</button>
+                    <button onclick="attemptSuperLogin()" class="w-full bg-slate-100 hover:bg-slate-200 text-slate-950 font-bold py-4 rounded-2xl transition-all text-xs">چوونەژوورەوەی ڕاستەوخۆ</button>
                 </div>
             </div>
         </div>
@@ -81,15 +97,15 @@
                 <div class="flex justify-between items-center border-b border-slate-800 pb-6">
                     <div>
                         <h2 class="text-2xl font-black text-white">سەرپەرشتیاری گشتی سیستم</h2>
-                        <p class="text-xs text-slate-400">بەڕێوەبردن، تۆمارکردن و دەستکاریکردنی پلانەکانی چێشتخانەکان</p>
+                        <p class="text-xs text-slate-400">دروستکردنی ئەکاونتی نوێ و تۆمارکردنیان لەگەڵ دیاریکردنی پلان</p>
                     </div>
                     <button onclick="logoutToPortal()" class="px-5 py-2 bg-slate-900 border border-slate-800 rounded-xl text-xs hover:bg-slate-800 text-slate-300 font-bold">دەرچوون 📤</button>
                 </div>
 
                 <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
-                    <!-- دروستکردن و دەستکاریکردن -->
+                    <!-- دروستکردن -->
                     <div class="lg:col-span-5 bg-slate-900/20 border border-slate-800/80 rounded-[28px] p-6 space-y-4">
-                        <h3 id="super-form-title" class="font-bold text-white text-base">تۆمارکردنی ئەندامێکی نوێ</h3>
+                        <h3 class="font-bold text-white text-base">تۆمارکردنی ئەندامێکی نوێ</h3>
                         <div>
                             <label class="block text-[11px] text-slate-400 font-bold mb-1.5">ناوی چێشتخانە</label>
                             <input type="text" id="new-merchant-name" placeholder="کافێ لاند" class="w-full bg-slate-950/80 border border-slate-800 rounded-xl p-3 text-xs text-white focus:outline-none">
@@ -117,28 +133,26 @@
                             </div>
                             <div>
                                 <label class="block text-[11px] text-slate-400 font-bold mb-1.5">لۆگۆ</label>
-                                <input type="file" id="new-merchant-logo-file" accept="image/*" class="w-full bg-slate-950/80 border border-slate-800 rounded-xl p-3 text-xs text-slate-400 font-bold">
+                                <input type="file" id="new-merchant-logo-file" accept="image/*" class="w-full bg-slate-950/80 border border-slate-800 rounded-xl p-3 text-xs text-slate-400">
                             </div>
                         </div>
                         <div>
-                            <label class="block text-[11px] text-slate-400 font-bold mb-1.5">بەسەرچوونی دەستی (ڕێکەوت و کات)</label>
+                            <label class="block text-[11px] text-slate-400 font-bold mb-1.5">بەسەرچوونی دەستی (دڵخواز - جێگرەوەی پلان)</label>
                             <input type="datetime-local" id="new-merchant-expiry-override" class="w-full bg-slate-950/80 border border-slate-800 rounded-xl p-3 text-xs text-white focus:outline-none">
                         </div>
-                        <div class="flex gap-2">
-                            <button onclick="createMerchantAccount()" id="super-save-btn" class="flex-grow bg-gradient-to-r from-orange-500 to-pink-500 text-white text-xs font-bold py-3.5 rounded-xl">پاشکەوتکردن لە داتابەیس</button>
-                            <button onclick="cancelSuperEdit()" id="super-cancel-btn" class="hidden px-4 bg-slate-800 text-slate-300 text-xs font-bold py-3.5 rounded-xl">لابردن</button>
-                        </div>
+                        <button onclick="createMerchantAccount()" class="w-full bg-gradient-to-r from-orange-500 to-pink-500 text-white text-xs font-bold py-3.5 rounded-xl">پاشکەوتکردن لە داتابەیس</button>
                     </div>
 
                     <!-- لیستی بازرگانان -->
                     <div class="lg:col-span-7 bg-slate-900/20 border border-slate-800/80 rounded-[28px] p-6">
-                        <h3 class="font-bold text-white text-base mb-4">ئەکاونتەکان و پلانەکان</h3>
+                        <h3 class="font-bold text-white text-base mb-4">ئەکاونتەکان و بارودۆخی پلانەکانیان</h3>
                         <div class="overflow-x-auto">
                             <table class="w-full text-right text-xs">
                                 <thead>
                                     <tr class="text-slate-400 border-b border-slate-800/50">
                                         <th class="pb-3 font-bold">ناو</th>
                                         <th class="pb-3 font-bold">بەکارهێنەر</th>
+                                        <th class="pb-3 font-bold">تێپەڕەوشە</th>
                                         <th class="pb-3 font-bold">پلان</th>
                                         <th class="pb-3 font-bold">بەسەرچوون</th>
                                         <th class="pb-3 font-bold">کردار</th>
@@ -162,7 +176,7 @@
                         <img id="m-dash-logo" src="" class="w-12 h-12 rounded-full object-cover border border-orange-500/30 bg-slate-800">
                         <div>
                             <h2 id="m-dash-name" class="font-black text-white text-base">ناوی کافێ</h2>
-                            <span class="text-[9px] bg-emerald-500/10 border border-emerald-500/20 text-emerald-500 px-2 py-0.5 rounded-full font-bold">سەکۆی ناوخۆیی خێرا</span>
+                            <span class="text-[9px] bg-emerald-500/10 border border-emerald-500/20 text-emerald-500 px-2 py-0.5 rounded-full font-bold">سەکۆی ڕاستەوخۆ</span>
                         </div>
                     </div>
                     <button onclick="logoutToPortal()" class="px-4 py-2 bg-red-500/10 hover:bg-red-500/20 text-red-500 rounded-xl text-xs font-bold transition-all">دەرچوون 📤</button>
@@ -170,17 +184,27 @@
             </nav>
 
             <div class="max-w-7xl mx-auto px-6 py-8">
-                <div class="flex gap-2 border-b border-slate-900 pb-3 mb-8 overflow-x-auto no-scrollbar">
-                    <button onclick="switchMerchantTab('pos')" id="tab-m-pos" class="m-tab px-5 py-2.5 rounded-xl font-bold text-xs bg-orange-500 text-white shadow-lg">🖥️ تێرمیناڵی فرۆشتن (POS)</button>
-                    <button onclick="switchMerchantTab('live')" id="tab-m-live" class="m-tab px-5 py-2.5 rounded-xl font-bold text-xs text-slate-400 hover:text-white transition-all">📋 چاودێری داواکارییەکان (<span id="dash-orders-badge">0</span>)</button>
-                    <button onclick="switchMerchantTab('menu')" id="tab-m-menu" class="m-tab px-5 py-2.5 rounded-xl font-bold text-xs text-slate-400 hover:text-white transition-all">🍔 مینیو و کۆگا (ئۆنلاین)</button>
-                    <button onclick="switchMerchantTab('qr')" id="tab-m-qr" class="m-tab px-5 py-2.5 rounded-xl font-bold text-xs text-slate-400 hover:text-white transition-all">🖨️ بارکۆدی مێزەکان</button>
-                    <button onclick="switchMerchantTab('tables-map')" id="tab-m-tables" class="m-tab px-5 py-2.5 rounded-xl font-bold text-xs text-slate-400 hover:text-white transition-all">🗺️ نەخشەی مێزەکان</button>
-                    <button onclick="switchMerchantTab('accounting')" id="tab-m-accounting" class="m-tab px-5 py-2.5 rounded-xl font-bold text-xs text-slate-400 hover:text-white transition-all">📊 خەرجی و قازانج (لۆکاڵ)</button>
+                <!-- پانێڵی تێبینی و ئۆردەرە گرنگەکانی گارسۆن و حسابات -->
+                <div id="merchant-service-alerts" class="mb-6 space-y-2 hidden">
+                    <h3 class="text-xs font-black text-red-500 flex items-center gap-2">
+                        <span class="w-2.5 h-2.5 rounded-full bg-red-500 pulse-notification"></span>
+                        داواکارییە بەپەلەکانی سەر مێزەکان (گارسۆن و حساب)
+                    </h3>
+                    <div id="service-alerts-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3"></div>
                 </div>
 
-                <!-- مۆدی یەکەم: فرۆشتنی لۆکاڵ -->
+                <div class="flex gap-2 border-b border-slate-900 pb-3 mb-8 overflow-x-auto no-scrollbar">
+                    <button onclick="switchMerchantTab('pos')" id="tab-m-pos" class="m-tab px-5 py-2.5 rounded-xl font-bold text-xs bg-orange-500 text-white shadow-lg">🖥️ تێرمیناڵی فرۆشتن (POS)</button>
+                    <button onclick="switchMerchantTab('live')" id="tab-m-live" class="m-tab px-5 py-2.5 rounded-xl font-bold text-xs text-slate-400 hover:text-white transition-all">📋 چاودێری مێزەکان و داواکارییەکان (<span id="dash-orders-badge">0</span>)</button>
+                    <button onclick="switchMerchantTab('menu')" id="tab-m-menu" class="m-tab px-5 py-2.5 rounded-xl font-bold text-xs text-slate-400 hover:text-white transition-all">🍔 مینیو و کۆگا</button>
+                    <button onclick="switchMerchantTab('qr')" id="tab-m-qr" class="m-tab px-5 py-2.5 rounded-xl font-bold text-xs text-slate-400 hover:text-white transition-all">🖨️ بارکۆدی مێزەکان</button>
+                    <button onclick="switchMerchantTab('tables-map')" id="tab-m-tables" class="m-tab px-5 py-2.5 rounded-xl font-bold text-xs text-slate-400 hover:text-white transition-all">🗺️ نەخشە و بەڕێوەبردنی مێزەکان</button>
+                    <button onclick="switchMerchantTab('accounting')" id="tab-m-accounting" class="m-tab px-5 py-2.5 rounded-xl font-bold text-xs text-slate-400 hover:text-white transition-all">📊 خەرجی و قازانج</button>
+                </div>
+
+                <!-- مۆدی یەکەم: سیستمی کاشێری (Live POS Terminal) -->
                 <div id="m-sec-pos" class="grid grid-cols-1 lg:grid-cols-12 gap-6 hidden">
+                    <!-- بەشی لیستکردنی بابەتەکان -->
                     <div class="lg:col-span-8 space-y-4">
                         <div class="flex gap-2 overflow-x-auto pb-2 no-scrollbar" id="pos-cats-container"></div>
                         <div id="pos-foods-grid" class="grid grid-cols-2 md:grid-cols-4 gap-4"></div>
@@ -189,7 +213,7 @@
                     <!-- سەبەتەی فرۆشتنی کاشێر -->
                     <div class="lg:col-span-4 bg-[#0a0f1d] border border-slate-800 rounded-[28px] p-6 h-fit space-y-4">
                         <div class="flex justify-between items-center border-b border-slate-800 pb-3">
-                            <h3 class="font-bold text-white text-sm">داواکاری نوێ</h3>
+                            <h3 class="font-bold text-white text-sm">داواکاری نوێ (کاشێر)</h3>
                             <select id="pos-table-select" class="bg-slate-900 border border-slate-800 text-white text-xs rounded-xl px-3 py-1.5 focus:outline-none"></select>
                         </div>
 
@@ -213,8 +237,8 @@
                         </div>
 
                         <div class="grid grid-cols-2 gap-2 text-xs">
-                            <button onclick="checkoutPOS('cash')" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-xl transition-all pos-btn">نەختینە (Cash)</button>
-                            <button onclick="checkoutPOS('card')" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-xl transition-all pos-btn">کارت (Card)</button>
+                            <button onclick="checkoutPOS('cash')" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-xl transition-all pos-btn">پارەدان (نەختینە)</button>
+                            <button onclick="checkoutPOS('card')" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-xl transition-all pos-btn">پارەدان (کارت)</button>
                         </div>
                     </div>
                 </div>
@@ -224,21 +248,21 @@
                     <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
                         <div class="bg-[#0b0f19] border border-slate-800 rounded-[24px] p-5">
                             <h4 class="font-bold text-orange-500 text-xs mb-4 flex justify-between items-center">
-                                <span>نوێ</span>
+                                <span>داواکاری نوێ</span>
                                 <span class="bg-orange-500/10 px-2 py-0.5 rounded-full text-[10px]" id="count-pending">0</span>
                             </h4>
                             <div id="col-pending" class="space-y-4 max-h-[500px] overflow-y-auto no-scrollbar"></div>
                         </div>
                         <div class="bg-[#0b0f19] border border-slate-800 rounded-[24px] p-5">
                             <h4 class="font-bold text-blue-500 text-xs mb-4 flex justify-between items-center">
-                                <span>لە چێشتخانەیە</span>
+                                <span>لە کاتی ئامادەکردن</span>
                                 <span class="bg-blue-500/10 px-2 py-0.5 rounded-full text-[10px]" id="count-preparing">0</span>
                             </h4>
                             <div id="col-preparing" class="space-y-4 max-h-[500px] overflow-y-auto no-scrollbar"></div>
                         </div>
                         <div class="bg-[#0b0f19] border border-slate-800 rounded-[24px] p-5">
                             <h4 class="font-bold text-emerald-500 text-xs mb-4 flex justify-between items-center">
-                                <span>ئامادەیە</span>
+                                <span>ئامادەیە بۆ ناردن</span>
                                 <span class="bg-emerald-500/10 px-2 py-0.5 rounded-full text-[10px]" id="count-ready">0</span>
                             </h4>
                             <div id="col-ready" class="space-y-4 max-h-[500px] overflow-y-auto no-scrollbar"></div>
@@ -255,9 +279,10 @@
 
                 <!-- مینیو و کۆگا -->
                 <div id="m-sec-menu" class="hidden grid grid-cols-1 lg:grid-cols-12 gap-8">
+                    <!-- دروستکردن -->
                     <div class="lg:col-span-5 space-y-6">
                         <div class="bg-[#0b0f19] border border-slate-800/80 rounded-[28px] p-6 space-y-4">
-                            <h3 class="font-bold text-white text-sm">📁 هاوپۆلی نوێ (Categories)</h3>
+                            <h3 class="font-bold text-white text-sm">📁 دروستکردنی هاوپۆلی نوێ (Categories)</h3>
                             <div class="space-y-2">
                                 <input type="text" id="new-cat-ku" placeholder="ناوی هاوپۆل بە کوردی" class="w-full bg-slate-950/80 border border-slate-800 rounded-xl p-3 text-xs text-white focus:outline-none">
                                 <input type="text" id="new-cat-ar" placeholder="اسم الفئة بالعربية" class="w-full bg-slate-950/80 border border-slate-800 rounded-xl p-3 text-xs text-white focus:outline-none">
@@ -267,7 +292,7 @@
                         </div>
 
                         <div class="bg-[#0b0f19] border border-slate-800/80 rounded-[28px] p-6 space-y-4">
-                            <h3 id="food-form-title" class="font-bold text-white text-sm">🍔 زیادکردنی خواردنی نوێ</h3>
+                            <h3 class="font-bold text-white text-sm">🍔 زیادکردنی خواردنی نوێ</h3>
                             <div class="space-y-2">
                                 <input type="text" id="food-title-ku" placeholder="ناوی خواردن (کوردی)" class="w-full bg-slate-950/80 border border-slate-800 rounded-xl p-3 text-xs text-white focus:outline-none">
                                 <input type="text" id="food-title-ar" placeholder="اسم الأكلة (العربية)" class="w-full bg-slate-950/80 border border-slate-800 rounded-xl p-3 text-xs text-white focus:outline-none">
@@ -288,7 +313,7 @@
                                     <select id="food-category-select" class="w-full bg-slate-950/80 border border-slate-800 rounded-xl p-3 text-xs text-slate-300 focus:outline-none"></select>
                                 </div>
                                 <div>
-                                    <label class="block text-[11px] text-slate-400 font-bold mb-1.5">کۆگا</label>
+                                    <label class="block text-[11px] text-slate-400 font-bold mb-1.5">بڕ (کۆگا)</label>
                                     <input type="number" id="food-stock" placeholder="100" class="w-full bg-slate-950/80 border border-slate-800 rounded-xl p-3 text-xs text-white focus:outline-none">
                                 </div>
                             </div>
@@ -296,76 +321,77 @@
                                 <label class="block text-[11px] text-slate-400 font-bold mb-1.5">وێنەی بابەت</label>
                                 <input type="file" id="food-image-file" accept="image/*" class="w-full bg-slate-950/80 border border-slate-800 rounded-xl p-3 text-xs text-slate-400 focus:outline-none">
                             </div>
-                            <div class="flex gap-2">
-                                <button onclick="createNewFoodItem()" id="food-save-btn" class="flex-grow bg-orange-500 hover:bg-orange-600 text-white text-xs font-bold py-3.5 rounded-xl">تۆمارکردن لە مینیو</button>
-                                <button onclick="cancelFoodEdit()" id="food-cancel-btn" class="hidden px-4 bg-slate-800 text-slate-300 text-xs font-bold py-3.5 rounded-xl">لابردن</button>
-                            </div>
+                            <button onclick="createNewFoodItem()" class="w-full bg-orange-500 hover:bg-orange-600 text-white text-xs font-bold py-3.5 rounded-xl">تۆمارکردن لە مینیو</button>
                         </div>
                     </div>
 
                     <div class="lg:col-span-7 bg-[#0b0f19] border border-slate-800/80 rounded-[28px] p-6">
-                        <h3 class="font-bold text-white text-base mb-4">مینیۆی خواردنەکان (ئۆنلاین)</h3>
+                        <h3 class="font-bold text-white text-base mb-4">بەرهەمە چالاکەکانی مینیو و دۆخی کۆگا</h3>
                         <div id="m-dash-foods-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
                     </div>
                 </div>
 
-                <!-- بارکۆدی مێزەکان -->
-                <div id="m-sec-qr" class="hidden space-y-6">
-                    <div class="bg-[#0b0f19] border border-slate-800/80 rounded-[28px] p-6 space-y-4">
-                        <h3 class="font-bold text-white text-base">ڕێکخستنی بارکۆد</h3>
-                        <div class="flex gap-4">
-                            <select id="qr-table-select-num" class="bg-slate-950 border border-slate-800 text-white text-xs rounded-xl px-4 py-3 focus:outline-none w-full max-w-xs"></select>
-                            <button onclick="generateTableQRCode()" class="bg-orange-500 text-white text-xs font-bold px-6 py-3 rounded-xl">دروستکردنی بارکۆدی مێز</button>
-                        </div>
+                <!-- بارکۆدی مێزەکان لەگەڵ دیراینی VIP -->
+                <div id="m-sec-qr" class="hidden grid grid-cols-1 lg:grid-cols-12 gap-8">
+                    <div class="lg:col-span-4 bg-[#0b0f19] border border-slate-800/80 rounded-[28px] p-6 space-y-4 h-fit">
+                        <h3 class="font-bold text-white text-base">ڕێکخستنی بارکۆدی مێزەکان</h3>
+                        <select id="qr-table-select-num" class="w-full bg-slate-950/80 border border-slate-800 rounded-xl p-3 text-xs text-white focus:outline-none"></select>
+                        <button onclick="generateTableQRCode()" class="w-full bg-orange-500 text-white text-xs font-bold py-3.5 rounded-xl">دروستکردنی کارت و بارکۆد</button>
                     </div>
-                    <div class="bg-[#0b0f19] border border-slate-800/80 rounded-[28px] p-6">
+                    <div class="lg:col-span-8 bg-[#0b0f19] border border-slate-800/80 rounded-[28px] p-6">
                         <div class="flex justify-between items-center mb-6">
-                            <h3 class="font-bold text-white text-base">کارتەکان بۆ داونلۆدکردن</h3>
+                            <h3 class="font-bold text-white text-base">کارتە گرافیستییەکان بۆ چاپکردن</h3>
                             <button onclick="clearAllQRCodes()" class="px-3 py-1.5 bg-red-500/10 text-red-500 hover:bg-red-500/20 text-xs font-bold rounded-lg">سڕینەوەی هەمووی 🗑️</button>
                         </div>
-                        <div id="qr-print-area" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+                        <div id="qr-print-area" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
                     </div>
                 </div>
 
-                <!-- نەخشەی مێزەکان -->
+                <!-- نەخشەی مێزەکان و حسابات -->
                 <div id="m-sec-tables-map" class="hidden space-y-6">
                     <div class="bg-[#0b0f19] border border-slate-800/80 rounded-[28px] p-6 space-y-4">
-                        <h3 class="font-bold text-white text-base">🛠️ دروستکردنی مێز</h3>
+                        <h3 class="font-bold text-white text-base">🛠️ بەڕێوەبردن و دروستکردنی مێزە نوێیەکان</h3>
                         <div class="flex gap-4">
-                            <input type="text" id="setup-new-table-name" placeholder="مێزی ٢" class="bg-slate-950 border border-slate-800 text-white text-xs rounded-xl px-4 py-3 focus:outline-none w-full max-w-xs">
-                            <button onclick="addNewRestaurantTable()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-6 py-3 rounded-xl text-xs transition-all">زیادکردن ➕</button>
+                            <input type="text" id="setup-new-table-name" placeholder="بۆ نموونە: مێزی ٢٥ یان VIP" class="bg-slate-950 border border-slate-800 text-white text-xs rounded-xl px-4 py-3 focus:outline-none w-full max-w-xs">
+                            <button onclick="addNewRestaurantTable()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-6 py-3 rounded-xl text-xs transition-all">زیادکردنی مێز ➕</button>
                         </div>
                     </div>
+
                     <div class="bg-[#0b0f19] border border-slate-800/80 rounded-[28px] p-6 space-y-6">
-                        <h3 class="font-bold text-white text-base">بارودۆخی مێزەکان (Live Table Map)</h3>
+                        <h3 class="font-bold text-white text-base">نەخشەی چالاکی مێزەکان و حسابات (Live Table Map)</h3>
                         <div id="visual-tables-grid" class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 gap-4"></div>
                     </div>
                 </div>
 
-                <!-- بەشی ژمێریاری و خەرجییەکان (لۆکاڵ بۆ خێرایی) -->
+                <!-- بەشی ژمێریاری و خەرجییەکان -->
                 <div id="m-sec-accounting" class="hidden grid grid-cols-1 lg:grid-cols-12 gap-8">
                     <div class="lg:col-span-5 bg-[#0b0f19] border border-slate-800/80 rounded-[28px] p-6 space-y-4">
-                        <h3 class="font-bold text-white text-sm">تۆمارکردنی خەرجی</h3>
-                        <input type="text" id="expense-title" placeholder="کرێی کارەبا" class="w-full bg-slate-950/80 border border-slate-800 rounded-xl p-3 text-xs text-white focus:outline-none">
-                        <input type="number" id="expense-amount" placeholder="بڕی پارە" class="w-full bg-slate-950/80 border border-slate-800 rounded-xl p-3 text-xs text-white focus:outline-none">
+                        <h3 class="font-bold text-white text-sm">تۆمارکردنی خەرجی نوێ</h3>
+                        <input type="text" id="expense-title" placeholder="بۆ نموونە: کرێی دوکان" class="w-full bg-slate-950/80 border border-slate-800 rounded-xl p-3 text-xs text-white focus:outline-none">
+                        <input type="number" id="expense-amount" placeholder="بڕی پارە بە دینار" class="w-full bg-slate-950/80 border border-slate-800 rounded-xl p-3 text-xs text-white focus:outline-none">
                         <button onclick="recordExpense()" class="w-full bg-orange-500 text-white text-xs font-bold py-3 rounded-xl">تۆمارکردن</button>
                     </div>
 
                     <div class="lg:col-span-7 bg-[#0b0f19] border border-slate-800/80 rounded-[28px] p-6 space-y-6">
-                        <h3 class="font-bold text-white text-base">ڕاپۆرتی دارایی لۆکاڵ</h3>
+                        <h3 class="font-bold text-white text-base">ڕاپۆرتی دارایی پاك</h3>
                         <div class="grid grid-cols-3 gap-4">
                             <div class="bg-slate-950 p-4 rounded-2xl text-center border border-slate-900">
-                                <span class="text-[10px] text-slate-400 font-bold block">کۆی فرۆش</span>
+                                <span class="text-[10px] text-slate-400 font-bold block">کۆی گشتی فرۆش</span>
                                 <span id="acc-sales" class="text-base font-black text-emerald-500">٠ د.ع</span>
                             </div>
                             <div class="bg-slate-950 p-4 rounded-2xl text-center border border-slate-900">
-                                <span class="text-[10px] text-slate-400 font-bold block">کۆی خەرجی</span>
+                                <span class="text-[10px] text-slate-400 font-bold block">کۆی خەرجییەکان</span>
                                 <span id="acc-expenses" class="text-base font-black text-red-500">٠ د.ع</span>
                             </div>
                             <div class="bg-slate-950 p-4 rounded-2xl text-center border border-slate-900">
-                                <span class="text-[10px] text-slate-400 font-bold block">قازانج</span>
+                                <span class="text-[10px] text-slate-400 font-bold block">قازانجی پاك</span>
                                 <span id="acc-profit" class="text-base font-black text-orange-500">٠ د.ع</span>
                             </div>
+                        </div>
+
+                        <div class="border-t border-slate-900 pt-4">
+                            <h4 class="font-bold text-xs text-white mb-3">خەرجییە تۆمارکراوەکان</h4>
+                            <div id="expenses-list" class="space-y-2 max-h-48 overflow-y-auto no-scrollbar"></div>
                         </div>
                     </div>
                 </div>
@@ -393,7 +419,7 @@
                 </div>
 
                 <div class="space-y-3 pt-2">
-                    <p class="text-[10px] text-slate-500 uppercase font-bold tracking-wider">کۆنتینۆ بکە بە هەڵبژاردنی زمان</p>
+                    <p class="text-[10px] text-slate-500 uppercase font-bold tracking-wider">کۆنتینۆ بکە بە هەڵبژاردنی زمان / اختر لغتك</p>
                     <div class="grid grid-cols-1 gap-3">
                         <button onclick="selectCustomerLanguage('ku')" class="w-full bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-bold py-3.5 rounded-2xl text-xs transition-all shadow-lg shadow-orange-500/10">کوردی (Kurdish)</button>
                         <button onclick="selectCustomerLanguage('ar')" class="w-full bg-gradient-to-r from-pink-500 to-pink-600 hover:from-pink-600 hover:to-pink-700 text-white font-bold py-3.5 rounded-2xl text-xs transition-all shadow-lg shadow-pink-500/10">العربية (Arabic)</button>
@@ -406,7 +432,7 @@
         <!-- ========================================== -->
         <!-- ٥. مینیوی کڕیار (Customer Interface) -->
         <!-- ========================================== -->
-        <div id="view-customer-menu" class="hidden min-h-screen bg-[#03050a] pb-32">
+        <div id="view-customer-menu" class="hidden min-h-screen bg-[#03050a] pb-40">
             <header class="bg-slate-950/90 backdrop-blur-md sticky top-0 z-40 border-b border-slate-900 py-4">
                 <div class="max-w-md mx-auto px-4 flex justify-between items-center">
                     <div class="flex items-center gap-3">
@@ -424,11 +450,23 @@
                 </div>
             </header>
 
+            <!-- دوو بەتنی سەرەکی زۆر شیک و نایاب بۆ داواکردنی گارسۆن و حساب -->
+            <div class="max-w-md mx-auto px-4 mt-6 grid grid-cols-2 gap-4">
+                <button onclick="requestWaiterService('waiter')" class="bg-gradient-to-r from-amber-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-black py-4 px-4 rounded-[22px] text-xs transition-all shadow-lg shadow-orange-500/10 flex items-center justify-center gap-2 border border-orange-400/20 active:scale-95">
+                    <span class="text-base animate-bounce">🛎️</span>
+                    <span>بانگکردنی گارسۆن</span>
+                </button>
+                <button onclick="requestWaiterService('bill')" class="bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-teal-600 hover:to-teal-700 text-white font-black py-4 px-4 rounded-[22px] text-xs transition-all shadow-lg shadow-emerald-500/10 flex items-center justify-center gap-2 border border-emerald-400/20 active:scale-95">
+                    <span class="text-base">💵</span>
+                    <span>داواکردنی حساب</span>
+                </button>
+            </div>
+
             <div class="max-w-md mx-auto px-4 mt-6">
                 <input type="text" id="cust-food-search" oninput="searchCustomerFood()" placeholder="..." class="w-full bg-slate-900/60 border border-slate-800/80 rounded-2xl py-3.5 px-4 text-xs text-white focus:outline-none">
             </div>
 
-            <!-- بەشی هاوپۆلەکان -->
+            <!-- بەشی هاوپۆلەکان بە دیزاینی دوگمەی نایاب و جیاواز -->
             <section class="max-w-md mx-auto px-4 mt-6">
                 <div class="flex gap-2 overflow-x-auto pb-3 no-scrollbar" id="cust-cats-container"></div>
             </section>
@@ -454,13 +492,13 @@
         <div id="cust-cart-modal" class="fixed inset-0 bg-black/80 z-50 hidden flex items-end justify-center">
             <div class="bg-slate-950 w-full max-w-md rounded-t-[32px] p-6 max-h-[85vh] overflow-y-auto border-t border-slate-800">
                 <div class="flex justify-between items-center pb-4 border-b border-slate-800">
-                    <h2 class="text-base font-black text-white" id="text-cart-title">سەبەتەی کڕین</h2>
+                    <h2 class="text-base font-black text-white" id="text-cart-title">سەبەتەی کڕینی مێزەکەت</h2>
                     <button onclick="toggleCustomerCartModal(false)" class="text-slate-400 text-lg">✕</button>
                 </div>
                 <div id="cust-cart-items-list" class="mt-4 space-y-4"></div>
                 <div class="mt-6 pt-6 border-t border-slate-800 space-y-4">
                     <button onclick="submitCustomerOrder()" class="w-full bg-gradient-to-r from-orange-500 to-pink-500 text-white font-black py-4 rounded-2xl transition-all flex justify-center items-center gap-2 text-xs">
-                        <span id="text-submit-order">ناردنی داواکاری ⚡</span>
+                        <span id="text-submit-order">ناردنی داواکاری بۆ ئامادەکردن ⚡</span>
                     </button>
                 </div>
             </div>
@@ -471,37 +509,27 @@
             <div class="max-w-md bg-slate-950 border border-red-500/20 rounded-[32px] p-8 space-y-6 shadow-2xl relative">
                 <div class="w-16 h-16 bg-red-500/10 border border-red-500/20 text-red-500 rounded-full flex items-center justify-center text-3xl mx-auto">⚠️</div>
                 <h2 class="text-xl font-black text-white">پێویستە پلانەکەت نوێ بکەیتەوە</h2>
-                <p class="text-xs text-slate-400 leading-relaxed">بۆ بەردەوامبوونی کارکردنی مینیو بە شێوازی سەردەمیانە، پێویستە پلانەکەت نوێ بکەیتەوە.</p>
-                <a href="https://wa.me/9647511742922?text=سڵاو،%20دەمەوێت%20پلانەکەم%20نوێ%20بکەمەوە" target="_blank" class="w-full bg-emerald-500 hover:bg-emerald-600 text-white font-black py-4 rounded-2xl transition-all flex justify-center items-center gap-2 text-xs">
+                <p class="text-xs text-slate-400 leading-relaxed">بۆ بەردەوامبوونی کارکردنی مینیو بە شێوازی سەردەمیانە، پێویستە پلانەکەت نوێ بکەیتەوە. نامەیەکی خێرا بنێرە بۆ ڕاوێژکارانی ئێمە بۆ نوێکردنەوە لە ماوەیەکی کەمدا.</p>
+                
+                <a href="https://wa.me/9647511742922?text=سڵاو،%20دەمەوێت%20پلانەکەم%20نوێ%20بکەمەوە" target="_blank" class="w-full bg-emerald-500 hover:bg-emerald-600 text-white font-black py-4 rounded-2xl transition-all flex justify-center items-center gap-2 text-xs shadow-lg shadow-emerald-500/10">
                     <span>نامە ناردن بۆ واتسئەپ 💬</span>
                 </a>
             </div>
         </div>
     </div>
 
-    <!-- مۆداڵی دەستکاری ناوی مێز -->
-    <div id="table-edit-modal" class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 z-50">
-        <div class="glass-panel p-6 rounded-2xl max-w-sm w-full flex flex-col gap-4">
-            <h3 class="text-sm font-bold text-white border-b border-slate-800 pb-2">دەستکاریکردنی ناوی مێز</h3>
-            <input type="text" id="edit-table-name-input" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs text-white focus:outline-none">
-            <div class="flex gap-2">
-                <button onclick="saveTableNameEdit()" class="flex-1 bg-emerald-600 text-white text-xs font-bold py-2.5 rounded-xl">پاشکەوت</button>
-                <button onclick="closeTableEditModal()" class="flex-1 bg-slate-800 text-slate-300 text-xs font-bold py-2.5 rounded-xl">پاشگەزبوونەوە</button>
-            </div>
-        </div>
-    </div>
-
+    <!-- فووتەری فەرمی پەرەپێدەر Byteline Agency -->
     <footer class="w-full text-center py-6 border-t border-slate-900 bg-[#02040a]/80 relative z-30 mt-auto">
-        <p class="text-xs text-slate-500 font-bold">گەشەپێدراوە لەلایەن <a href="http://bytelineagency.vercel.app/" target="_blank" class="gradient-text font-black hover:underline transition-all">bytelineagency</a></p>
+        <p class="text-xs text-slate-500 font-bold">
+            گەشەپێدراوە لەلایەن 
+            <a href="http://bytelineagency.vercel.app/" target="_blank" class="gradient-text font-black hover:underline transition-all">bytelineagency</a>
+        </p>
     </footer>
 
     <!-- ========================================== -->
     <!-- لۆجیکی گشتی و هاوکاتکردنی داتاکان -->
     <!-- ========================================== -->
     <script>
-        // بەستنەوەی فەرمی بە داتابەیسە تایبەتەکەی خۆت لە فایەربەیس
-        const DATABASE_URL = "https://kurdmenu-default-rtdb.asia-southeast1.firebasedatabase.app";
-
         const translations = {
             ku: {
                 search: "گەڕان بەدوای خواردنە دڵخوازەکەتدا...",
@@ -512,7 +540,7 @@
                 add: "زیادکردن",
                 all: "هەموو هاوپۆلەکان",
                 success_order: "نێردرا!",
-                success_order_desc: "داواکارییەکەت بە سەرکەوتوویی نێردرا."
+                success_order_desc: "داواکارییەکەت گەیشتە بەشی چێشتخانە بە سەرکەوتوویی."
             },
             ar: {
                 search: "ابحث عن وجبتك المفضلة...",
@@ -523,7 +551,7 @@
                 add: "إضافة",
                 all: "جميع الفئات",
                 success_order: "تم الإرسال!",
-                success_order_desc: "وصل طلبك بنجاح."
+                success_order_desc: "وصل طلبك إلى المطبخ بنجاح."
             },
             en: {
                 search: "Search for your favorite food...",
@@ -539,56 +567,97 @@
         };
 
         let currentLang = 'ku';
-        let merchants = {};
+        let firebaseDb = null;
+        let isFirebaseConnected = false;
+
+        const defaultMerchants = {
+            "cafesky": {
+                username: "cafesky",
+                password: "123",
+                name: "کافێ ئاسمانی (Sky Cafe)",
+                logo: "https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=100",
+                categories: [
+                    { id: "fastfood", ku: "فاست فوود", ar: "وجبات سريعة", en: "Fast Food" },
+                    { id: "drinks", ku: "خواردنەوەکان", ar: "مشروبات", en: "Drinks" }
+                ],
+                foods: [
+                    { 
+                        id: 101, 
+                        title_ku: "بەرگری گۆشتی لۆکس", title_ar: "برجر لحم فاخر", title_en: "Luxury Beef Burger", 
+                        price: 8000, 
+                        desc_ku: "گۆشتی مانگا, پەنیر, کاهو", desc_ar: "لحم بقري, جبنة, خس", desc_en: "Beef, cheese, lettuce", 
+                        category: "fastfood", 
+                        img: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400",
+                        stock: 50
+                    }
+                ],
+                orders: [],
+                expenses: [],
+                qrcodes: ["1", "2"],
+                tables: ["1", "2", "3", "4", "5", "6"],
+                serviceRequests: [],
+                plan: "demo",
+                expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString()
+            }
+        };
+
+        let merchants = JSON.parse(localStorage.getItem('sys_merchants')) || defaultMerchants;
         let currentMerchant = null;
         let customerActiveMerchant = null;
         let customerActiveTable = "1";
         let customerCart = {};
         let posCart = {};
-        
-        let editingMerchantUser = null;
-        let editingFoodId = null;
-        let editingTableOldName = null;
 
-        // هاوکاتکردنی مینیوی چێشتخانەکە ئۆنلاین
-        async function syncData(key, data) {
+        // ==========================================
+        // لێرەدا زانیارییە کاتییەکانی فایەربەیس بگۆڕە:
+        // ==========================================
+        const firebaseConfig = {
+            apiKey: "YOUR_API_KEY",
+            authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+            databaseURL: "https://YOUR_PROJECT_ID-default-rtdb.firebaseio.com",
+            projectId: "YOUR_PROJECT_ID",
+            storageBucket: "YOUR_PROJECT_ID.appspot.com",
+            messagingSenderId: "YOUR_SENDER_ID",
+            appId: "YOUR_APP_ID"
+        };
+
+        if (firebaseConfig.apiKey !== "YOUR_API_KEY") {
             try {
-                await fetch(`${DATABASE_URL}/merchants/${key.toLowerCase()}.json`, {
-                    method: 'PUT',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(data)
-                });
-            } catch (e) {
-                console.error("سێرڤەر کار ناکات بۆ نوێکردنەوەی مینیو", e);
+                firebase.initializeApp(firebaseConfig);
+                firebaseDb = firebase.database(); // بەکارهێنانی Realtime Database
+                isFirebaseConnected = true;
+                console.log("Firebase Realtime Database Connected.");
+            } catch (error) {
+                console.error("Firebase connection failed: ", error);
             }
-            merchants[key] = data;
-            localStorage.setItem(`sys_merchants_${key}`, JSON.stringify(data));
         }
 
-        // هێنانی داتای چێشتخانەکە لە فایەربەیسەوە
+        async function syncData(key, data) {
+            if (isFirebaseConnected && firebaseDb) {
+                try {
+                    await firebaseDb.ref("merchants/" + key).set(data);
+                } catch (e) {
+                    console.error("Cloud write failed: ", e);
+                }
+            }
+            merchants[key] = data;
+            localStorage.setItem('sys_merchants', JSON.stringify(merchants));
+        }
+
         async function fetchMerchantData(username) {
-            try {
-                const response = await fetch(`${DATABASE_URL}/merchants/${username.toLowerCase()}.json`);
-                if (response.ok) {
-                    const data = await response.json();
+            if (isFirebaseConnected && firebaseDb) {
+                try {
+                    const snapshot = await firebaseDb.ref("merchants/" + username).once("value");
+                    const data = snapshot.val();
                     if (data) {
                         merchants[username] = data;
-                        localStorage.setItem(`sys_merchants_${username}`, JSON.stringify(data));
                         return data;
                     }
+                } catch (e) {
+                    console.error("Cloud fetch failed: ", e);
                 }
-            } catch (e) {
-                console.error("کێشە لە خوێندنەوەی داتاکان لە فایەربەیس، داتا لۆکاڵ بەکارهێنرا", e);
             }
-            
-            // ئەگەر ئۆفلاین بوون، داتا لۆکاڵەکە دەهێنینەوە
-            const localData = localStorage.getItem(`sys_merchants_${username}`);
-            if (localData) {
-                const parsed = JSON.parse(localData);
-                merchants[username] = parsed;
-                return parsed;
-            }
-            return null;
+            return merchants[username] || null;
         }
 
         function compressAndGetBase64(file, maxWidth = 300, quality = 0.7) {
@@ -649,7 +718,7 @@
                 renderSuperMerchants();
                 showToast('سەرکەوتوو بوو', 'بەخێرهاتی پەرەپێدەر.');
             } else {
-                showToast('شکستی هێنا', 'تێپەڕەوشە هەڵەیە!', 'error');
+                showToast('شکستی هێنا', 'تێپەڕەوشەی سوپەر ئەدمین هەڵەیە!', 'error');
             }
         }
 
@@ -661,16 +730,18 @@
             const logoFile = document.getElementById('new-merchant-logo-file').files[0];
             const overrideExpiry = document.getElementById('new-merchant-expiry-override').value;
 
+            let logoBase64 = "https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=100";
+            if (logoFile) {
+                try {
+                    logoBase64 = await compressAndGetBase64(logoFile, 150, 0.6);
+                } catch (err) {
+                    console.error("Image compression failed: ", err);
+                }
+            }
+
             if (!name || !user || !pass) {
                 showToast('هەڵە', 'خانەکان بەتاڵن.', 'error');
                 return;
-            }
-
-            let logoBase64 = "https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=100";
-            if (logoFile) {
-                try { logoBase64 = await compressAndGetBase64(logoFile, 150, 0.6); } catch (err) { console.error(err); }
-            } else if (editingMerchantUser && merchants[editingMerchantUser]) {
-                logoBase64 = merchants[editingMerchantUser].logo;
             }
 
             let expiresAt;
@@ -685,89 +756,34 @@
                 expiresAt = new Date(Date.now() + days * 24 * 60 * 60 * 1000).toISOString();
             }
 
-            if (editingMerchantUser) {
-                const updatedMerchant = {
-                    ...merchants[editingMerchantUser],
-                    username: user,
-                    password: pass,
-                    name: name,
-                    logo: logoBase64,
-                    plan: plan,
-                    expiresAt: expiresAt
-                };
+            merchants[user] = {
+                username: user,
+                password: pass,
+                name: name,
+                logo: logoBase64,
+                categories: [
+                    { id: "fastfood", ku: "فاست فوود", ar: "وجبات سريعة", en: "Fast Food" },
+                    { id: "drinks", ku: "خواردنەوەکان", ar: "مشروبات", en: "Drinks" }
+                ],
+                foods: [],
+                orders: [],
+                expenses: [],
+                qrcodes: [],
+                tables: ["1", "2", "3", "4", "5", "6"],
+                serviceRequests: [],
+                plan: plan,
+                expiresAt: expiresAt
+            };
 
-                if (editingMerchantUser !== user) {
-                    try {
-                        await fetch(`${DATABASE_URL}/merchants/${editingMerchantUser}.json`, { method: 'DELETE' });
-                    } catch (e) { console.error(e); }
-                    delete merchants[editingMerchantUser];
-                }
-
-                await syncData(user, updatedMerchant);
-                showToast('نوێکرایەوە', 'زانیارییەکان نوێکرانەوە.');
-                cancelSuperEdit();
-            } else {
-                merchants[user] = {
-                    username: user,
-                    password: pass,
-                    name: name,
-                    logo: logoBase64,
-                    categories: [],
-                    foods: [],
-                    plan: plan,
-                    expiresAt: expiresAt
-                };
-                await syncData(user, merchants[user]);
-                showToast('سەرکەوتوو بوو', 'ئەکاونت دروستکرا.');
-            }
-
+            await syncData(user, merchants[user]);
             renderSuperMerchants();
-        }
-
-        function editMerchant(user) {
-            const m = merchants[user];
-            if (!m) return;
-
-            editingMerchantUser = user;
-            document.getElementById('super-form-title').innerText = "📝 دەستکاریکردنی ئەکاونت";
-            document.getElementById('new-merchant-name').value = m.name;
-            document.getElementById('new-merchant-user').value = m.username;
-            document.getElementById('new-merchant-pass').value = m.password;
-            document.getElementById('new-merchant-plan').value = m.plan || 'demo';
-            
-            const dateLocal = new Date(m.expiresAt);
-            dateLocal.setMinutes(dateLocal.getMinutes() - dateLocal.getTimezoneOffset());
-            document.getElementById('new-merchant-expiry-override').value = dateLocal.toISOString().slice(0, 16);
-
-            document.getElementById('super-save-btn').innerText = "تۆمارکردنی گۆڕانکاری";
-            document.getElementById('super-cancel-btn').classList.remove('hidden');
-        }
-
-        function cancelSuperEdit() {
-            editingMerchantUser = null;
-            document.getElementById('super-form-title').innerText = "تۆمارکردنی ئەندامێکی نوێ";
-            document.getElementById('new-merchant-name').value = "";
-            document.getElementById('new-merchant-user').value = "";
-            document.getElementById('new-merchant-pass').value = "";
-            document.getElementById('new-merchant-plan').value = "demo";
+            showToast('سەرکەوتوو بوو', 'ئەکاونت بە سەرکەوتوویی دروستکرا.');
             document.getElementById('new-merchant-expiry-override').value = "";
-            document.getElementById('super-save-btn').innerText = "پاشکەوتکردن لە داتابەیس";
-            document.getElementById('super-cancel-btn').classList.add('hidden');
         }
 
-        async function renderSuperMerchants() {
+        function renderSuperMerchants() {
             const tbody = document.getElementById('super-merchants-table');
-            if (!tbody) return;
             tbody.innerHTML = '';
-
-            try {
-                const response = await fetch(`${DATABASE_URL}/merchants.json`);
-                if (response.ok) {
-                    const cloudMerchants = await response.json();
-                    merchants = cloudMerchants || {};
-                }
-            } catch (e) { console.error(e); }
-
             Object.values(merchants).forEach(m => {
                 const isExpired = new Date() > new Date(m.expiresAt);
                 tbody.innerHTML += `
@@ -777,32 +793,36 @@
                             ${m.name}
                         </td>
                         <td class="py-4 text-slate-400 font-mono">${m.username}</td>
+                        <td class="py-4 text-slate-400 font-mono">${m.password}</td>
                         <td class="py-4 text-orange-500 font-bold uppercase">${m.plan || 'demo'}</td>
                         <td class="py-4 ${isExpired ? 'text-red-500 font-bold animate-pulse' : 'text-slate-400'}">
                             ${new Date(m.expiresAt).toLocaleString('ku-IQ')} ${isExpired ? '(Expired)' : ''}
                         </td>
-                        <td class="py-4 flex gap-2">
-                            <button onclick="editMerchant('${m.username}')" class="text-blue-500 font-bold">دەستکاری</button>
-                            <button onclick="deleteMerchant('${m.username}')" class="text-red-500 font-bold">سڕینەوە</button>
-                        </td>
+                        <td class="py-4"><button onclick="deleteMerchant('${m.username}')" class="text-red-500">سڕینەوە</button></td>
                     </tr>
                 `;
             });
         }
 
         async function deleteMerchant(user) {
-            if (confirm('ئایا دڵنیای لە سڕینەوە؟')) {
-                try {
-                    await fetch(`${DATABASE_URL}/merchants/${user}.json`, { method: 'DELETE' });
-                } catch (e) { console.error(e); }
+            if (confirm('دڵنیایی؟')) {
+                if (isFirebaseConnected && firebaseDb) {
+                    await firebaseDb.ref("merchants/" + user).remove();
+                }
                 delete merchants[user];
-                localStorage.removeItem(`sys_merchants_${user}`);
+                localStorage.setItem('sys_merchants', JSON.stringify(merchants));
                 renderSuperMerchants();
             }
         }
 
         function logoutToPortal() {
-            if (window.liveOrderInterval) clearInterval(window.liveOrderInterval);
+            if (window.liveOrderInterval) {
+                if (isFirebaseConnected && firebaseDb) {
+                    firebaseDb.ref("merchants/" + currentMerchant.username).off();
+                } else {
+                    clearInterval(window.liveOrderInterval);
+                }
+            }
             currentMerchant = null;
             document.getElementById('view-super-admin').classList.add('hidden');
             document.getElementById('view-merchant-panel').classList.add('hidden');
@@ -825,26 +845,10 @@
                     return;
                 }
                 currentMerchant = merchantData;
-                
-                loadLocalMerchantData(user);
                 openMerchantDashboard();
             } else {
                 showToast('هەڵە', 'ناوی بەکارهێنەر یان پاسۆرد هەڵەیە!', 'error');
             }
-        }
-
-        function loadLocalMerchantData(username) {
-            const localOrders = localStorage.getItem(`local_orders_${username}`);
-            const localExpenses = localStorage.getItem(`local_expenses_${username}`);
-            
-            currentMerchant.orders = localOrders ? JSON.parse(localOrders) : [];
-            currentMerchant.expenses = localExpenses ? JSON.parse(localExpenses) : [];
-        }
-
-        function saveLocalMerchantData() {
-            if (!currentMerchant) return;
-            localStorage.setItem(`local_orders_${currentMerchant.username}`, JSON.stringify(currentMerchant.orders || []));
-            localStorage.setItem(`local_expenses_${currentMerchant.username}`, JSON.stringify(currentMerchant.expenses || []));
         }
 
         function openMerchantDashboard() {
@@ -856,6 +860,9 @@
             if (!currentMerchant.tables) {
                 currentMerchant.tables = ["1", "2", "3", "4", "5", "6"];
             }
+            if (!currentMerchant.serviceRequests) {
+                currentMerchant.serviceRequests = [];
+            }
 
             switchMerchantTab('pos');
             renderPOSMenu();
@@ -865,27 +872,123 @@
             populateCategoryDropdown();
             renderAccountingReport();
             updateAllTableDropdowns();
+            renderServiceAlerts();
 
-            window.liveOrderInterval = setInterval(async () => {
-                const onlineData = await fetchMerchantData(currentMerchant.username);
-                if (onlineData && onlineData.orders) {
-                    const incomingOnlineOrders = onlineData.orders.filter(oo => oo.status === 'pending');
-                    
-                    incomingOnlineOrders.forEach(o => {
-                        const exists = currentMerchant.orders.some(co => co.id === o.id);
-                        if (!exists) {
-                            currentMerchant.orders.push(o);
-                            showToast('🔔 داواکاری نوێ!', 'داواکارییەک لە سەر مێزەوە گەیشت.');
-                            try { new Audio('https://assets.mixkit.co/active_storage/sfx/2869/2869-84.wav').play(); } catch (e) {}
+            if (isFirebaseConnected && firebaseDb) {
+                // گوێگرتنی ڕاستەوخۆ بە فۆرماتی سادەی Realtime Database
+                window.liveOrderInterval = firebaseDb.ref("merchants/" + currentMerchant.username)
+                    .on("value", (snapshot) => {
+                        const data = snapshot.val();
+                        if (data) {
+                            const oldOrderCount = currentMerchant.orders ? currentMerchant.orders.length : 0;
+                            const newOrderCount = data.orders ? data.orders.length : 0;
+                            const oldRequestCount = currentMerchant.serviceRequests ? currentMerchant.serviceRequests.length : 0;
+                            const newRequestCount = data.serviceRequests ? data.serviceRequests.length : 0;
+
+                            if (newOrderCount > oldOrderCount || newRequestCount > oldRequestCount) {
+                                showToast('🔔 گۆڕانکاری نوێ!', 'ئۆردەر یان داواکارییەکی نوێ لەسەر مێزەکانەوە تۆمارکرا.');
+                                try {
+                                    new Audio('https://assets.mixkit.co/active_storage/sfx/2869/2869-84.wav').play();
+                                } catch (e) {}
+                            }
+
+                            currentMerchant = data;
+                            if (!currentMerchant.tables) currentMerchant.tables = ["1", "2", "3", "4", "5", "6"];
+                            if (!currentMerchant.serviceRequests) currentMerchant.serviceRequests = [];
+                            merchants[currentMerchant.username] = data;
+                            renderMerchantOrders();
+                            renderTablesMap();
+                            renderPOSMenu();
+                            updateAllTableDropdowns();
+                            renderServiceAlerts();
                         }
                     });
-                    
-                    saveLocalMerchantData();
-                    renderMerchantOrders();
-                    renderTablesMap();
-                    renderAccountingReport();
-                }
-            }, 5000);
+            } else {
+                window.liveOrderInterval = setInterval(async () => {
+                    const data = await fetchMerchantData(currentMerchant.username);
+                    if (data) {
+                        currentMerchant = data;
+                        if (!currentMerchant.tables) currentMerchant.tables = ["1", "2", "3", "4", "5", "6"];
+                        if (!currentMerchant.serviceRequests) currentMerchant.serviceRequests = [];
+                        renderMerchantOrders();
+                        renderTablesMap();
+                        renderPOSMenu();
+                        updateAllTableDropdowns();
+                        renderServiceAlerts();
+                    }
+                }, 4000);
+            }
+        }
+
+        function renderServiceAlerts() {
+            const container = document.getElementById('service-alerts-container');
+            const alertBox = document.getElementById('merchant-service-alerts');
+            if (!container || !alertBox) return;
+
+            const activeRequests = (currentMerchant.serviceRequests || []).filter(r => r.status === 'pending');
+
+            if (activeRequests.length === 0) {
+                alertBox.classList.add('hidden');
+                return;
+            }
+
+            alertBox.classList.remove('hidden');
+            container.innerHTML = '';
+
+            activeRequests.forEach(req => {
+                const isWaiter = req.type === 'waiter';
+                const bgStyle = isWaiter ? 'bg-amber-500/10 border-amber-500/30' : 'bg-emerald-500/10 border-emerald-500/30';
+                const textStyle = isWaiter ? 'text-amber-400' : 'text-emerald-400';
+                const label = isWaiter ? '🛎️ بانگکردنی گارسۆن' : '💵 داواکردنی حساب';
+
+                container.innerHTML += `
+                    <div class="border p-3.5 rounded-2xl flex justify-between items-center ${bgStyle}">
+                        <div>
+                            <span class="text-[10px] uppercase font-bold text-slate-400 block">مێزی: ${req.table}</span>
+                            <span class="text-xs font-black ${textStyle}">${label}</span>
+                        </div>
+                        <button onclick="resolveServiceRequest(${req.id})" class="bg-slate-900 hover:bg-slate-800 text-[10px] text-white font-bold py-1.5 px-3 rounded-xl transition-all">
+                            جێبەجێکرا ✓
+                        </button>
+                    </div>
+                `;
+            });
+        }
+
+        async function resolveServiceRequest(reqId) {
+            currentMerchant.serviceRequests = currentMerchant.serviceRequests.map(r => {
+                if (r.id === reqId) r.status = 'resolved';
+                return r;
+            });
+            await syncData(currentMerchant.username, currentMerchant);
+            renderServiceAlerts();
+        }
+
+        async function requestWaiterService(type) {
+            const mData = await fetchMerchantData(customerActiveMerchant);
+            if (!mData) return;
+
+            if (!mData.serviceRequests) mData.serviceRequests = [];
+
+            const existing = mData.serviceRequests.find(r => r.table === customerActiveTable && r.type === type && r.status === 'pending');
+            if (existing) {
+                showToast('تێبینی', 'داواکارییەکەت پێشتر نێردراوە، تکایە کەمێک چاوەڕوانبە.', 'success');
+                return;
+            }
+
+            const newRequest = {
+                id: Date.now(),
+                table: customerActiveTable,
+                type: type,
+                status: 'pending',
+                time: new Date().toISOString()
+            };
+
+            mData.serviceRequests.push(newRequest);
+            await syncData(customerActiveMerchant, mData);
+
+            const msg = type === 'waiter' ? 'گارسۆنەکەمان بەم زووانە دێتە لاتان.' : 'داواکاری حسابەکەت گەیشتە کاشێر.';
+            showToast('نێردرا!', msg, 'success');
         }
 
         function switchMerchantTab(tab) {
@@ -925,66 +1028,40 @@
                 document.getElementById('tab-m-accounting').className = "m-tab px-5 py-2.5 rounded-xl font-bold text-xs bg-orange-500 text-white shadow-lg";
                 renderAccountingReport();
             }
-            lucide.createIcons();
         }
 
         async function addNewRestaurantTable() {
             const tableNameInput = document.getElementById('setup-new-table-name');
             const tableName = tableNameInput.value.trim();
-            if (!tableName) return;
+            if (!tableName) {
+                showToast('هەڵە', 'تکایە ناوی مێزەکە بنووسە.', 'error');
+                return;
+            }
+
+            if (!currentMerchant.tables) currentMerchant.tables = [];
 
             if (currentMerchant.tables.includes(tableName)) {
-                showToast('هەڵە', 'مێزەکە هەیە', 'error');
+                showToast('هەڵە', 'ئەم مێزە پێشتر تۆمار کراوە!', 'error');
                 return;
             }
 
             currentMerchant.tables.push(tableName);
             await syncData(currentMerchant.username, currentMerchant);
-            showToast('سەرکەوتوو بوو', 'مێز زیادکرا.');
+            showToast('سەرکەوتوو بوو', `مێزی (${tableName}) بە سەرکەوتوویی دروستکرا.`);
             tableNameInput.value = '';
+            
             renderTablesMap();
             updateAllTableDropdowns();
         }
 
         async function removeRestaurantTable(tableName) {
-            if (confirm(`دڵنیای لە سڕینەوەی ${tableName}؟`)) {
+            if (confirm(`ئایا دڵنیای لە سڕینەوەی مێزی (${tableName})؟`)) {
                 currentMerchant.tables = currentMerchant.tables.filter(t => t !== tableName);
                 await syncData(currentMerchant.username, currentMerchant);
+                showToast('سەرکەوتوو بوو', `مێزی (${tableName}) سڕایەوە.`);
                 renderTablesMap();
                 updateAllTableDropdowns();
             }
-        }
-
-        function openTableEditModal(tableName) {
-            editingTableOldName = tableName;
-            document.getElementById('edit-table-name-input').value = tableName;
-            document.getElementById('table-edit-modal').classList.remove('hidden');
-        }
-
-        function closeTableEditModal() {
-            document.getElementById('table-edit-modal').classList.add('hidden');
-            editingTableOldName = null;
-        }
-
-        async function saveTableNameEdit() {
-            const newName = document.getElementById('edit-table-name-input').value.trim();
-            if (!newName) return;
-
-            currentMerchant.tables = currentMerchant.tables.map(t => t === editingTableOldName ? newName : t);
-            if (currentMerchant.orders) {
-                currentMerchant.orders = currentMerchant.orders.map(o => {
-                    if (o.table === editingTableOldName) o.table = newName;
-                    return o;
-                });
-            }
-            if (currentMerchant.qrcodes) {
-                currentMerchant.qrcodes = currentMerchant.qrcodes.map(q => q === editingTableOldName ? newName : q);
-            }
-
-            await syncData(currentMerchant.username, currentMerchant);
-            closeTableEditModal();
-            renderTablesMap();
-            updateAllTableDropdowns();
         }
 
         function updateAllTableDropdowns() {
@@ -992,13 +1069,13 @@
             const qrSelect = document.getElementById('qr-table-select-num');
             if (posSelect) {
                 posSelect.innerHTML = '';
-                currentMerchant.tables.forEach(t => {
+                (currentMerchant.tables || []).forEach(t => {
                     posSelect.innerHTML += `<option value="${t}">مێزی ${t}</option>`;
                 });
             }
             if (qrSelect) {
                 qrSelect.innerHTML = '';
-                currentMerchant.tables.forEach(t => {
+                (currentMerchant.tables || []).forEach(t => {
                     qrSelect.innerHTML += `<option value="${t}">${t}</option>`;
                 });
             }
@@ -1015,6 +1092,7 @@
                     catContainer.innerHTML += `<button onclick="filterPOSMenu('${cat.id}')" class="px-4 py-2 bg-slate-900 text-slate-300 text-xs font-bold rounded-xl whitespace-nowrap">${cat.ku}</button>`;
                 });
             }
+
             renderPOSFoodsList(currentMerchant.foods || []);
         }
 
@@ -1024,36 +1102,62 @@
 
             foods.forEach(food => {
                 const isOutOfStock = food.stock !== undefined && food.stock <= 0;
+
                 grid.innerHTML += `
                     <div onclick="${isOutOfStock ? '' : `addToPOSCart(${food.id})`}" class="bg-[#0b0f19] border border-slate-800 rounded-2xl p-3 cursor-pointer select-none premium-card relative ${isOutOfStock ? 'opacity-50' : ''}">
                         <img src="${food.img}" class="w-full h-24 object-cover rounded-xl mb-2">
                         <h4 class="font-bold text-xs text-white truncate">${food.title_ku}</h4>
                         <div class="flex justify-between items-center mt-2">
                             <span class="text-[11px] text-orange-500 font-bold">${food.price.toLocaleString()} د.ع</span>
-                            <span class="text-[9px] text-slate-500">کۆگا: ${food.stock !== undefined ? food.stock : 'بێبڕ'}</span>
+                            <span class="text-[9px] text-slate-500">مەوجود: ${food.stock !== undefined ? food.stock : 'بێبڕ'}</span>
                         </div>
+                        ${isOutOfStock ? '<span class="absolute top-2 right-2 bg-red-600 text-white text-[8px] font-bold px-1.5 py-0.5 rounded">نەماوە</span>' : ''}
                     </div>
                 `;
             });
         }
 
         function filterPOSMenu(catId) {
-            if (catId === 'all') renderPOSFoodsList(currentMerchant.foods || []);
-            else renderPOSFoodsList((currentMerchant.foods || []).filter(f => f.category === catId));
+            if (catId === 'all') {
+                renderPOSFoodsList(currentMerchant.foods || []);
+            } else {
+                renderPOSFoodsList((currentMerchant.foods || []).filter(f => f.category === catId));
+            }
         }
 
         function addToPOSCart(foodId) {
             const food = currentMerchant.foods.find(f => f.id === foodId);
             if (!food) return;
 
-            if (posCart[foodId]) posCart[foodId].qty++;
-            else posCart[foodId] = { ...food, qty: 1 };
+            if (food.stock !== undefined && food.stock <= 0) {
+                showToast('شکست', 'کۆگا بەتاڵە بۆ ئەم خواردنە.', 'error');
+                return;
+            }
+
+            if (posCart[foodId]) {
+                if (food.stock !== undefined && posCart[foodId].qty >= food.stock) {
+                    showToast('ئاگاداری', 'هیچ بڕێکی تر نییە لە کۆگا.', 'error');
+                    return;
+                }
+                posCart[foodId].qty++;
+            } else {
+                posCart[foodId] = { ...food, qty: 1 };
+            }
+
             updatePOSCartUI();
         }
 
         function changePOSCartQty(foodId, amt) {
             if (!posCart[foodId]) return;
             posCart[foodId].qty += amt;
+
+            const food = currentMerchant.foods.find(f => f.id === foodId);
+
+            if (food && food.stock !== undefined && posCart[foodId].qty > food.stock) {
+                posCart[foodId].qty = food.stock;
+                showToast('ئاگاداری', 'بڕی پێویست لە کۆگا نییە.', 'error');
+            }
+
             if (posCart[foodId].qty <= 0) delete posCart[foodId];
             updatePOSCartUI();
         }
@@ -1061,6 +1165,7 @@
         function updatePOSCartUI() {
             const container = document.getElementById('pos-cart-list');
             container.innerHTML = '';
+
             let subtotal = 0;
 
             Object.values(posCart).forEach(item => {
@@ -1072,16 +1177,21 @@
                             <span class="text-[10px] text-orange-500">${item.price.toLocaleString()} د.ع</span>
                         </div>
                         <div class="flex items-center gap-2">
-                            <button onclick="changePOSCartQty(${item.id}, -1)" class="w-6 h-6 bg-slate-800 rounded flex items-center justify-center">-</button>
+                            <button onclick="changePOSCartQty(${item.id}, -1)" class="w-6 h-6 bg-slate-800 rounded flex items-center justify-center font-bold text-xs">-</button>
                             <span class="text-xs font-bold w-4 text-center">${item.qty}</span>
-                            <button onclick="changePOSCartQty(${item.id}, 1)" class="w-6 h-6 bg-slate-800 rounded flex items-center justify-center">+</button>
+                            <button onclick="changePOSCartQty(${item.id}, 1)" class="w-6 h-6 bg-slate-800 rounded flex items-center justify-center font-bold text-xs">+</button>
                         </div>
                     </div>
                 `;
             });
 
+            if (Object.keys(posCart).length === 0) {
+                container.innerHTML = `<p class="text-xs text-slate-500 text-center py-6">سەبەتە بەتاڵە</p>`;
+            }
+
             const discount = parseInt(document.getElementById('pos-discount').value) || 0;
             const total = Math.max(0, subtotal - discount);
+
             document.getElementById('pos-subtotal').innerText = subtotal.toLocaleString() + ' د.ع';
             document.getElementById('pos-total').innerText = total.toLocaleString() + ' د.ع';
         }
@@ -1112,29 +1222,84 @@
                 return food;
             });
 
+            if (!currentMerchant.orders) currentMerchant.orders = [];
             currentMerchant.orders.push(newOrder);
-            
             await syncData(currentMerchant.username, currentMerchant);
-            saveLocalMerchantData();
 
-            showToast('سەرکەوتوو بوو', 'پسوولە خەزنکرا لە مێژووی لۆکاڵ.');
+            showToast('بەسەرکەوتوویی جێبەجێکرا', 'فاکتۆرەکە خەزنکرا و کۆگا نوێکرایەوە.');
+            
+            printTableReceiptForPOS(newOrder);
 
             posCart = {};
             document.getElementById('pos-discount').value = 0;
             updatePOSCartUI();
             renderPOSMenu();
             renderMerchantMenuControl();
-            renderAccountingReport();
-            renderTablesMap();
+        }
+
+        function printTableReceiptForPOS(order) {
+            const win = window.open();
+            win.document.write(`
+                <html>
+                <head>
+                    <style>
+                        body { font-family: 'Courier New', Courier, monospace; width: 280px; margin: 0 auto; padding: 10px; font-size: 11px; text-align: center; direction: rtl; }
+                        .header { font-size: 14px; font-weight: bold; margin-bottom: 10px; }
+                        .line { border-bottom: 1px dashed #000; margin: 8px 0; }
+                        table { width: 100%; border-collapse: collapse; text-align: right; }
+                        th, td { padding: 4px 0; }
+                        .total { font-size: 13px; font-weight: bold; text-align: left; }
+                    </style>
+                </head>
+                <body>
+                    <div class="header">${currentMerchant.name}</div>
+                    <div>وەسڵی فرۆشتنی کاشێر</div>
+                    <div class="line"></div>
+                    <div>مێزی: ${order.table}</div>
+                    <div>کۆد: ${order.id.toString().slice(-6)}</div>
+                    <div>ڕێکەوت: ${new Date(order.time).toLocaleDateString('ku-IQ')}</div>
+                    <div class="line"></div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>بابەت</th>
+                                <th style="text-align: center;">دانە</th>
+                                <th style="text-align: left;">نرخ</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${order.items.map(item => `
+                                <tr>
+                                    <td>${item.title}</td>
+                                    <td style="text-align: center;">${item.qty}</td>
+                                    <td style="text-align: left;">${(item.price * item.qty).toLocaleString()}</td>
+                                </tr>
+                            `).join('')}
+                        </tbody>
+                    </table>
+                    <div class="line"></div>
+                    <div class="total">کۆی گشتی: ${order.total.toLocaleString()} د.ع</div>
+                    <div class="line"></div>
+                    <div style="font-size: 9px; margin-top: 15px;">سوپاس بۆ گەیشتنتان</div>
+                    <script>setTimeout(() => { window.print(); window.close(); }, 300);<\/script>
+                </body>
+                </html>
+            `);
+            win.document.close();
         }
 
         async function createNewCategory() {
             const ku = document.getElementById('new-cat-ku').value.trim();
             const ar = document.getElementById('new-cat-ar').value.trim();
             const en = document.getElementById('new-cat-en').value.trim();
-            if (!ku) return;
+
+            if (!ku) {
+                showToast('هەڵە', 'ناوی هاوپۆل بە کوردی بنووسە.', 'error');
+                return;
+            }
 
             const id = "cat_" + Date.now();
+            if (!currentMerchant.categories) currentMerchant.categories = [];
             currentMerchant.categories.push({ id, ku, ar: ar || ku, en: en || ku });
             await syncData(currentMerchant.username, currentMerchant);
             populateCategoryDropdown();
@@ -1142,15 +1307,18 @@
             document.getElementById('new-cat-ku').value = '';
             document.getElementById('new-cat-ar').value = '';
             document.getElementById('new-cat-en').value = '';
+            showToast('سەرکەوتوو بوو', 'هاوپۆل دروستکرا.');
         }
 
         function populateCategoryDropdown() {
             const select = document.getElementById('food-category-select');
             if (!select) return;
             select.innerHTML = '';
-            currentMerchant.categories.forEach(cat => {
-                select.innerHTML += `<option value="${cat.id}">${cat.ku}</option>`;
-            });
+            if (currentMerchant.categories) {
+                currentMerchant.categories.forEach(cat => {
+                    select.innerHTML += `<option value="${cat.id}">${cat.ku}</option>`;
+                });
+            }
         }
 
         async function createNewFoodItem() {
@@ -1165,108 +1333,66 @@
             const category = document.getElementById('food-category-select').value;
             const imgFile = document.getElementById('food-image-file').files[0];
 
-            if (!titleKu || !price) return;
-
             let imgBase64 = "https://images.unsplash.com/photo-149514740007a-f8a53e30d221?w=400";
             if (imgFile) {
-                try { imgBase64 = await compressAndGetBase64(imgFile, 350, 0.75); } catch (err) { console.error(err); }
-            } else if (editingFoodId) {
-                const existing = currentMerchant.foods.find(f => f.id === editingFoodId);
-                if (existing) imgBase64 = existing.img;
+                try {
+                    imgBase64 = await compressAndGetBase64(imgFile, 350, 0.75);
+                } catch (err) {
+                    console.error("Failed to compress food image: ", err);
+                }
             }
 
-            if (editingFoodId) {
-                currentMerchant.foods = currentMerchant.foods.map(f => {
-                    if (f.id === editingFoodId) {
-                        return {
-                            ...f,
-                            title_ku: titleKu, title_ar: titleAr || titleKu, title_en: titleEn || titleKu,
-                            desc_ku: descKu, desc_ar: descAr || descKu, desc_en: descEn || descKu,
-                            price: price, img: imgBase64, category: category, stock: stock
-                        };
-                    }
-                    return f;
-                });
-                cancelFoodEdit();
-            } else {
-                const item = {
-                    id: Date.now(),
-                    title_ku: titleKu, title_ar: titleAr || titleKu, title_en: titleEn || titleKu,
-                    desc_ku: descKu, desc_ar: descAr || descKu, desc_en: descEn || descKu,
-                    price: price, img: imgBase64, category: category, stock: stock
-                };
-                currentMerchant.foods.push(item);
+            if (!titleKu || !price) {
+                showToast('هەڵە', 'ناونیشانی کوردی و نرخ بنووسە.', 'error');
+                return;
             }
 
+            const item = {
+                id: Date.now(),
+                title_ku: titleKu, title_ar: titleAr || titleKu, title_en: titleEn || titleKu,
+                desc_ku: descKu, desc_ar: descAr || descKu, desc_en: descEn || descKu,
+                price: price,
+                img: imgBase64,
+                category: category,
+                stock: stock
+            };
+
+            if (!currentMerchant.foods) currentMerchant.foods = [];
+            currentMerchant.foods.push(item);
             await syncData(currentMerchant.username, currentMerchant);
             renderMerchantMenuControl();
-        }
-
-        function editFoodItem(id) {
-            const food = currentMerchant.foods.find(f => f.id === id);
-            if (!food) return;
-
-            editingFoodId = id;
-            document.getElementById('food-form-title').innerText = "📝 دەستکاریکردنی زانیاری خواردن";
-            document.getElementById('food-title-ku').value = food.title_ku;
-            document.getElementById('food-title-ar').value = food.title_ar;
-            document.getElementById('food-title-en').value = food.title_en;
-            document.getElementById('food-desc-ku').value = food.desc_ku;
-            document.getElementById('food-desc-ar').value = food.desc_ar;
-            document.getElementById('food-desc-en').value = food.desc_en;
-            document.getElementById('food-price').value = food.price;
-            document.getElementById('food-stock').value = food.stock || 0;
-            document.getElementById('food-category-select').value = food.category;
-
-            document.getElementById('food-save-btn').innerText = "نوێکردنەوەی بەرهەم";
-            document.getElementById('food-cancel-btn').classList.remove('hidden');
-        }
-
-        function cancelFoodEdit() {
-            editingFoodId = null;
-            document.getElementById('food-form-title').innerText = "🍔 زیادکردنی خواردنی نوێ";
-            document.getElementById('food-title-ku').value = "";
-            document.getElementById('food-title-ar').value = "";
-            document.getElementById('food-title-en').value = "";
-            document.getElementById('food-desc-ku').value = "";
-            document.getElementById('food-desc-ar').value = "";
-            document.getElementById('food-desc-en').value = "";
-            document.getElementById('food-price').value = "";
-            document.getElementById('food-stock').value = "";
-            document.getElementById('food-image-file').value = "";
-            document.getElementById('food-save-btn').innerText = "تۆمارکردن لە مینیو";
-            document.getElementById('food-cancel-btn').classList.add('hidden');
+            showToast('سەرکەوتوو بوو', 'بەرهەمەکە زیادکرا.');
         }
 
         function renderMerchantMenuControl() {
             const grid = document.getElementById('m-dash-foods-grid');
             if (!grid) return;
             grid.innerHTML = '';
-            currentMerchant.foods.forEach(food => {
-                grid.innerHTML += `
-                    <div class="bg-slate-950 p-3 rounded-2xl border border-slate-900 flex justify-between items-center premium-card">
-                        <div class="flex items-center gap-3 truncate">
-                            <img src="${food.img}" class="w-12 h-12 object-cover rounded-xl bg-slate-800 shrink-0">
-                            <div class="truncate">
-                                <h5 class="font-bold text-xs text-white truncate">${food.title_ku}</h5>
-                                <span class="text-orange-500 font-bold block mt-1">${food.price.toLocaleString()} د.ع</span>
+            if (currentMerchant.foods) {
+                currentMerchant.foods.forEach(food => {
+                    grid.innerHTML += `
+                        <div class="bg-slate-950 p-3 rounded-2xl border border-slate-900 flex justify-between items-center premium-card">
+                            <div class="flex items-center gap-3 truncate">
+                                <img src="${food.img}" class="w-12 h-12 object-cover rounded-xl bg-slate-800 shrink-0">
+                                <div class="truncate">
+                                    <h5 class="font-bold text-xs text-white truncate">${food.title_ku}</h5>
+                                    <div class="flex gap-2 text-[10px] mt-1">
+                                        <span class="text-orange-500 font-bold">${food.price.toLocaleString()} د.ع</span>
+                                        <span class="text-slate-400">بڕی کۆگا: ${food.stock !== undefined ? food.stock : 'بێ سنوور'}</span>
+                                    </div>
+                                </div>
                             </div>
+                            <button onclick="deleteFoodItem(${food.id})" class="text-xs text-red-500 font-bold ml-2 shrink-0">سڕینەوە</button>
                         </div>
-                        <div class="flex gap-2">
-                            <button onclick="editFoodItem(${food.id})" class="text-xs text-blue-400 font-bold">دەستکاری</button>
-                            <button onclick="deleteFoodItem(${food.id})" class="text-xs text-red-500 font-bold">سڕینەوە</button>
-                        </div>
-                    </div>
-                `;
-            });
+                    `;
+                });
+            }
         }
 
         async function deleteFoodItem(id) {
-            if (confirm('دڵنیای؟')) {
-                currentMerchant.foods = currentMerchant.foods.filter(f => f.id !== id);
-                await syncData(currentMerchant.username, currentMerchant);
-                renderMerchantMenuControl();
-            }
+            currentMerchant.foods = currentMerchant.foods.filter(f => f.id !== id);
+            await syncData(currentMerchant.username, currentMerchant);
+            renderMerchantMenuControl();
         }
 
         function renderMerchantOrders() {
@@ -1280,27 +1406,32 @@
             Object.values(cols).forEach(col => { if(col) col.innerHTML = ''; });
             const counts = { pending: 0, preparing: 0, ready: 0, served: 0 };
 
-            currentMerchant.orders.forEach(order => {
-                counts[order.status]++;
-                let itemsList = order.items.map(i => `<li class="mt-1 text-slate-300 font-bold">• ${i.title} (${i.qty} دانە)</li>`).join('');
+            if (currentMerchant.orders) {
+                currentMerchant.orders.forEach(order => {
+                    if (!counts[order.status]) counts[order.status] = 0;
+                    counts[order.status]++;
+                    let itemsList = order.items.map(i => `<li class="mt-1 text-slate-300 font-bold">• ${i.title} (${i.qty} دانە)</li>`).join('');
 
-                if (cols[order.status]) {
-                    cols[order.status].innerHTML += `
-                        <div class="bg-slate-950 border border-slate-800 p-4 rounded-2xl space-y-3">
-                            <span class="text-xs font-black text-white">مێزی ${order.table}</span>
-                            <ul class="text-[11px] leading-relaxed">${itemsList}</ul>
-                            <div class="pt-2 border-t border-slate-900 flex justify-between items-center text-[10px]">
-                                <span class="font-bold text-orange-500">${order.total.toLocaleString()} د.ع</span>
-                                <div class="flex gap-1">
-                                    ${order.status === 'pending' ? `<button onclick="changeOrderStatus(${order.id}, 'preparing')" class="bg-blue-600 px-2 py-1 rounded text-white text-[9px]">ئامادەکردن</button>` : ''}
-                                    ${order.status === 'preparing' ? `<button onclick="changeOrderStatus(${order.id}, 'ready')" class="bg-emerald-600 px-2 py-1 rounded text-white text-[9px]">ئامادەیە</button>` : ''}
-                                    ${order.status === 'ready' ? `<button onclick="changeOrderStatus(${order.id}, 'served')" class="bg-slate-700 px-2 py-1 rounded text-white text-[9px]">تەواوبوو</button>` : ''}
+                    if (cols[order.status]) {
+                        cols[order.status].innerHTML += `
+                            <div class="bg-slate-950 border border-slate-800 p-4 rounded-2xl space-y-3">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-xs font-black text-white">مێزی ${order.table}</span>
+                                </div>
+                                <ul class="text-[11px] leading-relaxed">${itemsList}</ul>
+                                <div class="pt-2 border-t border-slate-900 flex justify-between items-center text-[10px]">
+                                    <span class="font-bold text-orange-500">${order.total.toLocaleString()} د.ع</span>
+                                    <div class="flex gap-1">
+                                        ${order.status === 'pending' ? `<button onclick="changeOrderStatus(${order.id}, 'preparing')" class="bg-blue-600 px-2 py-1 rounded text-white text-[9px]">ئامادەکردن</button>` : ''}
+                                        ${order.status === 'preparing' ? `<button onclick="changeOrderStatus(${order.id}, 'ready')" class="bg-emerald-600 px-2 py-1 rounded text-white text-[9px]">ئامادەیە</button>` : ''}
+                                        ${order.status === 'ready' ? `<button onclick="changeOrderStatus(${order.id}, 'served')" class="bg-slate-700 px-2 py-1 rounded text-white text-[9px]">تەواوبوو</button>` : ''}
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    `;
-                }
-            });
+                        `;
+                    }
+                });
+            }
 
             document.getElementById('count-pending').innerText = counts.pending || 0;
             document.getElementById('count-preparing').innerText = counts.preparing || 0;
@@ -1326,12 +1457,9 @@
                 }
                 return o;
             });
-            
-            saveLocalMerchantData();
             await syncData(currentMerchant.username, currentMerchant);
             renderMerchantOrders();
             renderTablesMap();
-            renderAccountingReport();
         }
 
         function renderTablesMap() {
@@ -1339,131 +1467,44 @@
             if (!grid) return;
             grid.innerHTML = '';
 
-            currentMerchant.tables.forEach(tableName => {
+            const tablesList = currentMerchant.tables || ["1", "2", "3", "4", "5", "6"];
+
+            tablesList.forEach(tableName => {
                 let statusColor = "bg-slate-900 border-slate-800 text-slate-500";
                 let tableBill = 0;
 
-                const activeOrders = currentMerchant.orders.filter(o => o.table == tableName && o.status !== 'served');
+                const activeOrders = currentMerchant.orders ? currentMerchant.orders.filter(o => o.table == tableName && o.status !== 'served') : [];
+                
                 if (activeOrders.length > 0) {
                     activeOrders.forEach(o => tableBill += o.total);
+
                     const status = activeOrders[0].status;
-                    if (status === 'pending') statusColor = "bg-orange-500/10 border-orange-500/30 text-orange-500 animate-pulse";
-                    else if (status === 'preparing') statusColor = "bg-blue-500/10 border-blue-500/30 text-blue-500";
-                    else if (status === 'ready') statusColor = "bg-emerald-500/10 border-emerald-500/30 text-emerald-500";
+                    if (status === 'pending') {
+                        statusColor = "bg-orange-500/10 border-orange-500/30 text-orange-500 animate-pulse";
+                    } else if (status === 'preparing') {
+                        statusColor = "bg-blue-500/10 border-blue-500/30 text-blue-500";
+                    } else if (status === 'ready') {
+                        statusColor = "bg-emerald-500/10 border-emerald-500/30 text-emerald-500";
+                    }
                 }
 
                 grid.innerHTML += `
                     <div class="border p-4 rounded-3xl flex flex-col items-center justify-center text-center h-48 transition-all relative ${statusColor}">
-                        <div class="absolute top-2 right-2 left-2 flex justify-between z-10">
-                            <button onclick="removeRestaurantTable('${tableName}')" class="text-[9px] bg-red-500/20 text-red-500 px-1.5 py-0.5 rounded-lg">✕</button>
-                            <button onclick="openTableEditModal('${tableName}')" class="text-[9px] bg-blue-500/20 text-blue-400 px-1.5 py-0.5 rounded-lg">⚙️</button>
-                        </div>
-                        <span class="text-[10px] text-slate-400 font-bold mb-1 mt-2">مێزی</span>
+                        <button onclick="removeRestaurantTable('${tableName}')" class="absolute top-2 right-2 text-[9px] bg-red-500/20 hover:bg-red-500/30 text-red-500 px-1.5 py-0.5 rounded-lg">✕</button>
+                        
+                        <span class="text-[10px] text-slate-400 font-bold mb-1">مێزی</span>
                         <span class="text-base font-black truncate w-full px-2">${tableName}</span>
                         <span class="text-[10px] font-bold mt-1 text-slate-300">${tableBill > 0 ? tableBill.toLocaleString() + ' د.ع' : 'بێ حساب'}</span>
+                        
                         ${tableBill > 0 ? `
                             <div class="mt-2 space-y-1 w-full z-10">
-                                <button onclick="printTableReceipt('${tableName}')" class="w-full text-[8px] bg-blue-500/20 text-blue-400 px-2 py-1 rounded-lg">پرینت 🖨️</button>
-                                <button onclick="clearTableBill('${tableName}')" class="w-full text-[8px] bg-red-500/10 text-red-500 px-2 py-1 rounded-lg">پارەدان</button>
+                                <button onclick="printTableReceipt('${tableName}')" class="w-full text-[8px] bg-blue-500/20 text-blue-400 px-2 py-1 rounded-lg font-bold">پرینت 🖨️</button>
+                                <button onclick="clearTableBill('${tableName}')" class="w-full text-[8px] bg-red-500/10 text-red-500 px-2 py-1 rounded-lg font-bold">پارەدان</button>
                             </div>
                         ` : ''}
                     </div>
                 `;
             });
-        }
-
-        async function clearTableBill(tableName) {
-            if (confirm(`ئایا دڵنیای لە وەرگرتنی حساب؟`)) {
-                currentMerchant.orders = currentMerchant.orders.map(o => {
-                    if (o.table == tableName) o.status = 'served';
-                    return o;
-                });
-                
-                saveLocalMerchantData();
-                await syncData(currentMerchant.username, currentMerchant);
-                renderMerchantOrders();
-                renderTablesMap();
-                renderAccountingReport();
-            }
-        }
-
-        async function generateTableQRCode() {
-            const table = document.getElementById('qr-table-select-num').value;
-            if (!table) return;
-
-            if (!currentMerchant.qrcodes) currentMerchant.qrcodes = [];
-            if (!currentMerchant.qrcodes.includes(table)) {
-                currentMerchant.qrcodes.push(table);
-                await syncData(currentMerchant.username, currentMerchant);
-            }
-            renderQRCodes();
-        }
-
-        function renderQRCodes() {
-            const printArea = document.getElementById('qr-print-area');
-            if (!printArea) return;
-            printArea.innerHTML = '';
-
-            if (!currentMerchant.qrcodes) currentMerchant.qrcodes = [];
-
-            currentMerchant.qrcodes.forEach(table => {
-                const targetUrl = `${window.location.origin}${window.location.pathname}?shop=${currentMerchant.username}&table=${table}`;
-                const cardId = `qr-card-${table}`;
-                const canvasId = `canvas-${table}`;
-
-                printArea.innerHTML += `
-                    <div id="${cardId}" class="bg-white text-slate-950 rounded-[32px] p-6 text-center border border-slate-200 flex flex-col justify-between items-center shadow-md relative">
-                        <button onclick="deleteQRCode('${table}')" class="absolute top-4 right-4 text-xs bg-red-100 hover:bg-red-200 text-red-600 p-2 rounded-full w-8 h-8 flex items-center justify-center font-bold">✕</button>
-                        <div class="w-full flex flex-col items-center">
-                            <span class="text-[10px] uppercase font-black text-orange-500 tracking-wider block mb-1">${currentMerchant.name}</span>
-                            <h4 class="text-sm font-black mb-4">سکان بکە بۆ داواکردن</h4>
-                            <div class="bg-slate-100 p-3 rounded-2xl mb-4 flex justify-center items-center">
-                                <canvas id="${canvasId}"></canvas>
-                            </div>
-                            <span class="text-base font-black text-slate-900 block mb-4">مێزی ${table}</span>
-                        </div>
-                        <button onclick="downloadQRCode('${canvasId}', '${table}')" class="w-full bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold py-3 rounded-xl flex items-center justify-center gap-2">
-                            <i data-lucide="download" class="w-4 h-4"></i>
-                            داونلۆدکردنی وێنە
-                        </button>
-                    </div>
-                `;
-
-                setTimeout(() => {
-                    new QRious({
-                        element: document.getElementById(canvasId),
-                        value: targetUrl,
-                        size: 150,
-                        foreground: '#02040a'
-                    });
-                    lucide.createIcons();
-                }, 100);
-            });
-        }
-
-        function downloadQRCode(canvasId, tableName) {
-            const canvas = document.getElementById(canvasId);
-            if (!canvas) return;
-            const link = document.createElement('a');
-            link.download = `QR_Table_${tableName}.png`;
-            link.href = canvas.toDataURL('image/png');
-            link.click();
-        }
-
-        async function deleteQRCode(table) {
-            if (confirm('دڵنیای لە سڕینەوە؟')) {
-                currentMerchant.qrcodes = currentMerchant.qrcodes.filter(q => q !== table);
-                await syncData(currentMerchant.username, currentMerchant);
-                renderQRCodes();
-            }
-        }
-
-        async function clearAllQRCodes() {
-            if (confirm('هەموو بارکۆدەکان بسڕێتەوە؟')) {
-                currentMerchant.qrcodes = [];
-                await syncData(currentMerchant.username, currentMerchant);
-                renderQRCodes();
-            }
         }
 
         function printTableReceipt(tableName) {
@@ -1535,30 +1576,167 @@
             win.document.close();
         }
 
+        async function clearTableBill(tableName) {
+            if (confirm(`ئایا دڵنیای لە وەرگرتنی پارەی مێزی ${tableName}؟`)) {
+                currentMerchant.orders = currentMerchant.orders.map(o => {
+                    if (o.table == tableName) o.status = 'served';
+                    return o;
+                });
+                await syncData(currentMerchant.username, currentMerchant);
+                renderMerchantOrders();
+                renderTablesMap();
+            }
+        }
+
+        async function generateTableQRCode() {
+            const table = document.getElementById('qr-table-select-num').value;
+            if (!table) return;
+
+            if (!currentMerchant.qrcodes) currentMerchant.qrcodes = [];
+            if (currentMerchant.qrcodes.includes(table)) {
+                showToast('هەڵە', 'ئەم مێزە پێشتر بارکۆدی بۆ دروستکراوە.', 'error');
+                return;
+            }
+
+            currentMerchant.qrcodes.push(table);
+            await syncData(currentMerchant.username, currentMerchant);
+            renderQRCodes();
+        }
+
+        function renderQRCodes() {
+            const printArea = document.getElementById('qr-print-area');
+            if (!printArea) return;
+            printArea.innerHTML = '';
+
+            if (!currentMerchant.qrcodes) currentMerchant.qrcodes = [];
+
+            currentMerchant.qrcodes.forEach(table => {
+                const targetUrl = `${window.location.origin}${window.location.pathname}?shop=${currentMerchant.username}&table=${table}`;
+                const cardId = `qr-card-${table}`;
+
+                printArea.innerHTML += `
+                    <div id="${cardId}" class="bg-white text-slate-950 rounded-[32px] p-6 text-center border border-slate-200 h-[380px] flex flex-col justify-between relative shadow-sm hover:shadow-md transition-all">
+                        <button onclick="deleteQRCode('${table}')" class="absolute top-4 right-4 text-xs bg-red-100 hover:bg-red-200 text-red-600 p-2 rounded-full w-8 h-8 flex items-center justify-center font-bold">✕</button>
+                        
+                        <div class="print-section flex flex-col justify-between h-full">
+                            <div>
+                                <span class="text-[10px] uppercase font-black tracking-widest text-orange-500">${currentMerchant.name}</span>
+                                <h4 class="text-xl font-black mt-1">سکان بکە بۆ داواکردن</h4>
+                            </div>
+                            <div class="my-4 flex justify-center">
+                                <canvas id="canvas-${cardId}"></canvas>
+                            </div>
+                            <div>
+                                <span class="text-base font-black text-slate-900 block">مێزی ${table}</span>
+                            </div>
+                        </div>
+
+                        <button onclick="printQRCodeCard('${cardId}')" class="mt-2 w-full bg-slate-100 hover:bg-slate-200 text-slate-800 text-[10px] font-bold py-2 rounded-xl">چاپکردنی بارکۆد 🖨️</button>
+                    </div>
+                `;
+
+                setTimeout(() => {
+                    new QRious({
+                        element: document.getElementById(`canvas-${cardId}`),
+                        value: targetUrl,
+                        size: 150,
+                        foreground: '#03060f'
+                    });
+                }, 80);
+            });
+        }
+
+        async function deleteQRCode(table) {
+            if (confirm('دڵنیایی؟')) {
+                currentMerchant.qrcodes = currentMerchant.qrcodes.filter(q => q !== table);
+                await syncData(currentMerchant.username, currentMerchant);
+                renderQRCodes();
+            }
+        }
+
+        async function clearAllQRCodes() {
+            if (confirm('هەمووی بسڕێتەوە؟')) {
+                currentMerchant.qrcodes = [];
+                await syncData(currentMerchant.username, currentMerchant);
+                renderQRCodes();
+            }
+        }
+
+        function printQRCodeCard(cardId) {
+            const card = document.getElementById(cardId);
+            const printContent = card.querySelector('.print-section').innerHTML;
+            const win = window.open();
+            win.document.write(`
+                <html dir="rtl"><head><script src="https://cdn.tailwindcss.com"><\/script></head>
+                <body class="flex justify-center items-center h-screen bg-white">
+                    <div class="w-80 border-2 border-dashed border-slate-300 p-8 rounded-[40px] text-center">${printContent}</div>
+                    <script>setTimeout(() => { window.print(); window.close(); }, 300);<\/script>
+                </body></html>
+            `);
+            win.document.close();
+        }
+
         async function recordExpense() {
             const title = document.getElementById('expense-title').value.trim();
             const amount = parseInt(document.getElementById('expense-amount').value.trim());
 
-            if (!title || !amount) return;
+            if (!title || !amount) {
+                showToast('هەڵە', 'خانەکان پڕ بکەرەوە.', 'error');
+                return;
+            }
 
-            currentMerchant.expenses.push({ id: Date.now(), title, amount, time: new Date().toISOString() });
-            saveLocalMerchantData();
-            
+            if (!currentMerchant.expenses) currentMerchant.expenses = [];
+
+            const newExpense = {
+                id: Date.now(),
+                title: title,
+                amount: amount,
+                time: new Date().toISOString()
+            };
+
+            currentMerchant.expenses.push(newExpense);
+            await syncData(currentMerchant.username, currentMerchant);
             renderAccountingReport();
+            
             document.getElementById('expense-title').value = '';
             document.getElementById('expense-amount').value = '';
+            showToast('سەرکەوتوو بوو', 'خەرجی زیادکرا لە سیستم.');
         }
 
         function renderAccountingReport() {
             let totalSales = 0;
             let totalExpenses = 0;
 
-            currentMerchant.orders.forEach(o => { if (o.status === 'served') totalSales += o.total; });
-            currentMerchant.expenses.forEach(e => totalExpenses += e.amount);
+            if (currentMerchant.orders) {
+                currentMerchant.orders.forEach(o => {
+                    if (o.status === 'served') totalSales += o.total;
+                });
+            }
+
+            if (currentMerchant.expenses) {
+                currentMerchant.expenses.forEach(e => totalExpenses += e.amount);
+            }
+
+            const netProfit = totalSales - totalExpenses;
 
             document.getElementById('acc-sales').innerText = totalSales.toLocaleString() + ' د.ع';
             document.getElementById('acc-expenses').innerText = totalExpenses.toLocaleString() + ' د.ع';
-            document.getElementById('acc-profit').innerText = (totalSales - totalExpenses).toLocaleString() + ' د.ع';
+            document.getElementById('acc-profit').innerText = netProfit.toLocaleString() + ' د.ع';
+
+            const list = document.getElementById('expenses-list');
+            if (!list) return;
+            list.innerHTML = '';
+
+            if (currentMerchant.expenses) {
+                currentMerchant.expenses.forEach(e => {
+                    list.innerHTML += `
+                        <div class="flex justify-between items-center bg-slate-950 p-3 rounded-xl border border-slate-900">
+                            <span class="text-xs text-white font-bold">${e.title}</span>
+                            <span class="text-xs text-red-500 font-bold">${e.amount.toLocaleString()} د.ع</span>
+                        </div>
+                    `;
+                });
+            }
         }
 
         async function initCustomerView(shop, table) {
@@ -1566,7 +1744,29 @@
             customerActiveTable = table;
 
             const mData = await fetchMerchantData(shop);
-            if (!mData) return;
+            if (!mData) {
+                document.getElementById('view-portal').classList.add('hidden');
+                document.getElementById('view-customer-welcome').classList.add('hidden');
+                document.getElementById('view-customer-menu').classList.remove('hidden');
+                document.getElementById('view-customer-menu').innerHTML = `<p class="text-center py-20 text-slate-400">مینیو نەدۆزرایەوە.</p>`;
+                return;
+            }
+
+            if (new Date() > new Date(mData.expiresAt)) {
+                document.getElementById('view-portal').classList.add('hidden');
+                document.getElementById('view-expired-gate').classList.remove('hidden');
+                return;
+            }
+
+            if (isFirebaseConnected && firebaseDb) {
+                firebaseDb.ref("merchants/" + shop).on("value", (snapshot) => {
+                    const data = snapshot.val();
+                    if (data) {
+                        merchants[shop] = data;
+                        renderCustomerMenuItems(data.foods || []);
+                    }
+                });
+            }
 
             document.getElementById('view-portal').classList.add('hidden');
             document.getElementById('view-customer-welcome').classList.remove('hidden');
@@ -1583,8 +1783,10 @@
         function selectCustomerLanguage(lang) {
             currentLang = lang;
             document.getElementById('cust-lang-select').value = lang;
+
             document.getElementById('view-customer-welcome').classList.add('hidden');
             document.getElementById('view-customer-menu').classList.remove('hidden');
+
             changeLanguage();
         }
 
@@ -1594,24 +1796,28 @@
             container.innerHTML = '';
 
             const mData = merchants[customerActiveMerchant];
+            
             container.innerHTML += `
-                <button onclick="filterCustomerCat('all')" id="cat-btn-all" class="cust-cat-btn px-6 py-3 bg-gradient-to-r from-orange-500 to-pink-500 text-white rounded-2xl text-xs font-black shrink-0 whitespace-nowrap">
+                <button onclick="filterCustomerCat('all')" id="cat-btn-all" class="cust-cat-btn px-6 py-3 bg-gradient-to-r from-orange-500 to-pink-500 text-white rounded-2xl text-xs font-black transition-all shadow-md shrink-0 whitespace-nowrap">
                     ✨ ${translations[currentLang].all}
                 </button>
             `;
 
-            mData.categories.forEach(cat => {
-                const name = cat[currentLang] || cat['ku'];
-                container.innerHTML += `
-                    <button onclick="filterCustomerCat('${cat.id}')" id="cat-btn-${cat.id}" class="cust-cat-btn px-6 py-3 bg-slate-900 text-slate-300 border border-slate-800 rounded-2xl text-xs font-bold shrink-0 whitespace-nowrap">
-                        ${name}
-                    </button>
-                `;
-            });
+            if (mData.categories) {
+                mData.categories.forEach(cat => {
+                    const name = cat[currentLang] || cat['ku'];
+                    container.innerHTML += `
+                        <button onclick="filterCustomerCat('${cat.id}')" id="cat-btn-${cat.id}" class="cust-cat-btn px-6 py-3 bg-slate-900 hover:bg-slate-850 text-slate-300 border border-slate-800 rounded-2xl text-xs font-bold transition-all shrink-0 whitespace-nowrap">
+                            ${name}
+                        </button>
+                    `;
+                });
+            }
         }
 
         function changeLanguage() {
             currentLang = document.getElementById('cust-lang-select').value;
+            
             document.getElementById('cust-food-search').placeholder = translations[currentLang].search;
             document.getElementById('text-total').innerText = translations[currentLang].total;
             document.getElementById('text-view-cart').innerText = translations[currentLang].view_cart;
@@ -1626,7 +1832,6 @@
 
         function renderCustomerMenuItems(foods) {
             const container = document.getElementById('cust-menu-items');
-            if (!container) return;
             container.innerHTML = '';
 
             foods.forEach(food => {
@@ -1643,11 +1848,17 @@
                                 <p class="text-[11px] text-slate-400 mt-1 line-clamp-2">${desc}</p>
                             </div>
                             <div class="flex justify-between items-center mt-3">
-                                <span class="text-orange-500 font-extrabold text-xs md:text-sm">${food.price.toLocaleString()} د.ع</span>
+                                <span class="text-orange-500 font-extrabold text-xs md:text-sm whitespace-nowrap">${food.price.toLocaleString()} د.ع</span>
                                 <div class="flex items-center gap-2">
-                                    ${isOutOfStock ? `<span class="text-[10px] text-red-500">نەماوە</span>` : `
-                                        <button onclick="addToCustomerCart(${food.id})" class="bg-gradient-to-r from-orange-500 to-pink-500 text-white font-bold px-4 py-2 rounded-xl text-[10px]">${translations[currentLang].add}</button>
-                                    `}
+                                    ${isOutOfStock ? `
+                                        <span class="text-[10px] text-red-500 font-bold">تەواوبووە</span>
+                                    ` : (customerCart[food.id] ? `
+                                        <button onclick="changeCustomerCartQty(${food.id}, -1)" class="w-8 h-8 bg-slate-800 rounded-xl flex items-center justify-center font-bold text-slate-200">-</button>
+                                        <span class="text-xs font-bold w-4 text-center">${customerCart[food.id].qty}</span>
+                                        <button onclick="changeCustomerCartQty(${food.id}, 1)" class="w-8 h-8 bg-orange-500 rounded-xl flex items-center justify-center font-bold text-white">+</button>
+                                    ` : `
+                                        <button onclick="addToCustomerCart(${food.id})" class="bg-gradient-to-r from-orange-500 to-pink-500 text-white font-bold px-4 py-2 rounded-xl text-[10px] transition-all whitespace-nowrap">${translations[currentLang].add}</button>
+                                    `)}
                                 </div>
                             </div>
                         </div>
@@ -1663,6 +1874,7 @@
 
             customerCart[foodId] = { ...food, qty: 1 };
             updateCustomerCartUI();
+            renderCustomerMenuItems(mData.foods);
         }
 
         function changeCustomerCartQty(foodId, amt) {
@@ -1687,16 +1899,20 @@
             let total = 0;
             let count = 0;
             const container = document.getElementById('cust-cart-items-list');
-            if (!container) return;
             container.innerHTML = '';
 
             Object.values(customerCart).forEach(item => {
                 total += item.price * item.qty;
                 count += item.qty;
 
+                const title = item[`title_${currentLang}`] || item['title_ku'];
+
                 container.innerHTML += `
                     <div class="flex justify-between items-center py-2.5 border-b border-slate-900">
-                        <h4 class="font-bold text-xs text-white truncate">${item[`title_${currentLang}`] || item['title_ku']}</h4>
+                        <div class="truncate max-w-[180px]">
+                            <h4 class="font-bold text-xs text-white truncate">${title}</h4>
+                            <span class="text-[10px] text-orange-500 font-bold">${item.price.toLocaleString()} د.ع</span>
+                        </div>
                         <div class="flex items-center gap-2">
                             <button onclick="changeCustomerCartQty(${item.id}, -1)" class="w-7 h-7 bg-slate-900 rounded-lg flex items-center justify-center text-slate-300">-</button>
                             <span class="text-xs font-bold w-4 text-center">${item.qty}</span>
@@ -1711,12 +1927,39 @@
 
             const bar = document.getElementById('cust-cart-bar');
             if (count > 0) bar.classList.remove('hidden');
-            else bar.classList.add('hidden');
+            else {
+                bar.classList.add('hidden');
+                toggleCustomerCartModal(false);
+            }
+        }
+
+        function toggleCustomerCartModal(show) {
+            const el = document.getElementById('cust-cart-modal');
+            if (show) el.classList.remove('hidden');
+            else el.classList.add('hidden');
         }
 
         async function submitCustomerOrder() {
             const activeShop = await fetchMerchantData(customerActiveMerchant);
-            const orderItems = Object.values(customerCart).map(item => ({ title: item[`title_ku`], qty: item.qty, price: item.price }));
+            if (!activeShop) return;
+
+            let canOrder = true;
+            Object.values(customerCart).forEach(cartItem => {
+                const food = activeShop.foods.find(f => f.id === cartItem.id);
+                if (food && food.stock !== undefined && food.stock < cartItem.qty) {
+                    canOrder = false;
+                    showToast('شکست', `بڕی پێویست لە کۆگا نییە بۆ ${cartItem.title_ku}`, 'error');
+                }
+            });
+
+            if (!canOrder) return;
+
+            const orderItems = Object.values(customerCart).map(item => ({ 
+                title: item[`title_ku`],
+                qty: item.qty, 
+                price: item.price 
+            }));
+            
             const total = orderItems.reduce((acc, curr) => acc + (curr.price * curr.qty), 0);
 
             const newOrder = {
@@ -1728,19 +1971,16 @@
                 time: new Date().toISOString()
             };
 
+            if (!activeShop.orders) activeShop.orders = [];
             activeShop.orders.push(newOrder);
             await syncData(customerActiveMerchant, activeShop);
-            
+
             showToast(translations[currentLang].success_order, translations[currentLang].success_order_desc);
+            
             customerCart = {};
             updateCustomerCartUI();
             toggleCustomerCartModal(false);
-        }
-
-        function toggleCustomerCartModal(show) {
-            const el = document.getElementById('cust-cart-modal');
-            if (show) el.classList.remove('hidden');
-            else el.classList.add('hidden');
+            renderCustomerMenuItems(activeShop.foods || []);
         }
 
         function filterCustomerCat(catId) {
@@ -1771,13 +2011,30 @@
             renderCustomerMenuItems(filtered);
         }
 
+        async function loadAllMerchantsToLocal() {
+            if (isFirebaseConnected && firebaseDb) {
+                try {
+                    const snapshot = await firebaseDb.ref("merchants").once("value");
+                    const data = snapshot.val();
+                    if (data) {
+                        merchants = data;
+                        localStorage.setItem('sys_merchants', JSON.stringify(merchants));
+                    }
+                } catch (e) {
+                    console.error("Error loading merchants: ", e);
+                }
+            }
+        }
+
         window.onload = async function() {
+            await loadAllMerchantsToLocal();
             const urlParams = new URLSearchParams(window.location.search);
             const shop = urlParams.get('shop');
             const table = urlParams.get('table') || '1';
 
-            if (shop) initCustomerView(shop, table);
-            lucide.createIcons();
+            if (shop) {
+                initCustomerView(shop, table);
+            }
         };
     </script>
 </body>

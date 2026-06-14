@@ -1,5 +1,4 @@
-
-‏<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ku" dir="rtl">
 <head>
 <meta charset="UTF-8">
@@ -9,69 +8,96 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
 <style>
 :root{
-  --p:#2563EB;--pd:#1D4ED8;--pl:#EFF6FF;--p2:#DBEAFE;
-  --s:#22C55E;--sl:#F0FDF4;--sd:#16A34A;
+  --p:#4F46E5;--pd:#3730A3;--pl:#EEF2FF;--p2:#C7D2FE;
+  --s:#10B981;--sl:#ECFDF5;--sd:#059669;
   --d:#EF4444;--dl:#FEF2F2;--dd:#DC2626;
-  --w:#F59E0B;--wl:#FFFBEB;
+  --w:#F59E0B;--wl:#FFFBEB;--wd:#D97706;
   --bg:#F8FAFC;--bg2:#F1F5F9;--bg3:#E2E8F0;
-  --sur:#fff;--bd:#E2E8F0;--bd2:#F1F5F9;
+  --sur:#FFFFFF;--bd:#E2E8F0;--bd2:#F1F5F9;
   --t:#0F172A;--t2:#475569;--tm:#94A3B8;
-  --sh1:0 1px 3px rgba(0,0,0,.06);
-  --sh2:0 4px 16px rgba(0,0,0,.09);
-  --sh3:0 12px 40px rgba(0,0,0,.13);
-  --sh4:0 20px 60px rgba(0,0,0,.16);
-  --r1:10px;--r2:16px;--r3:22px;--r4:32px;
-  --tr:all .2s cubic-bezier(.4,0,.2,1);
+  --sh1:0 1px 3px rgba(0,0,0,.06),0 1px 2px rgba(0,0,0,.04);
+  --sh2:0 4px 16px rgba(0,0,0,.08),0 2px 6px rgba(0,0,0,.04);
+  --sh3:0 12px 40px rgba(0,0,0,.11),0 4px 12px rgba(0,0,0,.06);
+  --sh4:0 24px 64px rgba(0,0,0,.14),0 8px 24px rgba(0,0,0,.08);
+  --r1:10px;--r2:14px;--r3:20px;--r4:28px;
+  --tr:all .18s cubic-bezier(.4,0,.2,1);
+  --font:'Vazirmatn',system-ui,sans-serif;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{font-family:'Vazirmatn',sans-serif;background:var(--bg);color:var(--t);min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased}
-::-webkit-scrollbar{width:4px;height:4px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:var(--bd);border-radius:99px}
+body{font-family:var(--font);background:var(--bg);color:var(--t);min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility}
+::-webkit-scrollbar{width:5px;height:5px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--bd);border-radius:99px}
+::-webkit-scrollbar-thumb:hover{background:var(--tm)}
 
+/* ── VIEWS ── */
 .view{display:none}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:10px 20px;border-radius:var(--r1);font-family:inherit;font-weight:700;font-size:12px;cursor:pointer;border:none;transition:var(--tr);white-space:nowrap;user-select:none;line-height:1}
-.btn:active{transform:scale(.97)}
-.btn-p{background:var(--p);color:#fff}.btn-p:hover{background:var(--pd);box-shadow:0 4px 14px rgba(37,99,235,.35)}
-.btn-s{background:var(--s);color:#fff}.btn-s:hover{background:var(--sd)}
-.btn-d{background:var(--d);color:#fff}.btn-d:hover{background:var(--dd)}
-.btn-g{background:var(--bg2);color:var(--t2);border:1.5px solid var(--bd)}.btn-g:hover{background:var(--bd)}
-.btn-lg{padding:14px 24px;font-size:13px;border-radius:var(--r2)}
-.btn-fw{width:100%}
-.btn-sq{width:38px;height:38px;padding:0;border-radius:var(--r1);flex-shrink:0}
 
-.inp{width:100%;padding:11px 14px;background:var(--bg2);border:1.5px solid var(--bd);border-radius:var(--r1);font-family:inherit;font-size:12px;color:var(--t);transition:var(--tr);outline:none;-webkit-appearance:none;appearance:none}
-.inp:focus{border-color:var(--p);background:#fff;box-shadow:0 0 0 3px rgba(37,99,235,.1)}
+/* ── BUTTONS ── */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:9px 18px;border-radius:var(--r1);font-family:var(--font);font-weight:700;font-size:12px;cursor:pointer;border:none;transition:var(--tr);white-space:nowrap;user-select:none;line-height:1;letter-spacing:.01em}
+.btn:active{transform:scale(.97)}
+.btn-p{background:var(--p);color:#fff;box-shadow:0 2px 8px rgba(79,70,229,.25)}
+.btn-p:hover{background:var(--pd);box-shadow:0 4px 16px rgba(79,70,229,.38);transform:translateY(-1px)}
+.btn-s{background:var(--s);color:#fff;box-shadow:0 2px 8px rgba(16,185,129,.25)}
+.btn-s:hover{background:var(--sd);box-shadow:0 4px 16px rgba(16,185,129,.38);transform:translateY(-1px)}
+.btn-d{background:var(--d);color:#fff}
+.btn-d:hover{background:var(--dd)}
+.btn-g{background:var(--bg2);color:var(--t2);border:1.5px solid var(--bd)}
+.btn-g:hover{background:var(--bd);color:var(--t)}
+.btn-lg{padding:13px 22px;font-size:13px;border-radius:var(--r2)}
+.btn-fw{width:100%}
+.btn-sq{width:36px;height:36px;padding:0;border-radius:var(--r1);flex-shrink:0}
+
+/* ── INPUTS ── */
+.inp{width:100%;padding:11px 13px;background:var(--bg2);border:1.5px solid var(--bd);border-radius:var(--r1);font-family:var(--font);font-size:12px;color:var(--t);transition:var(--tr);outline:none;-webkit-appearance:none;appearance:none}
+.inp:focus{border-color:var(--p);background:var(--sur);box-shadow:0 0 0 3px rgba(79,70,229,.1)}
 .inp::placeholder{color:var(--tm)}
-select.inp{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2394A3B8' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:left 12px center;cursor:pointer}
-.lbl{display:block;font-size:11px;font-weight:700;color:var(--t2);margin-bottom:5px}
+select.inp{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2394A3B8' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:left 12px center;cursor:pointer;padding-left:32px}
+.lbl{display:block;font-size:11px;font-weight:700;color:var(--t2);margin-bottom:5px;letter-spacing:.02em}
 .fg{margin-bottom:14px}
 
-.card{background:#fff;border:1px solid var(--bd);border-radius:var(--r3);box-shadow:var(--sh1)}
+/* ── CARDS ── */
+.card{background:var(--sur);border:1px solid var(--bd);border-radius:var(--r3);box-shadow:var(--sh1)}
 .cp{padding:22px}
 
-.badge{display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:99px;font-size:10px;font-weight:700;line-height:1}
-.bp{background:var(--pl);color:var(--p)}.bs{background:var(--sl);color:var(--s)}.bdx{background:var(--dl);color:var(--d)}.bw{background:var(--wl);color:var(--w)}.bg2{background:var(--bg2);color:var(--t2)}
+/* ── BADGES ── */
+.badge{display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:99px;font-size:10px;font-weight:700;line-height:1;letter-spacing:.02em}
+.bp{background:var(--pl);color:var(--p)}
+.bs{background:var(--sl);color:var(--s)}
+.bdx{background:var(--dl);color:var(--d)}
+.bw{background:var(--wl);color:var(--wd)}
+.bg2{background:var(--bg2);color:var(--t2)}
 
-#toasts{position:fixed;top:18px;left:18px;z-index:9999;display:flex;flex-direction:column;gap:8px;pointer-events:none;max-width:290px}
-.toast{background:#fff;border-radius:14px;padding:13px 16px;box-shadow:var(--sh4);border-right:3px solid var(--s);animation:tIn .28s ease;display:flex;flex-direction:column;gap:3px;pointer-events:all}
-.toast.err{border-right-color:var(--d)}.toast.wrn{border-right-color:var(--w)}.toast.inf{border-right-color:var(--p)}
-.tt{font-size:12px;font-weight:800;color:var(--t)}.ts{font-size:11px;color:var(--t2)}
-@keyframes tIn{from{opacity:0;transform:translateX(-14px)}to{opacity:1;transform:translateX(0)}}
+/* ── TOASTS ── */
+#toasts{position:fixed;top:18px;left:18px;z-index:9999;display:flex;flex-direction:column;gap:8px;pointer-events:none;max-width:300px}
+.toast{background:var(--sur);border-radius:14px;padding:13px 16px;box-shadow:var(--sh4);border-right:3px solid var(--s);animation:tIn .25s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;gap:3px;pointer-events:all}
+.toast.err{border-right-color:var(--d)}
+.toast.wrn{border-right-color:var(--w)}
+.toast.inf{border-right-color:var(--p)}
+.tt{font-size:12px;font-weight:800;color:var(--t)}
+.ts{font-size:11px;color:var(--t2);line-height:1.4}
+@keyframes tIn{from{opacity:0;transform:translateX(-18px) scale(.95)}to{opacity:1;transform:translateX(0) scale(1)}}
 @keyframes tOut{to{opacity:0;transform:translateX(-14px)}}
 
-.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);backdrop-filter:blur(8px);z-index:500;align-items:flex-end;justify-content:center}
+/* ── MODALS ── */
+.modal{display:none;position:fixed;inset:0;background:rgba(15,23,42,.65);backdrop-filter:blur(10px);z-index:500;align-items:flex-end;justify-content:center}
 .modal.open{display:flex}
-.mbox{background:#fff;width:100%;max-width:560px;border-radius:var(--r4) var(--r4) 0 0;padding:26px 22px 36px;max-height:90vh;overflow-y:auto;animation:mUp .3s cubic-bezier(.4,0,.2,1)}
-@keyframes mUp{from{transform:translateY(40px);opacity:0}to{transform:translateY(0);opacity:1}}
+.mbox{background:var(--sur);width:100%;max-width:540px;border-radius:var(--r4) var(--r4) 0 0;padding:26px 22px 40px;max-height:90vh;overflow-y:auto;animation:mUp .3s cubic-bezier(.34,1.56,.64,1)}
+@keyframes mUp{from{transform:translateY(50px);opacity:0}to{transform:translateY(0);opacity:1}}
 .mhdr{display:flex;justify-content:space-between;align-items:center;padding-bottom:16px;border-bottom:1px solid var(--bd);margin-bottom:18px}
-.mhdr h3{font-size:16px;font-weight:900}
-.xbtn{background:none;border:none;font-size:22px;cursor:pointer;color:var(--tm);width:32px;height:32px;display:flex;align-items:center;justify-content:center;border-radius:8px;transition:var(--tr)}.xbtn:hover{background:var(--bg2)}
+.mhdr h3{font-size:16px;font-weight:900;color:var(--t)}
+.xbtn{background:none;border:none;font-size:20px;cursor:pointer;color:var(--tm);width:32px;height:32px;display:flex;align-items:center;justify-content:center;border-radius:8px;transition:var(--tr)}
+.xbtn:hover{background:var(--bg2);color:var(--t)}
 
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
-@keyframes bIn{from{transform:scale(.93);opacity:0}to{transform:scale(1);opacity:1}}
-@keyframes billFlash{0%,100%{background:#fff;border-color:var(--d);color:var(--d)}50%{background:var(--d);border-color:var(--d);color:#fff}}
+/* ── ANIMATIONS ── */
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.45}}
+@keyframes bIn{from{transform:translateY(8px) scale(.97);opacity:0}to{transform:translateY(0) scale(1);opacity:1}}
+@keyframes billFlash{0%,100%{background:#fff;border-color:var(--d);color:var(--d)}50%{background:var(--dl);border-color:var(--d);color:var(--dd)}}
+@keyframes spin{to{transform:rotate(360deg)}}
 .aPulse{animation:pulse 2s infinite}
 
+/* ── UTILS ── */
 .flex{display:flex}.ic{align-items:center}.jb{justify-content:space-between}.jc{justify-content:center}.fc{flex-direction:column}
 .g2{gap:8px}.g3{gap:12px}.g4{gap:16px}
 .fw{width:100%}.tc{text-align:center}
@@ -87,100 +113,151 @@ select.inp{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.
 .hr{height:1px;background:var(--bd);margin:16px 0}
 @media print{body *{visibility:hidden}.pra,.pra *{visibility:visible}.pra{position:absolute;left:0;top:0;width:100%}}
 
-#view-portal{min-height:100vh;background:linear-gradient(135deg,#020814 0%,#0B1120 55%,#020814 100%);flex-direction:column;align-items:center;justify-content:center;padding:24px;position:relative;overflow:hidden}
-.orb{position:absolute;border-radius:50%;filter:blur(120px);pointer-events:none}
-.pcard{width:100%;max-width:440px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:var(--r4);padding:44px 40px;backdrop-filter:blur(24px);position:relative;z-index:1;box-shadow:0 32px 80px rgba(0,0,0,.5)}
-.pcard .inp{background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.12);color:#fff}
-.pcard .inp:focus{background:rgba(255,255,255,.12);border-color:rgba(99,102,241,.7);box-shadow:0 0 0 3px rgba(99,102,241,.2)}
-.pcard .inp::placeholder{color:rgba(255,255,255,.22)}
-.pcard .lbl{color:rgba(255,255,255,.4)}
-.pbrand{font-size:38px;font-weight:900;color:#fff;letter-spacing:-2px;line-height:1;margin-bottom:6px}
-.pbrand span{background:linear-gradient(135deg,#60A5FA,#A78BFA);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.psub{font-size:11px;color:rgba(255,255,255,.25);font-weight:500;margin-bottom:34px;line-height:1.7}
-.ppill{display:inline-flex;align-items:center;gap:7px;background:rgba(99,102,241,.15);border:1px solid rgba(99,102,241,.25);padding:5px 14px;border-radius:99px;margin-bottom:22px}
-.ppill .dot{width:7px;height:7px;background:#22C55E;border-radius:50%;animation:pulse 2s infinite}
-.ppill span{font-size:11px;font-weight:700;color:#A5B4FC}
-.plogin{background:linear-gradient(135deg,#4F46E5,#7C3AED);color:#fff;border:none;width:100%;padding:16px;border-radius:var(--r2);font-family:inherit;font-size:14px;font-weight:800;cursor:pointer;margin-top:8px;transition:var(--tr);box-shadow:0 4px 20px rgba(99,102,241,.4)}
-.plogin:hover{box-shadow:0 8px 28px rgba(99,102,241,.55);transform:translateY(-1px)}
+/* ═══════════════════════════════════════════
+   PORTAL — Login
+═══════════════════════════════════════════ */
+#view-portal{
+  min-height:100vh;
+  background:#030712;
+  background-image:
+    radial-gradient(ellipse 80% 60% at 60% -10%,rgba(79,70,229,.22) 0%,transparent 60%),
+    radial-gradient(ellipse 60% 50% at -10% 80%,rgba(16,185,129,.12) 0%,transparent 55%);
+  flex-direction:column;align-items:center;justify-content:center;padding:24px;position:relative;overflow:hidden
+}
+.orb{position:absolute;border-radius:50%;filter:blur(100px);pointer-events:none;will-change:transform}
+.pcard{
+  width:100%;max-width:430px;
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.09);
+  border-radius:28px;padding:48px 42px;
+  backdrop-filter:blur(32px);
+  position:relative;z-index:1;
+  box-shadow:0 40px 80px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.07)
+}
+.pcard .inp{background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.1);color:#fff}
+.pcard .inp:focus{background:rgba(255,255,255,.11);border-color:rgba(99,102,241,.6);box-shadow:0 0 0 3px rgba(99,102,241,.18)}
+.pcard .inp::placeholder{color:rgba(255,255,255,.2)}
+.pcard .lbl{color:rgba(255,255,255,.38);font-size:10.5px}
+.pbrand{font-size:42px;font-weight:900;color:#fff;letter-spacing:-2.5px;line-height:1;margin-bottom:5px}
+.pbrand span{background:linear-gradient(130deg,#818CF8 0%,#C084FC 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.psub{font-size:11px;color:rgba(255,255,255,.22);font-weight:500;margin-bottom:36px;line-height:1.8}
+.ppill{display:inline-flex;align-items:center;gap:7px;background:rgba(99,102,241,.13);border:1px solid rgba(99,102,241,.22);padding:5px 14px;border-radius:99px;margin-bottom:24px}
+.ppill .dot{width:7px;height:7px;background:#10B981;border-radius:50%;box-shadow:0 0 6px rgba(16,185,129,.6);animation:pulse 2s infinite}
+.ppill span{font-size:11px;font-weight:700;color:#A5B4FC;letter-spacing:.02em}
+.plogin{
+  background:linear-gradient(135deg,#4F46E5 0%,#7C3AED 100%);
+  color:#fff;border:none;width:100%;padding:15px;
+  border-radius:var(--r2);font-family:var(--font);font-size:14px;font-weight:800;
+  cursor:pointer;margin-top:10px;transition:var(--tr);
+  box-shadow:0 4px 20px rgba(79,70,229,.42),0 1px 0 rgba(255,255,255,.1) inset
+}
+.plogin:hover{box-shadow:0 8px 30px rgba(79,70,229,.6);transform:translateY(-1px)}
 .plogin:active{transform:scale(.98)}
-.pfooter{font-size:10px;color:rgba(255,255,255,.15);margin-top:28px;text-align:center;font-weight:600;letter-spacing:.5px}
-.pfooter a{color:rgba(165,180,252,.6);text-decoration:none}.pfooter a:hover{color:#A5B4FC}
+.pfooter{font-size:10px;color:rgba(255,255,255,.13);margin-top:30px;text-align:center;font-weight:600;letter-spacing:.5px}
+.pfooter a{color:rgba(165,180,252,.5);text-decoration:none;transition:var(--tr)}
+.pfooter a:hover{color:#A5B4FC}
 
+/* ═══════════════════════════════════════════
+   SUPER ADMIN
+═══════════════════════════════════════════ */
 #view-super-admin{min-height:100vh;background:#060A14;color:#fff}
-.sa-nav{background:rgba(255,255,255,.03);border-bottom:1px solid rgba(255,255,255,.07);padding:16px 32px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:50;backdrop-filter:blur(12px)}
-.sa-card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:var(--r3);padding:24px}
-.sa-inp{width:100%;padding:10px 14px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:var(--r1);color:#fff;font-family:inherit;font-size:12px;outline:none;transition:var(--tr)}
-.sa-inp:focus{border-color:rgba(99,102,241,.7);background:rgba(255,255,255,.1)}
-.sa-inp::placeholder{color:rgba(255,255,255,.2)}
+.sa-nav{background:rgba(255,255,255,.025);border-bottom:1px solid rgba(255,255,255,.06);padding:16px 32px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:50;backdrop-filter:blur(16px)}
+.sa-card{background:rgba(255,255,255,.028);border:1px solid rgba(255,255,255,.06);border-radius:20px;padding:24px}
+.sa-inp{width:100%;padding:10px 13px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.09);border-radius:var(--r1);color:#fff;font-family:var(--font);font-size:12px;outline:none;transition:var(--tr)}
+.sa-inp:focus{border-color:rgba(99,102,241,.7);background:rgba(255,255,255,.1);box-shadow:0 0 0 2px rgba(99,102,241,.15)}
+.sa-inp::placeholder{color:rgba(255,255,255,.18)}
 select.sa-inp option{background:#0F172A}
-.sa-lbl{font-size:10px;color:rgba(255,255,255,.35);font-weight:700;display:block;margin-bottom:5px}
+.sa-lbl{font-size:10px;color:rgba(255,255,255,.32);font-weight:700;display:block;margin-bottom:5px;letter-spacing:.04em;text-transform:uppercase}
 .sa-table{width:100%;border-collapse:collapse;font-size:12px;text-align:right}
-.sa-table th{padding:10px 14px;color:rgba(255,255,255,.3);font-weight:700;border-bottom:1px solid rgba(255,255,255,.07);white-space:nowrap;font-size:11px}
-.sa-table td{padding:12px 14px;border-bottom:1px solid rgba(255,255,255,.04);color:rgba(255,255,255,.8);vertical-align:middle}
-.sa-table tr:hover td{background:rgba(255,255,255,.02)}
+.sa-table th{padding:10px 14px;color:rgba(255,255,255,.28);font-weight:700;border-bottom:1px solid rgba(255,255,255,.06);white-space:nowrap;font-size:10.5px;letter-spacing:.04em;text-transform:uppercase}
+.sa-table td{padding:12px 14px;border-bottom:1px solid rgba(255,255,255,.035);color:rgba(255,255,255,.78);vertical-align:middle}
+.sa-table tr:hover td{background:rgba(255,255,255,.018)}
 .pw-wrap{display:flex;align-items:center;gap:5px}
-.pw-val{font-family:monospace;letter-spacing:2px;color:rgba(255,255,255,.35);font-size:13px}
+.pw-val{font-family:monospace;letter-spacing:2px;color:rgba(255,255,255,.3);font-size:13px}
 .pw-val.vis{letter-spacing:0;color:#93C5FD}
-.eye{background:none;border:none;cursor:pointer;color:rgba(255,255,255,.3);font-size:13px;padding:2px 5px;transition:var(--tr)}.eye:hover{color:#A5B4FC}
-.sabtn{border:none;padding:5px 11px;border-radius:8px;font-size:10px;font-weight:700;cursor:pointer;font-family:inherit;transition:var(--tr)}
-.sabtn.renew{background:rgba(34,197,94,.15);color:#4ADE80}.sabtn.renew:hover{background:rgba(34,197,94,.3)}
-.sabtn.edit2{background:rgba(99,102,241,.15);color:#A5B4FC}.sabtn.edit2:hover{background:rgba(99,102,241,.3)}
-.sabtn.del{background:rgba(239,68,68,.15);color:#F87171}.sabtn.del:hover{background:rgba(239,68,68,.3)}
+.eye{background:none;border:none;cursor:pointer;color:rgba(255,255,255,.28);font-size:13px;padding:2px 5px;transition:var(--tr)}
+.eye:hover{color:#A5B4FC}
+.sabtn{border:none;padding:5px 11px;border-radius:8px;font-size:10px;font-weight:700;cursor:pointer;font-family:var(--font);transition:var(--tr);letter-spacing:.02em}
+.sabtn.renew{background:rgba(16,185,129,.14);color:#34D399}.sabtn.renew:hover{background:rgba(16,185,129,.28)}
+.sabtn.edit2{background:rgba(99,102,241,.14);color:#A5B4FC}.sabtn.edit2:hover{background:rgba(99,102,241,.28)}
+.sabtn.del{background:rgba(239,68,68,.14);color:#F87171}.sabtn.del:hover{background:rgba(239,68,68,.28)}
 
+/* ═══════════════════════════════════════════
+   MERCHANT PANEL
+═══════════════════════════════════════════ */
 #view-merchant-panel{min-height:100vh;background:var(--bg)}
-.mnav{background:#fff;border-bottom:1px solid var(--bd);padding:10px 22px;position:sticky;top:0;z-index:100;display:flex;justify-content:space-between;align-items:center;box-shadow:var(--sh1)}
-.mlogo{width:42px;height:42px;border-radius:12px;object-fit:cover;border:2px solid var(--bd);background:var(--bg2)}
-.minner{max-width:1440px;margin:0 auto;padding:22px 22px 90px;width:100%}
+.mnav{
+  background:rgba(255,255,255,.92);
+  border-bottom:1px solid var(--bd);
+  padding:10px 24px;position:sticky;top:0;z-index:100;
+  display:flex;justify-content:space-between;align-items:center;
+  box-shadow:0 1px 12px rgba(0,0,0,.06);
+  backdrop-filter:blur(20px)
+}
+.mlogo{width:40px;height:40px;border-radius:12px;object-fit:cover;border:2px solid var(--bd);background:var(--bg2)}
+.minner{max-width:1440px;margin:0 auto;padding:24px 24px 100px;width:100%}
 .msec{display:none}.msec.on{display:block}
 
-.grid-con{display:grid;grid-template-columns:repeat(auto-fill,minmax(195px,1fr));gap:14px}
-.tile{background:#fff;border:1.5px solid var(--bd);border-radius:var(--r3);padding:24px 20px;cursor:pointer;transition:var(--tr);display:flex;flex-direction:column;gap:12px;min-height:164px;position:relative;overflow:hidden}
-.tile:hover{border-color:var(--p);box-shadow:0 8px 28px rgba(37,99,235,.13);transform:translateY(-3px)}
+/* Dashboard Grid */
+.grid-con{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:14px}
+.tile{
+  background:var(--sur);border:1.5px solid var(--bd);border-radius:var(--r3);
+  padding:26px 22px;cursor:pointer;transition:var(--tr);
+  display:flex;flex-direction:column;gap:13px;min-height:168px;
+  position:relative;overflow:hidden
+}
+.tile::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(79,70,229,.04),transparent);opacity:0;transition:var(--tr)}
+.tile:hover{border-color:var(--p);box-shadow:0 10px 32px rgba(79,70,229,.14);transform:translateY(-3px)}
+.tile:hover::after{opacity:1}
 .tile:active{transform:scale(.98)}
-.tile-ico{font-size:30px;line-height:1}
+.tile-ico{font-size:32px;line-height:1}
 .tile-title{font-size:14px;font-weight:900;color:var(--t);transition:var(--tr)}.tile:hover .tile-title{color:var(--p)}
 .tile-desc{font-size:11px;color:var(--tm);line-height:1.6}
-.nbadge{position:absolute;top:13px;left:13px;min-width:21px;height:21px;background:var(--d);color:#fff;border-radius:99px;font-size:10px;font-weight:900;display:none;align-items:center;justify-content:center;padding:0 6px;box-shadow:0 2px 8px rgba(239,68,68,.4)}.nbadge.on{display:flex}
+.nbadge{position:absolute;top:14px;left:14px;min-width:22px;height:22px;background:var(--d);color:#fff;border-radius:99px;font-size:10px;font-weight:900;display:none;align-items:center;justify-content:center;padding:0 6px;box-shadow:0 2px 8px rgba(239,68,68,.4);animation:pulse 2s infinite}.nbadge.on{display:flex}
 
-.pos-wrap{display:grid;grid-template-columns:1fr 355px;gap:18px}
-.pos-r{background:#fff;border:1px solid var(--bd);border-radius:var(--r3);display:flex;flex-direction:column;height:calc(100vh - 110px);position:sticky;top:82px;overflow:hidden}
-.pos-rh{padding:16px 18px;border-bottom:1px solid var(--bd);display:flex;justify-content:space-between;align-items:center;flex-shrink:0}
-.pos-rb{flex:1;overflow-y:auto;padding:12px 16px}
+/* POS */
+.pos-wrap{display:grid;grid-template-columns:1fr 360px;gap:18px}
+.pos-r{background:var(--sur);border:1px solid var(--bd);border-radius:var(--r3);display:flex;flex-direction:column;height:calc(100vh - 110px);position:sticky;top:82px;overflow:hidden;box-shadow:var(--sh2)}
+.pos-rh{padding:16px 18px;border-bottom:1px solid var(--bd);display:flex;justify-content:space-between;align-items:center;flex-shrink:0;background:var(--bg2)}
+.pos-rb{flex:1;overflow-y:auto;padding:12px 14px}
 .pos-rf{padding:16px 18px;border-top:1px solid var(--bd);background:var(--bg2);flex-shrink:0}
-.cats{display:flex;gap:8px;overflow-x:auto;padding:4px 0 12px;flex-shrink:0}
+.cats{display:flex;gap:7px;overflow-x:auto;padding:4px 0 12px;flex-shrink:0}
 .cats::-webkit-scrollbar{display:none}
-.cbt{padding:8px 16px;border-radius:99px;font-size:11px;font-weight:700;cursor:pointer;border:1.5px solid var(--bd);background:#fff;color:var(--t2);transition:var(--tr);white-space:nowrap;font-family:inherit;flex-shrink:0}
-.cbt.on{background:var(--p);color:#fff;border-color:var(--p);box-shadow:0 4px 14px rgba(37,99,235,.28)}
-.fg-foods{display:grid;grid-template-columns:repeat(auto-fill,minmax(132px,1fr));gap:11px;padding-top:4px}
-.ftile{background:#fff;border:1.5px solid var(--bd);border-radius:var(--r2);padding:11px;cursor:pointer;transition:var(--tr);position:relative;overflow:hidden}
-.ftile:hover{border-color:var(--p);box-shadow:var(--sh2);transform:translateY(-2px)}.ftile:active{transform:scale(.97)}
-.ftile.oos{opacity:.45;cursor:not-allowed;pointer-events:none}
-.ftile img{width:100%;height:80px;object-fit:cover;border-radius:8px;background:var(--bg2);display:block}
+.cbt{padding:8px 16px;border-radius:99px;font-size:11px;font-weight:700;cursor:pointer;border:1.5px solid var(--bd);background:var(--sur);color:var(--t2);transition:var(--tr);white-space:nowrap;font-family:var(--font);flex-shrink:0}
+.cbt.on{background:var(--p);color:#fff;border-color:var(--p);box-shadow:0 4px 14px rgba(79,70,229,.3)}
+.fg-foods{display:grid;grid-template-columns:repeat(auto-fill,minmax(136px,1fr));gap:11px;padding-top:4px}
+.ftile{background:var(--sur);border:1.5px solid var(--bd);border-radius:var(--r2);padding:11px;cursor:pointer;transition:var(--tr);position:relative;overflow:hidden}
+.ftile:hover{border-color:var(--p);box-shadow:var(--sh2);transform:translateY(-2px)}
+.ftile:active{transform:scale(.97)}
+.ftile.oos{opacity:.4;cursor:not-allowed;pointer-events:none}
+.ftile img{width:100%;height:82px;object-fit:cover;border-radius:9px;background:var(--bg2);display:block}
 .fn{font-size:11px;font-weight:700;margin-top:7px;line-height:1.35;color:var(--t)}
 .fp{font-size:12px;font-weight:900;color:var(--p);margin-top:3px}
-.fst{font-size:9px;color:var(--tm);margin-top:1px}
-.oosb{position:absolute;top:7px;right:7px;background:var(--d);color:#fff;font-size:8px;font-weight:800;padding:2px 6px;border-radius:99px}
-.ci{display:flex;justify-content:space-between;align-items:center;padding:9px 11px;background:var(--bg2);border-radius:var(--r1);margin-bottom:7px;gap:8px;border:1px solid var(--bd2)}
+.fst{font-size:9px;color:var(--tm);margin-top:2px}
+.oosb{position:absolute;top:7px;right:7px;background:var(--d);color:#fff;font-size:8px;font-weight:800;padding:2px 7px;border-radius:99px}
+.ci{display:flex;justify-content:space-between;align-items:center;padding:9px 11px;background:var(--bg2);border-radius:var(--r1);margin-bottom:7px;gap:8px;border:1px solid var(--bd2);transition:var(--tr)}
+.ci:hover{border-color:var(--p);background:var(--pl)}
 .ci-n{font-size:11px;font-weight:700;color:var(--t);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .ci-p{font-size:10px;font-weight:700;color:var(--p);margin-top:1px}
 .qc{display:flex;align-items:center;gap:5px;flex-shrink:0}
-.qb{width:27px;height:27px;background:#fff;border:1.5px solid var(--bd);border-radius:7px;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:var(--tr);color:var(--t);font-family:inherit}
+.qb{width:28px;height:28px;background:var(--sur);border:1.5px solid var(--bd);border-radius:7px;font-size:14px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:var(--tr);color:var(--t);font-family:var(--font)}
 .qb:hover{background:var(--p);color:#fff;border-color:var(--p)}
 .qn{font-size:13px;font-weight:900;min-width:18px;text-align:center}
-.cart-empty{text-align:center;padding:44px 16px;color:var(--tm)}
+.cart-empty{text-align:center;padding:48px 16px;color:var(--tm)}
 
-.kb-board{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;min-height:480px}
+/* Kanban */
+.kb-board{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;min-height:500px}
 .kb-col{background:var(--bg2);border:1px solid var(--bd);border-radius:var(--r3);overflow:hidden;display:flex;flex-direction:column}
-.kb-hdr{padding:13px 16px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--bd);background:#fff;flex-shrink:0}
+.kb-hdr{padding:13px 16px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--bd);background:var(--sur);flex-shrink:0}
 .kb-title{font-size:12px;font-weight:900}
-.kb-body{flex:1;overflow-y:auto;padding:10px;display:flex;flex-direction:column;gap:9px}
-.ok-card{background:#fff;border:1px solid var(--bd);border-radius:var(--r2);padding:13px;animation:bIn .28s ease;box-shadow:var(--sh1)}
+.kb-body{flex:1;overflow-y:auto;padding:10px;display:flex;flex-direction:column;gap:8px}
+.ok-card{background:var(--sur);border:1px solid var(--bd);border-radius:var(--r2);padding:13px;animation:bIn .22s ease;box-shadow:var(--sh1)}
 .ok-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:9px}
 .ok-tbl{font-size:15px;font-weight:900}
 .ok-time{font-size:10px;color:var(--tm)}
 .ok-items{list-style:none;margin-bottom:9px;display:flex;flex-direction:column;gap:2px}
 .ok-item{font-size:11px;color:var(--t2);padding:2px 0;display:flex;justify-content:space-between}
-.ok-note{font-size:10px;color:var(--w);font-weight:600;margin-top:4px;padding:4px 8px;background:var(--wl);border-radius:6px}
+.ok-note{font-size:10px;color:var(--wd);font-weight:600;margin-top:4px;padding:4px 8px;background:var(--wl);border-radius:6px}
 .ok-foot{display:flex;justify-content:space-between;align-items:center;padding-top:8px;border-top:1px solid var(--bd)}
 .ok-total{font-size:12px;font-weight:900;color:var(--p)}
 .src-pos{background:var(--pl);color:var(--p);font-size:9px;padding:2px 7px;border-radius:99px;font-weight:700}
@@ -189,128 +266,166 @@ select.sa-inp option{background:#0F172A}
 .col-prep .kb-hdr{border-top:3px solid var(--p)}
 .col-rdy .kb-hdr{border-top:3px solid var(--s)}
 .col-srv .kb-hdr{border-top:3px solid var(--tm)}
-.ok-btn{padding:5px 11px;border-radius:8px;font-size:10px;font-weight:700;cursor:pointer;border:none;font-family:inherit;transition:var(--tr)}
+.ok-btn{padding:5px 12px;border-radius:8px;font-size:10px;font-weight:700;cursor:pointer;border:none;font-family:var(--font);transition:var(--tr)}
 .ok-btn.prep{background:var(--pl);color:var(--p)}.ok-btn.prep:hover{background:var(--p);color:#fff}
 .ok-btn.rdy{background:var(--sl);color:var(--s)}.ok-btn.rdy:hover{background:var(--s);color:#fff}
 .ok-btn.srv{background:var(--bg2);color:var(--t2)}.ok-btn.srv:hover{background:var(--t2);color:#fff}
 
-.menu-wrap{display:grid;grid-template-columns:375px 1fr;gap:18px}
-.food-grid2{display:grid;grid-template-columns:repeat(auto-fill,minmax(178px,1fr));gap:13px}
-.fi-card{background:#fff;border:1px solid var(--bd);border-radius:var(--r2);overflow:hidden;transition:var(--tr)}
-.fi-card:hover{box-shadow:var(--sh2);border-color:rgba(37,99,235,.3)}
-.fi-img{width:100%;height:115px;object-fit:cover;background:var(--bg2);display:block}
+/* Menu Manager */
+.menu-wrap{display:grid;grid-template-columns:370px 1fr;gap:18px}
+.food-grid2{display:grid;grid-template-columns:repeat(auto-fill,minmax(175px,1fr));gap:12px}
+.fi-card{background:var(--sur);border:1px solid var(--bd);border-radius:var(--r2);overflow:hidden;transition:var(--tr)}
+.fi-card:hover{box-shadow:var(--sh2);border-color:rgba(79,70,229,.28)}
+.fi-img{width:100%;height:118px;object-fit:cover;background:var(--bg2);display:block}
 .fi-body{padding:11px}
 .fi-name{font-size:12px;font-weight:800;color:var(--t)}
 .fi-price{font-size:14px;font-weight:900;color:var(--p);margin-top:3px}
 .fi-stk{font-size:10px;color:var(--tm);margin-top:2px}
 .fi-foot{padding:9px 11px;border-top:1px solid var(--bd);display:flex;justify-content:space-between;align-items:center}
-.ab{font-size:10px;border:none;padding:4px 10px;border-radius:6px;cursor:pointer;font-family:inherit;font-weight:700;transition:var(--tr)}
+.ab{font-size:10px;border:none;padding:4px 10px;border-radius:6px;cursor:pointer;font-family:var(--font);font-weight:700;transition:var(--tr)}
 .ab.edt{background:var(--pl);color:var(--p)}.ab.edt:hover{background:var(--p);color:#fff}
 .ab.del{background:var(--dl);color:var(--d)}.ab.del:hover{background:var(--d);color:#fff}
 
-.tbl-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(142px,1fr));gap:13px}
-.ttile{background:#fff;border:2px solid var(--bd);border-radius:var(--r3);padding:16px 11px;text-align:center;min-height:154px;display:flex;flex-direction:column;align-items:center;justify-content:space-between;transition:var(--tr);gap:5px}
+/* Tables */
+.tbl-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(145px,1fr));gap:13px}
+.ttile{background:var(--sur);border:2px solid var(--bd);border-radius:var(--r3);padding:16px 11px;text-align:center;min-height:158px;display:flex;flex-direction:column;align-items:center;justify-content:space-between;transition:var(--tr);gap:5px}
 .ttile.t-av{border-color:var(--bd)}
 .ttile.t-oc{border-color:var(--p);background:var(--pl)}
 .ttile.t-pe{border-color:var(--w);background:var(--wl);animation:pulse 2s infinite}
 .ttile.t-rd{border-color:var(--s);background:var(--sl)}
-.ttile.t-bi{animation:billFlash .9s infinite;border-width:2px}
-.t-num{font-size:26px;font-weight:900;line-height:1}
+.ttile.t-bi{animation:billFlash .85s infinite;border-width:2px}
+.t-num{font-size:28px;font-weight:900;line-height:1}
 .t-st{font-size:10px;font-weight:700}
 .t-tot{font-size:11px;font-weight:800;color:var(--p)}
 .t-acts{display:flex;flex-direction:column;gap:4px;width:100%}
-.tbtn{width:100%;padding:5px 8px;border-radius:8px;font-size:9px;font-weight:700;cursor:pointer;border:none;font-family:inherit;transition:var(--tr)}
+.tbtn{width:100%;padding:5px 8px;border-radius:8px;font-size:9px;font-weight:700;cursor:pointer;border:none;font-family:var(--font);transition:var(--tr)}
 .tbtn.pay{background:var(--dl);color:var(--d)}.tbtn.pay:hover{background:var(--d);color:#fff}
 .tbtn.prt{background:var(--pl);color:var(--p)}.tbtn.prt:hover{background:var(--p);color:#fff}
 
-.qr-wrap{display:grid;grid-template-columns:290px 1fr;gap:18px}
-.qr-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(215px,1fr));gap:14px}
-.qr-card{background:#fff;border:1px solid var(--bd);border-radius:var(--r3);overflow:hidden;transition:var(--tr);box-shadow:var(--sh1)}
-.qr-card:hover{box-shadow:var(--sh2);border-color:rgba(37,99,235,.25)}
+/* QR Studio */
+.qr-wrap{display:grid;grid-template-columns:285px 1fr;gap:18px}
+.qr-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px}
+.qr-card{background:var(--sur);border:1px solid var(--bd);border-radius:var(--r3);overflow:hidden;transition:var(--tr);box-shadow:var(--sh1)}
+.qr-card:hover{box-shadow:var(--sh2);border-color:rgba(79,70,229,.22)}
 .qr-body{padding:22px;text-align:center}
 .qr-foot{padding:11px 14px;border-top:1px solid var(--bd);display:flex;gap:7px}
 
+/* Analytics */
 .anl-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(195px,1fr));gap:14px;margin-bottom:20px}
-.stat-card{background:#fff;border:1px solid var(--bd);border-radius:var(--r3);padding:20px;display:flex;flex-direction:column;gap:8px}
-.stat-ico{width:42px;height:42px;border-radius:var(--r1);display:flex;align-items:center;justify-content:center;font-size:19px;flex-shrink:0}
+.stat-card{background:var(--sur);border:1px solid var(--bd);border-radius:var(--r3);padding:20px;display:flex;flex-direction:column;gap:8px;transition:var(--tr)}
+.stat-card:hover{box-shadow:var(--sh2);border-color:var(--p);transform:translateY(-1px)}
+.stat-ico{width:44px;height:44px;border-radius:var(--r1);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
 .stat-lbl{font-size:11px;font-weight:700;color:var(--tm)}
-.stat-val{font-size:25px;font-weight:900;line-height:1}
-.stat-unit{font-size:10px;color:var(--tm)}
-.chart-card{background:#fff;border:1px solid var(--bd);border-radius:var(--r3);padding:20px}
+.stat-val{font-size:26px;font-weight:900;line-height:1}
+.stat-unit{font-size:10px;color:var(--tm);font-weight:600}
+.chart-card{background:var(--sur);border:1px solid var(--bd);border-radius:var(--r3);padding:20px}
 .bar-chart{display:flex;align-items:flex-end;gap:7px;height:110px;margin-top:14px}
-.bar-col{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;min-width:0}
-.bar{width:100%;background:linear-gradient(180deg,var(--p),var(--p2,#818CF8));border-radius:5px 5px 0 0;transition:height .6s cubic-bezier(.4,0,.2,1);min-height:3px}
+.bar-col{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;min-width:0}
+.bar{width:100%;background:linear-gradient(180deg,var(--p) 0%,var(--p2) 100%);border-radius:5px 5px 0 0;transition:height .6s cubic-bezier(.4,0,.2,1);min-height:3px}
 .bar-lbl{font-size:9px;color:var(--tm);font-weight:700;white-space:nowrap}
-.bar-v{font-size:8px;color:var(--p);font-weight:700;white-space:nowrap}
-.exp-item{display:flex;justify-content:space-between;align-items:center;padding:10px 12px;background:var(--bg2);border-radius:var(--r1);border:1px solid var(--bd2)}
+.bar-v{font-size:8px;color:var(--p);font-weight:700;white-space:nowrap;min-height:12px}
+.exp-item{display:flex;justify-content:space-between;align-items:center;padding:10px 12px;background:var(--bg2);border-radius:var(--r1);border:1px solid var(--bd2);transition:var(--tr)}
+.exp-item:hover{border-color:var(--d);background:var(--dl)}
 
+/* Settings */
 .set-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:18px}
-.set-card{background:#fff;border:1px solid var(--bd);border-radius:var(--r3);padding:22px}
+.set-card{background:var(--sur);border:1px solid var(--bd);border-radius:var(--r3);padding:22px}
 .set-card h3{font-size:13px;font-weight:900;margin-bottom:16px;display:flex;align-items:center;gap:8px}
-.logo-prev{width:76px;height:76px;border-radius:14px;object-fit:cover;border:2px solid var(--bd);background:var(--bg2);display:block;margin-bottom:11px}
-.theme-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:8px}
-.tswatch{width:100%;aspect-ratio:1;border-radius:10px;cursor:pointer;border:3px solid transparent;transition:var(--tr);position:relative}
-.tswatch.on{border-color:var(--t)}.tswatch.on::after{content:'✓';position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#fff;font-size:13px;font-weight:900;text-shadow:0 1px 3px rgba(0,0,0,.5)}
-.tswatch:hover{transform:scale(1.06)}
-.bcstyle-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:9px;margin-top:8px}
-.bcstyle{border:2px solid var(--bd);border-radius:var(--r2);padding:12px;cursor:pointer;transition:var(--tr);text-align:center;background:var(--bg2)}
-.bcstyle.on{border-color:var(--p);background:var(--pl)}.bcstyle:hover{border-color:var(--p)}
+.logo-prev{width:78px;height:78px;border-radius:14px;object-fit:cover;border:2px solid var(--bd);background:var(--bg2);display:block;margin-bottom:11px}
+.theme-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:10px}
+.tswatch{width:100%;aspect-ratio:1;border-radius:11px;cursor:pointer;border:3px solid transparent;transition:var(--tr);position:relative}
+.tswatch.on{border-color:var(--t);box-shadow:0 0 0 2px rgba(0,0,0,.15) inset}
+.tswatch.on::after{content:'✓';position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#fff;font-size:13px;font-weight:900;text-shadow:0 1px 4px rgba(0,0,0,.5)}
+.tswatch:hover{transform:scale(1.08);box-shadow:0 4px 12px rgba(0,0,0,.2)}
+.bcstyle-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:9px;margin-top:10px}
+.bcstyle{border:2px solid var(--bd);border-radius:var(--r2);padding:13px;cursor:pointer;transition:var(--tr);text-align:center;background:var(--bg2)}
+.bcstyle.on{border-color:var(--p);background:var(--pl);box-shadow:0 2px 8px rgba(79,70,229,.15)}
+.bcstyle:hover{border-color:var(--p)}
 .bcstyle-name{font-size:11px;font-weight:700;color:var(--t2);margin-top:5px}
 
-#view-customer-welcome{min-height:100vh;background:linear-gradient(145deg,#F8FAFC,#EFF6FF);flex-direction:column;align-items:center;justify-content:center;padding:24px}
-.wlc-card{background:#fff;border-radius:var(--r4);padding:38px 30px;max-width:420px;width:100%;box-shadow:var(--sh4);border:1px solid var(--bd);text-align:center}
-.wlc-logo{width:90px;height:90px;border-radius:20px;object-fit:cover;margin:0 auto 18px;display:block;box-shadow:var(--sh3)}
+/* ═══════════════════════════════════════════
+   CUSTOMER WELCOME
+═══════════════════════════════════════════ */
+#view-customer-welcome{
+  min-height:100vh;
+  background:linear-gradient(150deg,#F8FAFC 0%,#EEF2FF 50%,#F8FAFC 100%);
+  flex-direction:column;align-items:center;justify-content:center;padding:24px
+}
+.wlc-card{background:var(--sur);border-radius:var(--r4);padding:40px 32px;max-width:420px;width:100%;box-shadow:var(--sh4);border:1px solid var(--bd);text-align:center}
+.wlc-logo{width:88px;height:88px;border-radius:22px;object-fit:cover;margin:0 auto 18px;display:block;box-shadow:var(--sh3)}
 .wlc-name{font-size:22px;font-weight:900;margin-bottom:6px}
-.wlc-txt{font-size:12px;color:var(--tm);margin-bottom:3px}
-.lang-btn{width:100%;background:var(--bg2);border:1.5px solid var(--bd);border-radius:var(--r2);padding:15px 20px;font-family:inherit;font-weight:800;font-size:14px;color:var(--t);cursor:pointer;transition:var(--tr);display:flex;align-items:center;justify-content:space-between;margin-bottom:9px}
+.wlc-txt{font-size:12px;color:var(--tm);margin-bottom:3px;line-height:1.6}
+.lang-btn{width:100%;background:var(--bg2);border:1.5px solid var(--bd);border-radius:var(--r2);padding:15px 20px;font-family:var(--font);font-weight:800;font-size:14px;color:var(--t);cursor:pointer;transition:var(--tr);display:flex;align-items:center;justify-content:space-between;margin-bottom:9px}
 .lang-btn:hover{border-color:var(--p);background:var(--pl);color:var(--p)}
 
-#view-customer-menu{min-height:100vh;background:var(--bg);padding-bottom:110px}
-.cm-hdr{background:#fff;border-bottom:1px solid var(--bd);padding:12px 16px;position:sticky;top:0;z-index:50;box-shadow:var(--sh1)}
+/* ═══════════════════════════════════════════
+   CUSTOMER MENU
+═══════════════════════════════════════════ */
+#view-customer-menu{min-height:100vh;background:var(--bg);padding-bottom:116px}
+.cm-hdr{background:rgba(255,255,255,.94);border-bottom:1px solid var(--bd);padding:12px 16px;position:sticky;top:0;z-index:50;box-shadow:0 1px 12px rgba(0,0,0,.06);backdrop-filter:blur(20px)}
 .cm-hdr-in{max-width:640px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;gap:11px}
 .cm-logo{width:40px;height:40px;border-radius:10px;object-fit:cover;flex-shrink:0}
 .cm-inner{max-width:640px;margin:0 auto;padding:0 14px}
 .ccats{display:flex;gap:7px;overflow-x:auto;padding:13px 0 9px;margin-bottom:4px}
 .ccats::-webkit-scrollbar{display:none}
-.ccbtn{padding:8px 16px;border-radius:99px;font-size:12px;font-weight:700;cursor:pointer;border:1.5px solid var(--bd);background:#fff;color:var(--t2);white-space:nowrap;transition:var(--tr);font-family:inherit;flex-shrink:0}
-.ccbtn.on{background:var(--p);color:#fff;border-color:var(--p);box-shadow:0 4px 14px rgba(37,99,235,.28)}
-.mi-card{background:#fff;border:1px solid var(--bd);border-radius:var(--r3);padding:13px;display:flex;gap:13px;transition:var(--tr);margin-bottom:11px;box-shadow:var(--sh1)}
+.ccbtn{padding:8px 16px;border-radius:99px;font-size:12px;font-weight:700;cursor:pointer;border:1.5px solid var(--bd);background:var(--sur);color:var(--t2);white-space:nowrap;transition:var(--tr);font-family:var(--font);flex-shrink:0}
+.ccbtn.on{background:var(--p);color:#fff;border-color:var(--p);box-shadow:0 4px 14px rgba(79,70,229,.3)}
+.mi-card{background:var(--sur);border:1px solid var(--bd);border-radius:var(--r3);padding:13px;display:flex;gap:13px;transition:var(--tr);margin-bottom:10px;box-shadow:var(--sh1)}
 .mi-card:hover{box-shadow:var(--sh2)}
 .mi-img{width:92px;height:92px;object-fit:cover;border-radius:var(--r2);background:var(--bg2);flex-shrink:0;display:block}
 .mi-body{flex:1;display:flex;flex-direction:column;justify-content:space-between;min-width:0}
 .mi-name{font-size:14px;font-weight:800;color:var(--t);line-height:1.35}
-.mi-desc{font-size:11px;color:var(--tm);margin-top:3px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.mi-desc{font-size:11px;color:var(--tm);margin-top:3px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;line-height:1.5}
 .mi-footer{display:flex;justify-content:space-between;align-items:center;margin-top:9px;gap:8px}
 .mi-price{font-size:16px;font-weight:900;color:var(--p);white-space:nowrap}
-.add-btn{background:var(--p);color:#fff;border:none;padding:8px 16px;border-radius:99px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;transition:var(--tr);white-space:nowrap}
-.add-btn:hover{background:var(--pd)}
+.add-btn{background:var(--p);color:#fff;border:none;padding:8px 16px;border-radius:99px;font-size:12px;font-weight:700;cursor:pointer;font-family:var(--font);transition:var(--tr);white-space:nowrap;box-shadow:0 2px 8px rgba(79,70,229,.3)}
+.add-btn:hover{background:var(--pd);transform:scale(1.04)}
 .qty-ctrl{display:flex;align-items:center;gap:7px;flex-shrink:0}
-.qcb{width:33px;height:33px;border-radius:99px;border:2px solid var(--bd);background:#fff;font-size:17px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:var(--tr);font-family:inherit;color:var(--t);line-height:1;flex-shrink:0}
-.qcb.minus:hover{border-color:var(--d);color:var(--d)}
-.qcb.plus{background:var(--p);border-color:var(--p);color:#fff}.qcb.plus:hover{background:var(--pd)}
+.qcb{width:34px;height:34px;border-radius:99px;border:2px solid var(--bd);background:var(--sur);font-size:17px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:var(--tr);font-family:var(--font);color:var(--t);line-height:1;flex-shrink:0}
+.qcb.minus:hover{border-color:var(--d);color:var(--d);background:var(--dl)}
+.qcb.plus{background:var(--p);border-color:var(--p);color:#fff;box-shadow:0 2px 8px rgba(79,70,229,.3)}.qcb.plus:hover{background:var(--pd)}
 .qn2{font-size:16px;font-weight:900;min-width:20px;text-align:center}
-.cart-bar{position:fixed;bottom:0;left:0;right:0;background:rgba(255,255,255,.97);backdrop-filter:blur(14px);border-top:1px solid var(--bd);padding:12px 16px;z-index:50;box-shadow:0 -8px 30px rgba(0,0,0,.09)}
+.cart-bar{position:fixed;bottom:0;left:0;right:0;background:rgba(255,255,255,.96);backdrop-filter:blur(20px);border-top:1px solid var(--bd);padding:12px 16px;z-index:50;box-shadow:0 -8px 32px rgba(0,0,0,.08)}
 .cart-bar-in{max-width:640px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;gap:11px}
-.cart-cta{background:linear-gradient(135deg,#2563EB,#7C3AED);color:#fff;border:none;padding:12px 20px;border-radius:var(--r2);font-family:inherit;font-weight:800;font-size:12px;cursor:pointer;display:flex;align-items:center;gap:8px;transition:var(--tr);flex-shrink:0}
-.cart-cta:hover{box-shadow:0 4px 16px rgba(99,102,241,.4);transform:translateY(-1px)}
+.cart-cta{background:linear-gradient(135deg,#4F46E5 0%,#7C3AED 100%);color:#fff;border:none;padding:12px 20px;border-radius:var(--r2);font-family:var(--font);font-weight:800;font-size:12px;cursor:pointer;display:flex;align-items:center;gap:8px;transition:var(--tr);flex-shrink:0;box-shadow:0 4px 16px rgba(79,70,229,.4)}
+.cart-cta:hover{box-shadow:0 6px 20px rgba(79,70,229,.55);transform:translateY(-1px)}
 .cart-badge{background:#fff;color:var(--p);padding:2px 8px;border-radius:99px;font-size:11px;font-weight:900}
-.bill-btn{width:100%;background:var(--dl);border:1.5px solid var(--d);color:var(--d);font-family:inherit;font-weight:700;font-size:12px;padding:13px;border-radius:var(--r2);cursor:pointer;transition:var(--tr);display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:11px}
+.bill-btn{width:100%;background:var(--dl);border:1.5px solid var(--d);color:var(--d);font-family:var(--font);font-weight:700;font-size:12px;padding:13px;border-radius:var(--r2);cursor:pointer;transition:var(--tr);display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:11px}
 .bill-btn:hover{background:var(--d);color:#fff}
 
+/* Expired */
 #view-expired{min-height:100vh;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px}
-.exp-card{max-width:380px;width:100%;background:#fff;border:1px solid var(--bd);border-radius:var(--r4);padding:42px 30px;text-align:center;box-shadow:var(--sh4)}
+.exp-card{max-width:380px;width:100%;background:var(--sur);border:1px solid var(--bd);border-radius:var(--r4);padding:44px 32px;text-align:center;box-shadow:var(--sh4)}
 
-@media(max-width:1100px){.pos-wrap{grid-template-columns:1fr}.pos-r{height:auto;position:static}.kb-board{grid-template-columns:repeat(2,1fr)}.menu-wrap{grid-template-columns:1fr}.qr-wrap{grid-template-columns:1fr}}
-@media(max-width:700px){.kb-board{grid-template-columns:1fr}.fg-foods{grid-template-columns:repeat(2,1fr)}.minner{padding:13px 13px 90px}.grid-con{grid-template-columns:repeat(2,1fr)}.pcard{padding:30px 22px}}
-@media(max-width:440px){.grid-con{grid-template-columns:1fr}.anl-grid{grid-template-columns:1fr 1fr}}
+/* ── RESPONSIVE ── */
+@media(max-width:1100px){
+  .pos-wrap{grid-template-columns:1fr}.pos-r{height:auto;position:static;max-height:480px}
+  .kb-board{grid-template-columns:repeat(2,1fr)}
+  .menu-wrap{grid-template-columns:1fr}
+  .qr-wrap{grid-template-columns:1fr}
+}
+@media(max-width:700px){
+  .kb-board{grid-template-columns:1fr}
+  .fg-foods{grid-template-columns:repeat(2,1fr)}
+  .minner{padding:13px 13px 100px}
+  .grid-con{grid-template-columns:repeat(2,1fr)}
+  .pcard{padding:32px 24px}
+  .sa-nav{padding:14px 16px}
+}
+@media(max-width:440px){
+  .grid-con{grid-template-columns:1fr}
+  .anl-grid{grid-template-columns:1fr 1fr}
+}
 </style>
 </head>
 <body>
 <div id="toasts"></div>
-<!-- PORTAL -->
+
+<!-- ════════════════════ PORTAL ════════════════════ -->
 <div id="view-portal" class="view">
-  <div class="orb" style="width:700px;height:700px;background:#4F46E5;opacity:.12;top:-260px;right:-200px"></div>
-  <div class="orb" style="width:500px;height:500px;background:#7C3AED;opacity:.1;bottom:-160px;left:-180px"></div>
+  <div class="orb" style="width:600px;height:600px;background:#4F46E5;opacity:.14;top:-220px;right:-180px"></div>
+  <div class="orb" style="width:450px;height:450px;background:#7C3AED;opacity:.1;bottom:-140px;left:-160px"></div>
+  <div class="orb" style="width:300px;height:300px;background:#10B981;opacity:.07;top:60%;right:5%"></div>
   <div class="pcard">
     <div class="ppill"><div class="dot"></div><span>Enterprise Cloud POS v3.0</span></div>
     <div class="pbrand">Byteline <span>Pro</span></div>
@@ -318,17 +433,22 @@ select.sa-inp option{background:#0F172A}
     <div class="fg"><label class="lbl">ناوی بەکارهێنەر</label><input id="pu" class="inp" type="text" placeholder="username..." autocomplete="off" onkeydown="if(event.key==='Enter')doLogin()"></div>
     <div class="fg"><label class="lbl">تێپەڕەوشە</label><input id="pp" class="inp" type="password" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()"></div>
     <button onclick="doLogin()" class="plogin">چوونەژوورەوەی پارێزراو ⚡</button>
-    <div class="pfooter">پەرەپێدەر: <a href="http://bytelineagency.vercel.app" target="_blank">bytelineagency.vercel.app</a></div>
+    <div class="pfooter">پەرەپێدەر: <a href="https://bytelineagency.vercel.app" target="_blank">bytelineagency.vercel.app</a></div>
   </div>
 </div>
-<!-- SUPER ADMIN -->
+
+<!-- ════════════════════ SUPER ADMIN ════════════════════ -->
 <div id="view-super-admin" class="view">
   <nav class="sa-nav">
     <div class="flex ic g3">
-      <div style="width:40px;height:40px;background:linear-gradient(135deg,#4F46E5,#7C3AED);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:19px;flex-shrink:0">&#x1F451;</div>
-      <div><div style="font-size:14px;font-weight:900;color:#fff">Super Admin Panel</div><div style="font-size:10px;color:rgba(255,255,255,.3)">کۆنتڕۆڵی گشتی سیستم</div></div>
+      <div style="width:42px;height:42px;background:linear-gradient(135deg,#4F46E5,#7C3AED);border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:19px;flex-shrink:0;box-shadow:0 4px 14px rgba(79,70,229,.4)">&#x1F451;</div>
+      <div><div style="font-size:14px;font-weight:900;color:#fff">Super Admin Panel</div><div style="font-size:10px;color:rgba(255,255,255,.28)">کۆنتڕۆڵی گشتی سیستم</div></div>
     </div>
-    <div class="flex ic g2"><span id="sa-sync" style="font-size:10px;color:rgba(255,255,255,.25);font-weight:600"></span><button onclick="saRefresh()" class="sabtn edit2">&#x1F504; نوێ</button><button onclick="doLogout()" class="sabtn del">دەرچوون</button></div>
+    <div class="flex ic g2">
+      <span id="sa-sync" style="font-size:10px;color:rgba(255,255,255,.22);font-weight:600"></span>
+      <button onclick="saRefresh()" class="sabtn edit2">&#x1F504; نوێ</button>
+      <button onclick="doLogout()" class="sabtn del">دەرچوون</button>
+    </div>
   </nav>
   <div style="max-width:1400px;margin:0 auto;padding:28px 24px">
     <div style="display:grid;grid-template-columns:390px 1fr;gap:22px;margin-bottom:22px">
@@ -340,80 +460,114 @@ select.sa-inp option{background:#0F172A}
           <div><label class="sa-lbl">پاسۆرد</label><input id="sa-pass" class="sa-inp" placeholder="pass123"></div>
         </div>
         <div class="g2c" style="margin-bottom:14px">
-          <div><label class="sa-lbl">پلان</label><select id="sa-plan" class="sa-inp"><option value="demo">تاقیکاری — ٧ ڕۆژ</option><option value="1month">١ مانگ</option><option value="3months">٣ مانگ</option><option value="6months">٦ مانگ</option><option value="1year">ساڵانە</option></select></div>
+          <div><label class="sa-lbl">پلان</label>
+            <select id="sa-plan" class="sa-inp">
+              <option value="1month">١ مانگ</option>
+              <option value="3months">٣ مانگ</option>
+              <option value="6months">٦ مانگ</option>
+              <option value="1year">ساڵانە</option>
+              <option value="lifetime">هەمیشەیی</option>
+            </select>
+          </div>
           <div><label class="sa-lbl">لۆگۆ</label><input type="file" id="sa-logo" accept="image/*" class="sa-inp" style="padding:7px 10px"></div>
         </div>
-        <button onclick="createMerchant()" style="width:100%;background:linear-gradient(135deg,#F59E0B,#EF4444);color:#fff;padding:13px;border-radius:var(--r1);font-family:inherit;font-size:12px;font-weight:800;cursor:pointer;border:none">تۆمارکردن لە داتابەیس ✓</button>
+        <button onclick="createMerchant()" style="width:100%;background:linear-gradient(135deg,#F59E0B,#EF4444);color:#fff;padding:13px;border-radius:var(--r1);font-family:var(--font);font-size:12px;font-weight:800;cursor:pointer;border:none;box-shadow:0 4px 14px rgba(239,68,68,.3);transition:var(--tr)">تۆمارکردن لە داتابەیس ✓</button>
       </div>
       <div class="sa-card">
-        <div style="font-size:13px;font-weight:900;color:#fff;margin-bottom:18px">&#x1F4CB; ئەکاونتەکان — ناو ؤ پاسۆرد</div>
+        <div style="font-size:13px;font-weight:900;color:#fff;margin-bottom:18px">&#x1F4CB; ئەکاونتەکان</div>
         <div style="overflow-x:auto"><table class="sa-table"><thead><tr><th>چێشتخانە</th><th>بەکارهێنەر</th><th>پاسۆرد</th><th>پلان</th><th>بەسەرچوون</th><th>بارودۆخ</th><th>کردار</th></tr></thead><tbody id="sa-list"></tbody></table></div>
       </div>
     </div>
     <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(175px,1fr));gap:14px" id="sa-stats"></div>
   </div>
 </div>
-<!-- MERCHANT PANEL -->
+
+<!-- ════════════════════ MERCHANT PANEL ════════════════════ -->
 <div id="view-merchant-panel" class="view">
   <nav class="mnav">
-    <div class="flex ic g3"><img id="m-logo" src="" class="mlogo" alt=""><div><div id="m-name" style="font-size:14px;font-weight:900;color:var(--t)">چێشتخانە</div><span class="badge bs" style="font-size:9px">&#x25CF; چالاک</span></div></div>
-    <div class="flex ic g2"><button onclick="goHome()" class="btn btn-g" style="font-size:11px">&#x1F3E0; سەرەکی</button><button onclick="doLogout()" class="btn btn-g" style="font-size:11px;color:var(--d)">دەرچوون</button></div>
+    <div class="flex ic g3">
+      <img id="m-logo" src="" class="mlogo" alt="" onerror="this.style.display='none'">
+      <div>
+        <div id="m-name" style="font-size:14px;font-weight:900;color:var(--t)">چێشتخانە</div>
+        <span class="badge bs" style="font-size:9px">&#x25CF; چالاک</span>
+      </div>
+    </div>
+    <div class="flex ic g2">
+      <button onclick="goHome()" class="btn btn-g" style="font-size:11px">&#x1F3E0; سەرەکی</button>
+      <button onclick="doLogout()" class="btn btn-g" style="font-size:11px;color:var(--d)">دەرچوون</button>
+    </div>
   </nav>
   <div class="minner">
-    <!-- GRID -->
+
+    <!-- DASHBOARD GRID -->
     <div id="s-grid" class="msec on">
-      <div style="margin-bottom:22px"><h2 style="font-size:22px;font-weight:900">مینیوی سەرەکی</h2><p style="font-size:12px;color:var(--tm);margin-top:4px">بەشێک هەڵبژێره</p></div>
+      <div style="margin-bottom:24px">
+        <h2 style="font-size:23px;font-weight:900;letter-spacing:-.5px">مینیوی سەرەکی</h2>
+        <p style="font-size:12px;color:var(--tm);margin-top:5px">بەشێک هەڵبژێرە بۆ دەستپێکردن</p>
+      </div>
       <div class="grid-con">
         <div class="tile" onclick="goTab('pos')"><div class="tile-ico">&#x1F5A5;&#xFE0F;</div><div><div class="tile-title">تێرمیناڵی POS</div><div class="tile-desc">فرۆشتنی کاشێری بە بارکۆد</div></div></div>
         <div class="tile" onclick="goTab('live')"><div class="nbadge" id="bdg-live">0</div><div class="tile-ico">&#x1F4CB;</div><div><div class="tile-title">داواکارییەکان</div><div class="tile-desc">کانبان بۆردی داواکارییەکان</div></div></div>
         <div class="tile" onclick="goTab('menu')"><div class="tile-ico">&#x1F354;</div><div><div class="tile-title">مینیو</div><div class="tile-desc">خواردن، هاوپۆل، کۆگا</div></div></div>
         <div class="tile" onclick="goTab('tables')"><div class="nbadge" id="bdg-tbl">0</div><div class="tile-ico">&#x1F5FA;&#xFE0F;</div><div><div class="tile-title">نەخشەی مێزەکان</div><div class="tile-desc">چاودێری مێزەکان و حسابات</div></div></div>
         <div class="tile" onclick="goTab('qr')"><div class="tile-ico">&#x1F5A8;&#xFE0F;</div><div><div class="tile-title">QR Studio</div><div class="tile-desc">دروستکردن و چاپکردنی QR</div></div></div>
-        <div class="tile" onclick="goTab('analytics')"><div class="tile-ico">&#x1F4CA;</div><div><div class="tile-title">ئانالیتیکس و دارایی</div><div class="tile-desc">فرۆش، خەرجی، قازانجی پاك</div></div></div>
-        <div class="tile" onclick="goTab('settings')"><div class="tile-ico">&#x2699;&#xFE0F;</div><div><div class="tile-title">ڕێکخستنەکان</div><div class="tile-desc">دیزایین، لۆگۆ، ناو، بارکۆد</div></div></div>
+        <div class="tile" onclick="goTab('analytics')"><div class="tile-ico">&#x1F4CA;</div><div><div class="tile-title">ئانالیتیکس و دارایی</div><div class="tile-desc">فرۆش، خەرجی، قازانجی پاک</div></div></div>
+        <div class="tile" onclick="goTab('settings')"><div class="tile-ico">&#x2699;&#xFE0F;</div><div><div class="tile-title">ڕێکخستنەکان</div><div class="tile-desc">دیزاین، لۆگۆ، ناو، بارکۆد</div></div></div>
       </div>
     </div>
+
     <!-- POS -->
     <div id="s-pos" class="msec">
       <div class="pos-wrap">
         <div>
-          <div class="flex ic g2" style="margin-bottom:11px">
+          <div class="flex ic g2" style="margin-bottom:12px">
             <input id="bc-inp" class="inp" style="flex:1" type="text" placeholder="🏷️ بارکۆد — Enter بکە بۆ زیادکردن..." onkeydown="onBC(event)">
-            <select id="pos-tbl" class="inp" style="width:125px;flex-shrink:0"></select>
+            <select id="pos-tbl" class="inp" style="width:130px;flex-shrink:0"></select>
           </div>
           <div class="cats ns" id="pos-cats"></div>
           <div class="fg-foods" id="pos-foods"></div>
         </div>
         <div class="pos-r">
-          <div class="pos-rh"><div><div style="font-size:14px;font-weight:900">&#x1F6D2; سەبەتەی کاشێر</div><div style="font-size:10px;color:var(--tm);margin-top:1px">POS Terminal</div></div><button onclick="clearCart()" class="btn btn-g" style="font-size:11px;color:var(--d)">پاککردنەوە &#x00D7;</button></div>
+          <div class="pos-rh">
+            <div>
+              <div style="font-size:14px;font-weight:900">&#x1F6D2; سەبەتەی کاشێر</div>
+              <div style="font-size:10px;color:var(--tm);margin-top:1px">POS Terminal</div>
+            </div>
+            <button onclick="clearCart()" class="btn btn-g" style="font-size:11px;color:var(--d)">پاككردنەوە &#x00D7;</button>
+          </div>
           <div class="pos-rb ns" id="pos-cart"></div>
           <div class="pos-rf">
-            <div class="flex jb ic" style="margin-bottom:9px;font-size:12px;color:var(--t2)"><span>کۆیی بارەکان:</span><span id="pos-sub" style="font-weight:800;color:var(--t)">&#x2800; ٠ د.ع</span></div>
+            <div class="flex jb ic" style="margin-bottom:9px;font-size:12px;color:var(--t2)"><span>کۆیی بارەکان:</span><span id="pos-sub" style="font-weight:800;color:var(--t)">٠ د.ع</span></div>
             <div class="flex jb ic" style="margin-bottom:9px;font-size:12px;color:var(--t2)"><span>داشکاندن (د.ع):</span><input id="pos-disc" type="number" value="0" min="0" oninput="updCart()" class="inp" style="width:105px;text-align:center;padding:6px 10px"></div>
             <div style="height:1px;background:var(--bd);margin:11px 0"></div>
             <div class="flex jb ic" style="margin-bottom:14px;font-size:16px;font-weight:900"><span>کۆیی کۆتایی:</span><span id="pos-tot" style="color:var(--p)">٠ د.ع</span></div>
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:9px">
-              <button onclick="checkout('cash')" class="btn btn-s" style="padding:13px;font-size:13px">&#x1F4B5; پارەدان دەستبەجێ</button>
-              <button onclick="checkout('card')" class="btn btn-p" style="padding:13px;font-size:13px">&#x1F4B3; پارەدان کارت</button>
+              <button onclick="checkout('cash')" class="btn btn-s" style="padding:13px;font-size:13px">&#x1F4B5; نەختینە</button>
+              <button onclick="checkout('card')" class="btn btn-p" style="padding:13px;font-size:13px">&#x1F4B3; کارت</button>
             </div>
           </div>
         </div>
       </div>
     </div>
+
     <!-- KANBAN -->
     <div id="s-live" class="msec">
       <div class="flex jb ic" style="margin-bottom:18px;flex-wrap:wrap;gap:10px">
         <div><h2 style="font-size:20px;font-weight:900">داواکارییەکان — Kanban</h2><p style="font-size:11px;color:var(--tm);margin-top:3px">نوێکردنەوەی خۆکار هەر ٨ چرکە</p></div>
-        <div class="flex ic g2"><button onclick="rOrders()" class="btn btn-g" style="font-size:11px">&#x1F504; نوێ</button><button onclick="notifBeep()" class="btn btn-g" style="font-size:11px">&#x1F514; تاقیکردنەوەی دەنگ</button></div>
+        <div class="flex ic g2">
+          <button onclick="rOrders()" class="btn btn-g" style="font-size:11px">&#x1F504; نوێ</button>
+          <button onclick="notifBeep()" class="btn btn-g" style="font-size:11px">&#x1F514; تاقیکردنەوەی دەنگ</button>
+        </div>
       </div>
       <div class="kb-board">
-        <div class="kb-col col-pend"><div class="kb-hdr"><span class="kb-title" style="color:var(--w)">🟠 داواکاری نوێ</span><span class="badge bw" id="cnt-p">0</span></div><div class="kb-body ns" id="col-p"></div></div>
+        <div class="kb-col col-pend"><div class="kb-hdr"><span class="kb-title" style="color:var(--wd)">🟠 داواکاری نوێ</span><span class="badge bw" id="cnt-p">0</span></div><div class="kb-body ns" id="col-p"></div></div>
         <div class="kb-col col-prep"><div class="kb-hdr"><span class="kb-title" style="color:var(--p)">🔵 ئامادەکردن</span><span class="badge bp" id="cnt-r">0</span></div><div class="kb-body ns" id="col-r"></div></div>
         <div class="kb-col col-rdy"><div class="kb-hdr"><span class="kb-title" style="color:var(--s)">🟢 ئامادەیە</span><span class="badge bs" id="cnt-y">0</span></div><div class="kb-body ns" id="col-y"></div></div>
         <div class="kb-col col-srv"><div class="kb-hdr"><span class="kb-title" style="color:var(--tm)">✓ تەواوبوو</span><span class="badge bg2" id="cnt-d">0</span></div><div class="kb-body ns" id="col-d"></div></div>
       </div>
     </div>
-    <!-- MENU -->
+
+    <!-- MENU MANAGER -->
     <div id="s-menu" class="msec">
       <div class="menu-wrap">
         <div style="display:flex;flex-direction:column;gap:15px">
@@ -425,8 +579,8 @@ select.sa-inp option{background:#0F172A}
             <button onclick="mkCat()" class="btn btn-p btn-fw">دروستکردن ✓</button>
           </div>
           <div class="card cp">
-            <div style="font-size:13px;font-weight:900;margin-bottom:15px">&#x1F354; بابەتتی نوێ</div>
-            <div class="fg"><label class="lbl">ناو (کوردی) *</label><input id="f-ku" class="inp" placeholder="بەرگریی گۆشتی"></div>
+            <div style="font-size:13px;font-weight:900;margin-bottom:15px">&#x1F354; بابەتی نوێ</div>
+            <div class="fg"><label class="lbl">ناو (کوردی) *</label><input id="f-ku" class="inp" placeholder="بەرگری گۆشتی"></div>
             <div class="fg"><label class="lbl">العربية</label><input id="f-ar" class="inp" placeholder="برجر لحم"></div>
             <div class="fg"><label class="lbl">English</label><input id="f-en" class="inp" placeholder="Beef Burger"></div>
             <div class="fg"><label class="lbl">پێکهات (کوردی)</label><input id="d-ku" class="inp" placeholder="گۆشت، پەنیری، کاهو"></div>
@@ -448,17 +602,19 @@ select.sa-inp option{background:#0F172A}
         </div>
       </div>
     </div>
+
     <!-- TABLES -->
     <div id="s-tables" class="msec">
       <div class="flex jb ic" style="margin-bottom:18px;flex-wrap:wrap;gap:10px">
         <div><h2 style="font-size:20px;font-weight:900">نەخشەی مێزەکان</h2><p style="font-size:11px;color:var(--tm);margin-top:3px">چاودێری و بەڕێوەبردنی مێزەکان</p></div>
-        <div class="flex ic g2"><label style="font-size:12px;font-weight:700;color:var(--t2)">کۆیی مێزەکان:</label><input id="tbl-cnt" type="number" onchange="setTblCnt()" min="1" max="200" class="inp" style="width:68px;text-align:center"></div>
+        <div class="flex ic g2"><label style="font-size:12px;font-weight:700;color:var(--t2)">کۆیی مێزەکان:</label><input id="tbl-cnt" type="number" onchange="setTblCnt()" min="1" max="200" class="inp" style="width:72px;text-align:center"></div>
       </div>
-      <div class="flex g2" style="margin-bottom:14px;flex-wrap:wrap">
+      <div class="flex g2" style="margin-bottom:16px;flex-wrap:wrap">
         <span class="badge bg2">⬜ بەتاڵ</span><span class="badge bp">🔵 ئامادەکردن</span><span class="badge bw">🟠 نوێ</span><span class="badge bs">🟢 ئامادەیە</span><span class="badge bdx">🔴 داوای حیساب</span>
       </div>
       <div class="tbl-grid" id="tbl-map"></div>
     </div>
+
     <!-- QR STUDIO -->
     <div id="s-qr" class="msec">
       <div class="qr-wrap">
@@ -470,21 +626,28 @@ select.sa-inp option{background:#0F172A}
           </div>
           <div class="card cp">
             <div style="font-size:12px;font-weight:800;margin-bottom:10px">ڕێنمایی</div>
-            <p style="font-size:11px;color:var(--tm);line-height:1.9">&#x2022; ژمارەی مێز داخل بکە<br>&#x2022; QR دروستدەبێت<br>&#x2022; چاپکە و پێش مێز دابنێ<br>&#x2022; کڕیار سکان دەکات</p>
+            <p style="font-size:11px;color:var(--tm);line-height:2">&#x2022; ژمارەی مێز داخل بکە<br>&#x2022; QR دروستدەبێت<br>&#x2022; چاپکە و پێش مێز دابنێ<br>&#x2022; کڕیار سکان دەکات</p>
           </div>
           <div style="display:flex;gap:7px">
             <button onclick="clearQRs()" class="btn btn-g btn-fw" style="font-size:11px;color:var(--d)">سڕینەوەی هەمووی 🗑️</button>
             <button onclick="window.print()" class="btn btn-g btn-fw" style="font-size:11px">چاپ 🖨️</button>
           </div>
         </div>
-        <div class="card cp"><div style="font-size:14px;font-weight:900;margin-bottom:18px">کارتەکان — بۆ چاپ</div><div class="qr-grid pra" id="qr-area"></div></div>
+        <div class="card cp">
+          <div style="font-size:14px;font-weight:900;margin-bottom:18px">کارتەکان — بۆ چاپ</div>
+          <div class="qr-grid pra" id="qr-area"></div>
+        </div>
       </div>
     </div>
+
     <!-- ANALYTICS -->
     <div id="s-analytics" class="msec">
       <div class="flex jb ic" style="margin-bottom:18px;flex-wrap:wrap;gap:10px">
         <div><h2 style="font-size:20px;font-weight:900">&#x1F4CA; ئانالیتیکس و دارایی</h2><p style="font-size:11px;color:var(--tm);margin-top:3px">ڕاپۆرتی گشتی — فرۆش، قازانج، خەرجی</p></div>
-        <div class="flex ic g2"><button onclick="resetOrders()" class="btn btn-g" style="font-size:11px;color:var(--d)">🗑️ سڕینەوەی داواکارییەکان</button><button onclick="exportRpt()" class="btn btn-p" style="font-size:11px">📄 چاپی ڕاپۆرت</button></div>
+        <div class="flex ic g2">
+          <button onclick="resetOrders()" class="btn btn-g" style="font-size:11px;color:var(--d)">🗑️ سڕینەوەی داواکارییەکان</button>
+          <button onclick="exportRpt()" class="btn btn-p" style="font-size:11px">📄 چاپی ڕاپۆرت</button>
+        </div>
       </div>
       <div class="anl-grid">
         <div class="stat-card"><div class="stat-ico" style="background:var(--sl)">💵</div><div class="stat-lbl">کۆیی فرۆش (تەواوکراو)</div><div class="stat-val" style="color:var(--s)" id="st-sales">٠</div><div class="stat-unit">د.ع</div></div>
@@ -505,16 +668,32 @@ select.sa-inp option{background:#0F172A}
         <div class="chart-card">
           <div style="font-size:13px;font-weight:800;margin-bottom:14px">➕ تۆمارکردنی خەرجی</div>
           <div class="fg"><label class="lbl">بۆ چی؟</label><input id="ex-t" class="inp" placeholder="موچەی مانگانە"></div>
-          <div class="fg"><label class="lbl">جۆر</label><select id="ex-cat" class="inp"><option value="موچە">موچە و کارمەند</option><option value="کڕین">کڕینی کاڵا</option><option value="کارەبا">کارەبا و ئاو</option><option value="کرێ">کرێی بینا</option><option value="چاکسازی">چاکسازی و ئامێر</option><option value="تر">تر</option></select></div>
+          <div class="fg"><label class="lbl">جۆر</label>
+            <select id="ex-cat" class="inp">
+              <option value="موچە">موچە و کارمەند</option>
+              <option value="کڕین">کڕینی کاڵا</option>
+              <option value="کارەبا">کارەبا و ئاو</option>
+              <option value="کرێ">کرێی بینا</option>
+              <option value="چاکسازی">چاکسازی و ئامێر</option>
+              <option value="تر">تر</option>
+            </select>
+          </div>
           <div class="fg"><label class="lbl">نرخ (د.ع)</label><input id="ex-a" type="number" class="inp" placeholder="100000"></div>
           <button onclick="mkExp()" class="btn btn-p btn-fw">تۆمارکردن ✓</button>
         </div>
-        <div class="chart-card"><div class="flex jb ic" style="margin-bottom:14px"><div style="font-size:13px;font-weight:800">📋 لیستی خەرجییەکان</div><div id="exp-total" style="font-size:11px;font-weight:700;color:var(--d)"></div></div><div id="exp-list" style="max-height:250px;overflow-y:auto;display:flex;flex-direction:column;gap:7px"></div></div>
+        <div class="chart-card">
+          <div class="flex jb ic" style="margin-bottom:14px">
+            <div style="font-size:13px;font-weight:800">📋 لیستی خەرجییەکان</div>
+            <div id="exp-total" style="font-size:11px;font-weight:700;color:var(--d)"></div>
+          </div>
+          <div id="exp-list" style="max-height:250px;overflow-y:auto;display:flex;flex-direction:column;gap:7px"></div>
+        </div>
       </div>
     </div>
+
     <!-- SETTINGS -->
     <div id="s-settings" class="msec">
-      <div style="margin-bottom:22px"><h2 style="font-size:20px;font-weight:900">&#x2699;&#xFE0F; ڕێکخستنەکان</h2><p style="font-size:11px;color:var(--tm);margin-top:3px">دیزاین، لۆگۆ، ناو، مێز و بارکۆد</p></div>
+      <div style="margin-bottom:24px"><h2 style="font-size:20px;font-weight:900">&#x2699;&#xFE0F; ڕێکخستنەکان</h2><p style="font-size:11px;color:var(--tm);margin-top:3px">دیزاین، لۆگۆ، ناو، مێز و بارکۆد</p></div>
       <div class="set-grid">
         <div class="set-card"><h3>🎪 زانیاری چێشتخانە</h3>
           <div class="fg"><label class="lbl">ناوی چێشتخانە</label><input id="set-name" class="inp" placeholder="کافێ ئاسمانی"></div>
@@ -524,7 +703,7 @@ select.sa-inp option{background:#0F172A}
         <div class="set-card"><h3>🎨 ڕەنگی سەرەکی مینیو</h3>
           <label class="lbl">ڕەنگی دیاریکراو</label>
           <div class="theme-grid" id="theme-swatches"></div>
-          <div class="fg mt4"><label class="lbl">ڕەنگی تایبەت (hex)</label><div class="flex g2"><input id="custom-clr" class="inp" placeholder="#2563EB" style="flex:1"><button onclick="applyCustomColor()" class="btn btn-p" style="flex-shrink:0">جێبەجێکردن</button></div></div>
+          <div class="fg mt4"><label class="lbl">ڕەنگی تایبەت (hex)</label><div class="flex g2"><input id="custom-clr" class="inp" placeholder="#4F46E5" style="flex:1"><button onclick="applyCustomColor()" class="btn btn-p" style="flex-shrink:0">جێبەجێکردن</button></div></div>
         </div>
         <div class="set-card"><h3>🏷️ شێوازی کارتی QR</h3>
           <p style="font-size:11px;color:var(--tm);margin-bottom:11px;line-height:1.7">شێوازی بینایی کارتی بارکۆد هەڵبژێرە</p>
@@ -538,10 +717,11 @@ select.sa-inp option{background:#0F172A}
     </div>
   </div>
 </div>
-<!-- CUSTOMER WELCOME -->
+
+<!-- ════════════════════ CUSTOMER WELCOME ════════════════════ -->
 <div id="view-customer-welcome" class="view">
   <div class="wlc-card">
-    <img id="cw-logo" src="" class="wlc-logo" alt="">
+    <img id="cw-logo" src="" class="wlc-logo" alt="" onerror="this.style.display='none'">
     <div class="wlc-name" id="cw-name">بەخێرهاتن</div>
     <div class="wlc-txt" id="cw-ku">بەخێربێن بۆ چێشتخانەکەمان</div>
     <div class="wlc-txt" id="cw-ar" style="font-family:serif">أهلاً بكم في مطعمنا</div>
@@ -552,15 +732,26 @@ select.sa-inp option{background:#0F172A}
     <button onclick="openMenu('ku')" class="lang-btn">کوردی <span style="opacity:.3">◀</span></button>
     <button onclick="openMenu('ar')" class="lang-btn" style="font-family:serif">العربية <span style="opacity:.3">◀</span></button>
     <button onclick="openMenu('en')" class="lang-btn" style="direction:ltr">English <span style="opacity:.3">▶</span></button>
-    <a href="http://bytelineagency.vercel.app" target="_blank" style="display:block;text-align:center;font-size:10px;color:var(--tm);margin-top:16px;text-decoration:none;font-weight:600">پەرەپێدراوە لەلایەن <span style="color:var(--p)">bytelineagency.vercel.app</span></a>
+    <a href="https://bytelineagency.vercel.app" target="_blank" style="display:block;text-align:center;font-size:10px;color:var(--tm);margin-top:18px;text-decoration:none;font-weight:600">پەرەپێدراوە لەلایەن <span style="color:var(--p)">bytelineagency.vercel.app</span></a>
   </div>
 </div>
-<!-- CUSTOMER MENU -->
+
+<!-- ════════════════════ CUSTOMER MENU ════════════════════ -->
 <div id="view-customer-menu" class="view">
   <header class="cm-hdr">
     <div class="cm-hdr-in">
-      <div class="flex ic g3"><img id="cm-logo" src="" class="cm-logo" alt=""><div><div id="cm-name" style="font-size:14px;font-weight:900;color:var(--t)"></div><div id="cm-tbl" style="font-size:10px;color:var(--p);font-weight:700"></div></div></div>
-      <select id="lang-sel" onchange="chgLang()" class="inp" style="width:auto;padding:7px 11px;font-size:11px"><option value="ku">کوردی</option><option value="ar">العربية</option><option value="en">English</option></select>
+      <div class="flex ic g3">
+        <img id="cm-logo" src="" class="cm-logo" alt="" onerror="this.style.display='none'">
+        <div>
+          <div id="cm-name" style="font-size:14px;font-weight:900;color:var(--t)"></div>
+          <div id="cm-tbl" style="font-size:10px;color:var(--p);font-weight:700"></div>
+        </div>
+      </div>
+      <select id="lang-sel" onchange="chgLang()" class="inp" style="width:auto;padding:7px 12px;font-size:11px">
+        <option value="ku">کوردی</option>
+        <option value="ar">العربية</option>
+        <option value="en">English</option>
+      </select>
     </div>
   </header>
   <div class="cm-inner" style="margin-top:13px">
@@ -568,15 +759,19 @@ select.sa-inp option{background:#0F172A}
     <input id="cm-srch" type="text" oninput="srchMenu()" class="inp" placeholder="🔍 گەڕان..." style="margin-bottom:2px">
     <div class="ccats ns" id="cm-cats"></div>
     <div id="cm-items"></div>
-    <a href="http://bytelineagency.vercel.app" target="_blank" style="display:block;text-align:center;font-size:10px;color:var(--tm);margin-top:16px;padding-bottom:120px;text-decoration:none;font-weight:600">⚡ پەرەپێدراوە لەلایەن <span style="color:var(--p)">bytelineagency.vercel.app</span></a>
+    <a href="https://bytelineagency.vercel.app" target="_blank" style="display:block;text-align:center;font-size:10px;color:var(--tm);margin-top:16px;padding-bottom:130px;text-decoration:none;font-weight:600">⚡ پەرەپێدراوە لەلایەن <span style="color:var(--p)">bytelineagency.vercel.app</span></a>
   </div>
   <div class="cart-bar hidden" id="crt-bar">
     <div class="cart-bar-in">
-      <div><div style="font-size:10px;color:var(--tm);font-weight:700" id="txt-tot">کۆیی گشتی</div><div style="font-size:18px;font-weight:900" id="crt-tot">0 د.ع</div></div>
+      <div>
+        <div style="font-size:10px;color:var(--tm);font-weight:700" id="txt-tot">کۆیی گشتی</div>
+        <div style="font-size:18px;font-weight:900" id="crt-tot">0 د.ع</div>
+      </div>
       <button onclick="openCartModal()" class="cart-cta"><span id="txt-vcrt">بینینی سەبەتە</span><span id="crt-bdg" class="cart-badge">0</span></button>
     </div>
   </div>
 </div>
+
 <!-- CART MODAL -->
 <div class="modal" id="crt-modal">
   <div class="mbox">
@@ -585,113 +780,120 @@ select.sa-inp option{background:#0F172A}
     <div class="hr"></div>
     <div class="flex jb ic" style="margin-bottom:14px"><span style="font-size:14px;font-weight:700">کۆیی گشتی:</span><span id="crt-modal-tot" style="font-size:20px;font-weight:900;color:var(--p)">0 د.ع</span></div>
     <div class="fg"><label class="lbl" id="lbl-note">تێبینی (ئارەزوومەند)</label><input id="order-note" class="inp" placeholder="بێ بیبەر..."></div>
-    <button onclick="submitOrder()" class="btn btn-p btn-fw btn-lg" style="background:linear-gradient(135deg,#2563EB,#7C3AED)"><span id="txt-sub">ناردنی داواکاری ⚡</span></button>
+    <button onclick="submitOrder()" class="btn btn-p btn-fw btn-lg" style="background:linear-gradient(135deg,#4F46E5,#7C3AED);font-size:13px;padding:15px"><span id="txt-sub">ناردنی داواکاری ⚡</span></button>
   </div>
 </div>
+
 <!-- EXPIRED -->
 <div id="view-expired" class="view">
   <div class="exp-card">
-    <div style="font-size:50px;margin-bottom:18px">⚠️</div>
+    <div style="font-size:52px;margin-bottom:18px">⚠️</div>
     <h2 style="font-size:21px;font-weight:900;margin-bottom:11px">پلانەکەت بەسەرچووە</h2>
     <p style="font-size:12px;color:var(--tm);line-height:1.9;margin-bottom:22px">بۆ بەردەوامبوونی کارکردنی مینیوی دیجیتاڵ پلانەکەت نوێ بکەرەوە.</p>
     <a href="https://wa.me/9647511742922" target="_blank" style="display:block;background:#22C55E;color:#fff;padding:15px;border-radius:var(--r2);font-weight:900;font-size:13px;text-decoration:none;margin-bottom:10px">💬 واتسئەپ — پەیوەندی بکە</a>
-    <a href="http://bytelineagency.vercel.app" target="_blank" style="display:block;background:var(--p);color:#fff;padding:13px;border-radius:var(--r2);font-weight:900;font-size:12px;text-decoration:none;margin-bottom:14px">🌐 bytelineagency.vercel.app</a>
-    <button onclick="sv('portal')" style="background:none;border:none;font-size:12px;color:var(--tm);cursor:pointer;font-family:inherit;font-weight:600">← گەڕانەوە</button>
+    <a href="https://bytelineagency.vercel.app" target="_blank" style="display:block;background:var(--p);color:#fff;padding:13px;border-radius:var(--r2);font-weight:900;font-size:12px;text-decoration:none;margin-bottom:14px">🌐 bytelineagency.vercel.app</a>
+    <button onclick="sv('portal')" style="background:none;border:none;font-size:12px;color:var(--tm);cursor:pointer;font-family:var(--font);font-weight:600">← گەڕانەوە</button>
   </div>
 </div>
 
 <script>
+'use strict';
 const DBK='bpv3';
 const API_URL="https://script.google.com/macros/s/AKfycbyob-p1pvd8wmeriD1xTVB5JngaGkndbNiyLYWXWF51w9l-BYQjOcHnN8_LJaXG0FyM-g/exec";
 let DB_CACHE=null;
 
-/* CLOUD */
+/* ── CLOUD DB ── */
 async function cloudFetch(){
-  try{const r=await fetch(API_URL);if(r.ok){const d=await r.json();if(d&&Object.keys(d).length){DB_CACHE=d;localStorage.setItem(DBK,JSON.stringify(d));return d;}}}catch(e){console.warn('cloud fail',e);}
+  try{
+    const r=await fetch(API_URL);
+    if(r.ok){const d=await r.json();if(d&&Object.keys(d).length){DB_CACHE=d;localStorage.setItem(DBK,JSON.stringify(d));return d;}}
+  }catch(e){console.warn('cloud fail',e);}
   return localFb();
 }
-function localFb(){try{DB_CACHE=JSON.parse(localStorage.getItem(DBK)||'null')||dflt();}catch(e){DB_CACHE=dflt();}return DB_CACHE;}
-async function cloudSave(db){DB_CACHE=db;localStorage.setItem(DBK,JSON.stringify(db));try{await fetch(API_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify({db})});}catch(e){}}
+function localFb(){
+  try{DB_CACHE=JSON.parse(localStorage.getItem(DBK)||'null')||{};}
+  catch(e){DB_CACHE={};}
+  return DB_CACHE;
+}
+async function cloudSave(db){
+  DB_CACHE=db;
+  localStorage.setItem(DBK,JSON.stringify(db));
+  try{await fetch(API_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify({db})});}
+  catch(e){console.warn('save fail',e);}
+}
 const dbAll=()=>{if(!DB_CACHE)localFb();return DB_CACHE;};
 const dbSave=d=>cloudSave(d);
-const dbGet=u=>dbAll()[u]||null;
+const dbGet=u=>(dbAll()[u]||null);
 const dbSet=(u,d)=>{const a=dbAll();a[u]=d;dbSave(a);return d;};
 const dbDel=u=>{const a=dbAll();delete a[u];dbSave(a);};
 
-/* DEFAULTS */
-function dflt(){
-  const exp=new Date(Date.now()+7*864e5).toISOString();
-  return{cafesky:{username:'cafesky',password:'123',name:'کافێ ئاسمانی',logo:'https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=200',theme_color:'#2563EB',bc_style:'classic',
-    categories:[{id:'ff',ku:'فاست فوود',ar:'وجبات سريعة',en:'Fast Food'},{id:'dr',ku:'خواردنەوە',ar:'مشروبات',en:'Drinks'}],
-    foods:[
-      {id:1001,title_ku:'بەرگری گۆشتی لۆکس',title_ar:'برجر لحم فاخر',title_en:'Luxury Beef Burger',desc_ku:'گۆشت، پەنیر، کاهو',desc_ar:'لحم، جبنة، خس',desc_en:'Meat, cheese, lettuce',price:8000,category:'ff',stock:50,barcode:'123',img:'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400'},
-      {id:1002,title_ku:'پیتزای مۆزارێلا',title_ar:'بيتزا موزاريللا',title_en:'Mozzarella Pizza',desc_ku:'پەنیر مۆزارێلا',desc_ar:'جبنة موزاريللا',desc_en:'Mozzarella cheese',price:12000,category:'ff',stock:30,barcode:'456',img:'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=400'},
-      {id:1003,title_ku:'امریکانۆ گەرم',title_ar:'أمريكانو ساخن',title_en:'Hot Americano',desc_ku:'قاوه ی امریکیکی',desc_ar:'قهوة أمريكية',desc_en:'Americano coffee',price:3000,category:'dr',stock:999,barcode:'789',img:'https://images.unsplash.com/photo-1510591509098-f4fdc6d0ff04?w=400'},
-      {id:1004,title_ku:'لاتیه',title_ar:'لاتيه',title_en:'Latte',desc_ku:'شیر و قاوە',desc_ar:'حليب وقهوة',desc_en:'Milk and espresso',price:4500,category:'dr',stock:99,barcode:'101',img:'https://images.unsplash.com/photo-1570968915860-54d5c301fa9f?w=400'}
-    ],
-    orders:[],expenses:[],qrcodes:['1','2','3'],plan:'demo',expiresAt:exp,tables_count:12,bill_requests:[]}};
-}
+/* ── FIX / NORMALIZE ── */
 function fix(m){
-  if(!m.categories)m.categories=[];if(!m.foods)m.foods=[];if(!m.orders)m.orders=[];
-  if(!m.expenses)m.expenses=[];if(!m.qrcodes)m.qrcodes=[];if(!m.bill_requests)m.bill_requests=[];
-  if(!m.tables_count)m.tables_count=12;if(!m.plan)m.plan='demo';
-  if(!m.expiresAt)m.expiresAt=new Date(Date.now()+7*864e5).toISOString();
-  if(!m.theme_color)m.theme_color='#2563EB';if(!m.bc_style)m.bc_style='classic';
+  if(!m)return null;
+  if(!m.categories)m.categories=[];
+  if(!m.foods)m.foods=[];
+  if(!m.orders)m.orders=[];
+  if(!m.expenses)m.expenses=[];
+  if(!m.qrcodes)m.qrcodes=[];
+  if(!m.bill_requests)m.bill_requests=[];
+  if(!m.tables_count)m.tables_count=12;
+  if(!m.plan)m.plan='1month';
+  if(!m.expiresAt)m.expiresAt=new Date(Date.now()+30*864e5).toISOString();
+  if(!m.theme_color)m.theme_color='#4F46E5';
+  if(!m.bc_style)m.bc_style='classic';
   return m;
 }
 
-/* STATE */
+/* ── STATE ── */
 let M=null,cMU=null,cTbl='1',cCart={},pCart={},clang='ku',pCat='all',cCat='all',syncT=null;
+let _lastOrderHash='';
 
-/* HELPERS */
+/* ── HELPERS ── */
 const g=id=>document.getElementById(id);
 const iq=n=>Number(n||0).toLocaleString()+' د.ع';
 const b64=f=>new Promise((r,j)=>{const rd=new FileReader();rd.readAsDataURL(f);rd.onload=()=>r(rd.result);rd.onerror=j;});
-const planD=p=>({demo:7,'1month':30,'3months':90,'6months':180,'1year':365}[p]||7);
-const planL=p=>({demo:'تاقیکاری','1month':'١ مانگ','3months':'٣ مانگ','6months':'٦ مانگ','1year':'ساڵانە'}[p]||p);
-const isExp=m=>new Date()>new Date(m.expiresAt);
-const dLeft=m=>Math.max(0,Math.ceil((new Date(m.expiresAt)-new Date())/864e5));
+const planD=p=>({demo:7,'1month':30,'3months':90,'6months':180,'1year':365,lifetime:36500}[p]||30);
+const planL=p=>({demo:'تاقیکاری','1month':'١ مانگ','3months':'٣ مانگ','6months':'٦ مانگ','1year':'ساڵانە',lifetime:'هەمیشەیی'}[p]||p);
+const isExp=m=>m.plan!=='lifetime'&&new Date()>new Date(m.expiresAt);
+const dLeft=m=>m.plan==='lifetime'?9999:Math.max(0,Math.ceil((new Date(m.expiresAt)-new Date())/864e5));
 
-/* VIEWS */
+/* ── VIEWS ── */
 function sv(id){
   document.querySelectorAll('.view').forEach(v=>v.style.display='none');
-  const el=g('view-' + id);if(!el)return;
-  const FLEX=['portal','customer-welcome','expired'];
-  if(FLEX.includes(id))el.style.display='flex';
-  else el.style.display='block';
+  const el=g('view-'+id);if(!el)return;
+  el.style.display=['portal','customer-welcome','expired'].includes(id)?'flex':'block';
 }
 
-/* THEME ENGINE */
+/* ── THEME ENGINE ── */
 const THEMES=[
-  {name:'شینی کلاسیک',color:'#2563EB'},{name:'بنەوشەی',color:'#7C3AED'},
-  {name:'سوور',color:'#EF4444'},{name:'کەوانی',color:'#059669'},
-  {name:'تیاری',color:'#0EA5E9'},{name:'پرتەقاڵی',color:'#F59E0B'},
-  {name:'چوار کاچکە',color:'#8B5CF6'},{name:'گوڵناری',color:'#BE185D'},
+  {name:'إنديغو',color:'#4F46E5'},{name:'بنەوشەی',color:'#7C3AED'},
+  {name:'ئاسمانی',color:'#0EA5E9'},{name:'زەیتوونی',color:'#059669'},
+  {name:'شینی کلاسیک',color:'#2563EB'},{name:'پرتەقاڵی',color:'#F59E0B'},
+  {name:'سوور',color:'#EF4444'},{name:'گوڵناری',color:'#BE185D'},
   {name:'قاوەیی',color:'#92400E'},{name:'نووی',color:'#065F46'},
 ];
 const BC_STYLES=[
-  {id:'classic',name:'کلاسیک',ico:'▨▨▨▨▨'},{id:'modern',name:'مۆدێرن',ico:'▧▧▧▧▧'},
-  {id:'elegant',name:'ئێستێتیک',ico:'▩▨▩▨▩'},{id:'minimal',name:'مینیمال',ico:'— · —'},
+  {id:'classic',name:'کلاسیک',ico:'🎨'},{id:'modern',name:'مۆدێرن',ico:'🌙'},
+  {id:'elegant',name:'ئێستێتیک',ico:'✨'},{id:'minimal',name:'مینیمال',ico:'⬜'},
 ];
 
 function h2r(hex){const n=parseInt(hex.replace('#',''),16);return[(n>>16)&255,(n>>8)&255,n&255];}
-function r2h(r,g2,b){return '#'+[r,g2,b].map(x=>x.toString(16).padStart(2,'0')).join('');}
-function darken(hex,a){const[r,g2,b]=h2r(hex);return r2h(Math.max(0,r-a),Math.max(0,g2-a),Math.max(0,b-a));}
-function lighten(hex,p){const[r,g2,b]=h2r(hex);const m=c=>Math.round(c+(255-c)*p/100);return r2h(m(r),m(g2),m(b));}
+function r2h(r,gv,b){return '#'+[r,gv,b].map(x=>Math.max(0,Math.min(255,x)).toString(16).padStart(2,'0')).join('');}
+function darken(hex,a){const[r,gv,b]=h2r(hex);return r2h(r-a,gv-a,b-a);}
+function lighten(hex,p){const[r,gv,b]=h2r(hex);const m=c=>Math.round(c+(255-c)*p/100);return r2h(m(r),m(gv),m(b));}
 
 function applyTheme(color){
-  if(!color||!/^#[0-9A-Fa-f]{6}$/.test(color))color='#2563EB';
+  if(!color||!/^#[0-9A-Fa-f]{6}$/.test(color))color='#4F46E5';
   const root=document.documentElement;
   root.style.setProperty('--p',color);
   root.style.setProperty('--pd',darken(color,22));
   root.style.setProperty('--pl',lighten(color,92));
-  root.style.setProperty('--p2',lighten(color,82));
+  root.style.setProperty('--p2',lighten(color,76));
   document.querySelectorAll('.tswatch').forEach(s=>s.classList.toggle('on',s.dataset.color===color));
 }
 function pickTheme(color){
   applyTheme(color);
   if(M){M.theme_color=color;const m=dbGet(M.username);if(m){m.theme_color=color;dbSet(M.username,m);}}
-  document.querySelectorAll('.tswatch').forEach(s=>s.classList.toggle('on',s.dataset.color===color));
   toast('✅ ڕەنگ گۆڕدرا','');
 }
 function applyCustomColor(){
@@ -701,7 +903,7 @@ function applyCustomColor(){
 }
 function rThemeSwatches(){
   const el=g('theme-swatches');if(!el)return;
-  const cur=M?.theme_color||'#2563EB';
+  const cur=M?.theme_color||'#4F46E5';
   el.innerHTML=THEMES.map(t=>`<div class="tswatch${t.color===cur?' on':''}" data-color="${t.color}" title="${t.name}" style="background:${t.color}" onclick="pickTheme('${t.color}')"></div>`).join('');
   if(g('custom-clr'))g('custom-clr').value=cur;
 }
@@ -713,148 +915,286 @@ function pickBCStyle(id){
 function rBCStyles(){
   const el=g('bc-styles');if(!el)return;
   const cur=M?.bc_style||'classic';
-  el.innerHTML=BC_STYLES.map(s=>`<div class="bcstyle${s.id===cur?' on':''}" data-id="${s.id}" onclick="pickBCStyle('${s.id}')"><div style="font-size:18px;margin-bottom:4px">${s.ico}</div><div class="bcstyle-name">${s.name}</div></div>`).join('');
+  el.innerHTML=BC_STYLES.map(s=>`<div class="bcstyle${s.id===cur?' on':''}" data-id="${s.id}" onclick="pickBCStyle('${s.id}')"><div style="font-size:22px;margin-bottom:4px">${s.ico}</div><div class="bcstyle-name">${s.name}</div></div>`).join('');
 }
 
-/* TOAST */
-function toast(title,msg,type){
-  const c=g('toasts');const t=document.createElement('div');
-  t.className='toast'+(type==='err'?' err':type==='wrn'?' wrn':type==='inf'?' inf':'');
+/* ── TOAST ── */
+function toast(title,msg,type=''){
+  const c=g('toasts');if(!c)return;
+  const t=document.createElement('div');
+  t.className='toast'+(type?' '+type:'');
   t.innerHTML=`<div class="tt">${title}</div>${msg?`<div class="ts">${msg}</div>`:''}`;
   c.appendChild(t);
-  setTimeout(()=>{t.style.animation='tOut .28s ease forwards';setTimeout(()=>t.remove(),280);},3500);
+  setTimeout(()=>{t.style.animation='tOut .25s ease forwards';setTimeout(()=>t.remove(),250);},3200);
 }
 
-/* LOGIN */
+/* ── LOGIN ── */
 function doLogin(){
   const u=(g('pu')?.value||'').trim().toLowerCase();
   const p=(g('pp')?.value||'').trim();
   if(!u||!p){toast('هەڵە','خانەکان بەتاڵن','err');return;}
   if(u==='admin@byteline.com'&&p==='admin99'){sv('super-admin');renderSA();toast('بەخێرهاتی','Super Admin');return;}
   const m=dbGet(u);
-  if(m&&m.password===p){
-    if(isExp(m)){sv('expired');return;}
-    M=fix(m);openPanel();toast('✅ سەرکەوتوو بوو','بەخێربێی بۆ '+m.name);
-  }else{toast('هەڵە','ناوی بەکارهێنەر یاخود پاسۆرد هەڵەیە','err');}
+  if(!m||m.password!==p){toast('هەڵە','ناوی بەکارهێنەر یاخود پاسۆرد هەڵەیە','err');return;}
+  if(isExp(m)){sv('expired');return;}
+  M=fix(JSON.parse(JSON.stringify(m)));
+  openPanel();
+  toast('✅ سەرکەوتوو بوو','بەخێربێی بۆ '+m.name);
 }
-function doLogout(){clearInterval(syncT);M=null;pCart={};cCart={};sv('portal');if(g('pu'))g('pu').value='';if(g('pp'))g('pp').value='';}
+function doLogout(){
+  clearInterval(syncT);syncT=null;
+  M=null;pCart={};cCart={};cMU=null;_lastOrderHash='';
+  sv('portal');
+  if(g('pu'))g('pu').value='';
+  if(g('pp'))g('pp').value='';
+}
 document.addEventListener('keydown',e=>{
-  if(e.key==='Enter'){const por=g('view-portal');if(por&&por.style.display!=='none')doLogin();}
   if(e.key==='Escape')closeCartModal();
 });
 
-/* SUPER ADMIN */
+/* ── SUPER ADMIN ── */
 async function createMerchant(){
-  const name=(g('sa-name')?.value||'').trim(),user=(g('sa-user')?.value||'').trim().toLowerCase(),pass=(g('sa-pass')?.value||'').trim(),plan=g('sa-plan')?.value||'demo';
+  const name=(g('sa-name')?.value||'').trim();
+  const user=(g('sa-user')?.value||'').trim().toLowerCase();
+  const pass=(g('sa-pass')?.value||'').trim();
+  const plan=g('sa-plan')?.value||'1month';
   if(!name||!user||!pass){toast('هەڵە','خانەکان بەتاڵن','err');return;}
   if(dbGet(user)){toast('هەڵە','ئەم بەکارهێنەرە پێشتر تۆمارکراوە','err');return;}
-  const lf=g('sa-logo')?.files[0];let logo='https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=200';
+  const lf=g('sa-logo')?.files[0];
+  let logo='https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=200';
   if(lf)try{logo=await b64(lf)}catch(e){}
-  dbSet(user,fix({username:user,password:pass,name,logo,categories:[{id:'ff',ku:'فاست فوود',ar:'وجبات سريعة',en:'Fast Food'},{id:'dr',ku:'خواردنەوە',ar:'مشروبات',en:'Drinks'}],plan,expiresAt:new Date(Date.now()+planD(plan)*864e5).toISOString()}));
-  renderSA();toast('✅ ئەکاونتی نوێ دروستکرا',name);
+  const newM=fix({
+    username:user,password:pass,name,logo,
+    categories:[
+      {id:'ff',ku:'فاست فوود',ar:'وجبات سريعة',en:'Fast Food'},
+      {id:'dr',ku:'خواردنەوە',ar:'مشروبات',en:'Drinks'}
+    ],
+    plan,
+    expiresAt:new Date(Date.now()+planD(plan)*864e5).toISOString()
+  });
+  dbSet(user,newM);
+  renderSA();
+  toast('✅ ئەکاونتی نوێ دروستکرا',name);
   ['sa-name','sa-user','sa-pass'].forEach(id=>{if(g(id))g(id).value='';});
 }
-function saRefresh(){cloudFetch().then(()=>{renderSA();if(g('sa-sync'))g('sa-sync').textContent='✓ '+new Date().toLocaleTimeString('ar');});}
+function saRefresh(){
+  cloudFetch().then(()=>{
+    renderSA();
+    if(g('sa-sync'))g('sa-sync').textContent='✓ '+new Date().toLocaleTimeString('ar');
+  });
+}
 function renderSA(){
   const tb=g('sa-list');if(!tb)return;
-  const all=dbAll();const list=Object.values(all);tb.innerHTML='';
+  const all=dbAll();const list=Object.values(all).filter(m=>m&&m.username);
+  tb.innerHTML='';
   list.forEach(m=>{
-    const ex=isExp(m),dl=dLeft(m);const tr=document.createElement('tr');
-    tr.innerHTML=`<td><div style="display:flex;align-items:center;gap:8px"><img src="${m.logo||''}" style="width:30px;height:30px;border-radius:7px;object-fit:cover;background:#1E293B;flex-shrink:0" onerror="this.style.display='none'"><span style="font-weight:700;color:#fff">${m.name}</span></div></td>
-      <td style="font-family:monospace;color:#93C5FD">${m.username}</td>
-      <td><div class="pw-wrap"><span class="pw-val" id="pw-${m.username}">${'•'.repeat(Math.max(m.password.length,4))}</span><button class="eye" onclick="togglePW('${m.username}','${m.password}')">👁</button><button class="eye" onclick="copyTxt('${m.password}')">📋</button></div></td>
-      <td><span style="background:rgba(37,99,235,.18);color:#93C5FD;padding:3px 8px;border-radius:99px;font-size:10px;font-weight:700">${planL(m.plan)}</span></td>
-      <td style="font-size:11px;color:${ex?'#F87171':'rgba(255,255,255,.4)'}">${new Date(m.expiresAt).toLocaleDateString('ar')}${ex?' <span style="color:#F87171;font-weight:700">⚠️</span>':`<span style="color:#4ADE80;font-size:10px"> (${dl}ڕێژ)</span>`}</td>
-      <td>${ex?'<span style="background:rgba(239,68,68,.15);color:#F87171;padding:3px 9px;border-radius:99px;font-size:10px;font-weight:700">بەسەرچووە</span>':'<span style="background:rgba(34,197,94,.15);color:#4ADE80;padding:3px 9px;border-radius:99px;font-size:10px;font-weight:700">● چالاک</span>'}</td>
-      <td><div style="display:flex;gap:5px"><button onclick="renewM('${m.username}')" class="sabtn renew">نوێ</button><button onclick="editPW('${m.username}')" class="sabtn edit2">پاسۆرد</button><button onclick="delM('${m.username}')" class="sabtn del">سڕ</button></div></td>`;
+    const ex=isExp(m);const dl=dLeft(m);
+    const tr=document.createElement('tr');
+    tr.innerHTML=`<td><div style="display:flex;align-items:center;gap:8px">
+      <img src="${m.logo||''}" style="width:30px;height:30px;border-radius:7px;object-fit:cover;background:#1E293B;flex-shrink:0" onerror="this.style.display='none'">
+      <span style="font-weight:700;color:#fff">${m.name||''}</span></div></td>
+      <td style="font-family:monospace;color:#93C5FD">${m.username||''}</td>
+      <td><div class="pw-wrap"><span class="pw-val" id="pw-${m.username}">${'•'.repeat(Math.max((m.password||'').length,4))}</span>
+        <button class="eye" onclick="togglePW('${m.username}','${(m.password||'').replace(/'/g,"\\'")}')">👁</button>
+        <button class="eye" onclick="copyTxt('${(m.password||'').replace(/'/g,"\\'")}')">📋</button></div></td>
+      <td><span style="background:rgba(79,70,229,.18);color:#93C5FD;padding:3px 8px;border-radius:99px;font-size:10px;font-weight:700">${planL(m.plan)}</span></td>
+      <td style="font-size:11px;color:${ex?'#F87171':'rgba(255,255,255,.38)'}">
+        ${m.plan==='lifetime'?'<span style="color:#4ADE80;font-size:10px">هەمیشەیی ♾️</span>':
+          new Date(m.expiresAt).toLocaleDateString('ar')+(ex?' <span style="color:#F87171;font-weight:700">⚠️</span>':`<span style="color:#4ADE80;font-size:10px"> (${dl} ڕۆژ)</span>`)}</td>
+      <td>${ex?'<span style="background:rgba(239,68,68,.15);color:#F87171;padding:3px 9px;border-radius:99px;font-size:10px;font-weight:700">بەسەرچووە</span>':'<span style="background:rgba(16,185,129,.15);color:#4ADE80;padding:3px 9px;border-radius:99px;font-size:10px;font-weight:700">● چالاک</span>'}</td>
+      <td><div style="display:flex;gap:5px">
+        <button onclick="renewM('${m.username}')" class="sabtn renew">نوێ</button>
+        <button onclick="editPW('${m.username}')" class="sabtn edit2">پاسۆرد</button>
+        <button onclick="delM('${m.username}')" class="sabtn del">سڕ</button>
+      </div></td>`;
     tb.appendChild(tr);
   });
   const sr=g('sa-stats');if(!sr)return;
   const tot=list.length,act=list.filter(m=>!isExp(m)).length,exp=list.filter(m=>isExp(m)).length;
-  sr.innerHTML=[{ico:'👥',lbl:'کۆیی ئەکاونتەکان',val:tot,clr:'#A5B4FC'},{ico:'✅',lbl:'چالاک',val:act,clr:'#4ADE80'},{ico:'⚠️',lbl:'بەسەرچووە',val:exp,clr:'#F87171'},{ico:'🍔',lbl:'کۆیی بابەتەکان',val:list.reduce((s,m)=>(m.foods||[]).length+s,0),clr:'#FBBF24'},{ico:'📋',lbl:'کۆیی داواکارییەکان',val:list.reduce((s,m)=>(m.orders||[]).length+s,0),clr:'#67E8F9'}]
-  .map(s=>`<div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:18px;display:flex;align-items:center;gap:11px"><div style="font-size:22px">${s.ico}</div><div><div style="font-size:10px;color:rgba(255,255,255,.3);font-weight:700">${s.lbl}</div><div style="font-size:22px;font-weight:900;color:${s.clr}">${s.val}</div></div></div>`).join('');
+  sr.innerHTML=[
+    {ico:'👥',lbl:'کۆیی ئەکاونتەکان',val:tot,clr:'#A5B4FC'},
+    {ico:'✅',lbl:'چالاک',val:act,clr:'#4ADE80'},
+    {ico:'⚠️',lbl:'بەسەرچووە',val:exp,clr:'#F87171'},
+    {ico:'🍔',lbl:'کۆیی بابەتەکان',val:list.reduce((s,m)=>(m.foods||[]).length+s,0),clr:'#FBBF24'},
+    {ico:'📋',lbl:'کۆیی داواکارییەکان',val:list.reduce((s,m)=>(m.orders||[]).length+s,0),clr:'#67E8F9'},
+  ].map(s=>`<div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:16px;padding:18px;display:flex;align-items:center;gap:11px"><div style="font-size:22px">${s.ico}</div><div><div style="font-size:10px;color:rgba(255,255,255,.28);font-weight:700">${s.lbl}</div><div style="font-size:22px;font-weight:900;color:${s.clr}">${s.val}</div></div></div>`).join('');
 }
-function togglePW(user,pw){const el=g('pw-'+user);if(!el)return;if(el.classList.contains('vis')){el.textContent='•'.repeat(Math.max(pw.length,4));el.classList.remove('vis');}else{el.textContent=pw;el.classList.add('vis');}}
-function copyTxt(txt){navigator.clipboard?.writeText(txt).then(()=>toast('کۆپیکرا ✅',txt,'inf')).catch(()=>{const ta=document.createElement('textarea');ta.value=txt;document.body.appendChild(ta);ta.select();document.execCommand('copy');ta.remove();toast('کۆپیکرا ✅',txt,'inf');});}
-function delM(u){if(!confirm('دڵنیایی لە سڕینەوەی "'+u+'"؟'))return;dbDel(u);renderSA();toast('سڕدرایەوە',u);}
-function renewM(u){const p=prompt('پلانی نوێ:\ndemo/1month/3months/6months/1year','1month');if(!p)return;const m=dbGet(u);if(!m)return;m.plan=p;m.expiresAt=new Date(Date.now()+planD(p)*864e5).toISOString();dbSet(u,m);renderSA();toast('✅ نوێکرایەوە',planL(p));}
-function editPW(u){const m=dbGet(u);if(!m)return;const np=prompt('پاسۆردی نوێ بۆ '+m.name+':',m.password);if(np===null)return;if(!np.trim()){toast('هەڵە','پاسۆرد بەتاڵ نابێت','err');return;}m.password=np.trim();dbSet(u,m);renderSA();toast('✅ پاسۆرد گۆڕدرا',u);}
+function togglePW(user,pw){
+  const el=g('pw-'+user);if(!el)return;
+  if(el.classList.contains('vis')){el.textContent='•'.repeat(Math.max(pw.length,4));el.classList.remove('vis');}
+  else{el.textContent=pw;el.classList.add('vis');}
+}
+function copyTxt(txt){
+  try{
+    navigator.clipboard.writeText(txt).then(()=>toast('کۆپیکرا ✅','','inf'));
+  }catch(e){
+    const ta=document.createElement('textarea');ta.value=txt;ta.style.cssText='position:fixed;opacity:0';
+    document.body.appendChild(ta);ta.select();
+    try{document.execCommand('copy');toast('کۆپیکرا ✅','','inf');}catch(e2){}
+    ta.remove();
+  }
+}
+function delM(u){
+  if(!confirm('دڵنیایی لە سڕینەوەی "'+u+'"؟'))return;
+  dbDel(u);renderSA();toast('سڕدرایەوە',u);
+}
+function renewM(u){
+  const p=prompt('پلانی نوێ:\n1month / 3months / 6months / 1year / lifetime','1month');
+  if(!p)return;
+  const m=dbGet(u);if(!m)return;
+  m.plan=p;
+  m.expiresAt=p==='lifetime'?new Date(Date.now()+36500*864e5).toISOString():new Date(Date.now()+planD(p)*864e5).toISOString();
+  dbSet(u,m);renderSA();toast('✅ نوێکرایەوە',planL(p));
+}
+function editPW(u){
+  const m=dbGet(u);if(!m)return;
+  const np=prompt('پاسۆردی نوێ بۆ '+m.name+':',m.password);
+  if(np===null)return;
+  if(!np.trim()){toast('هەڵە','پاسۆرد بەتاڵ نابێت','err');return;}
+  m.password=np.trim();dbSet(u,m);renderSA();toast('✅ پاسۆرد گۆڕدرا',u);
+}
 
-/* PANEL */
+/* ── MERCHANT PANEL OPEN ── */
 function openPanel(){
   sv('merchant-panel');
-  if(g('m-logo'))g('m-logo').src=M.logo||'';if(g('m-name'))g('m-name').textContent=M.name;
+  if(g('m-logo')){g('m-logo').src=M.logo||'';g('m-logo').style.display=M.logo?'block':'none';}
+  if(g('m-name'))g('m-name').textContent=M.name;
   if(g('tbl-cnt'))g('tbl-cnt').value=M.tables_count;
-  applyTheme(M.theme_color||'#2563EB');
+  applyTheme(M.theme_color||'#4F46E5');
   rPOSMenu();rPOSTbls();rOrders();rFoods();rTables();rQRs();rAnalytics();rCatDrop();
-  goTab('grid');startSync();
+  goTab('grid');
+  startSync();
 }
 function goHome(){goTab('grid');}
 function goTab(t){
   document.querySelectorAll('.msec').forEach(s=>{s.style.display='none';s.classList.remove('on');});
   const s=g('s-'+t);if(s){s.style.display='block';s.classList.add('on');}
   if(t==='settings'){rThemeSwatches();rBCStyles();initSettings();}
+  if(t==='analytics')rAnalytics();
+  if(t==='live')rOrders();
+  if(t==='tables')rTables();
 }
 function initSettings(){
   if(g('set-name'))g('set-name').value=M.name||'';
   if(g('set-logo-prev')){g('set-logo-prev').src=M.logo||'';g('set-logo-prev').style.display=M.logo?'block':'none';}
   if(g('set-tbl'))g('set-tbl').value=M.tables_count||12;
-  if(g('custom-clr'))g('custom-clr').value=M.theme_color||'#2563EB';
+  if(g('custom-clr'))g('custom-clr').value=M.theme_color||'#4F46E5';
 }
-function prevLogo(inp){if(!inp.files[0])return;b64(inp.files[0]).then(d=>{if(g('set-logo-prev')){g('set-logo-prev').src=d;g('set-logo-prev').style.display='block';}});}
-function setBL(n){const b=g('bdg-live');if(b){b.textContent=n;b.classList.toggle('on',n>0);};}
-function setBT(n){const b=g('bdg-tbl');if(b){b.textContent=n;b.classList.toggle('on',n>0);};}
+function prevLogo(inp){
+  if(!inp.files[0])return;
+  b64(inp.files[0]).then(d=>{
+    if(g('set-logo-prev')){g('set-logo-prev').src=d;g('set-logo-prev').style.display='block';}
+  });
+}
+function setBL(n){const b=g('bdg-live');if(b){b.textContent=n;b.classList.toggle('on',n>0);}}
+function setBT(n){const b=g('bdg-tbl');if(b){b.textContent=n;b.classList.toggle('on',n>0);}}
+
+/* ── SYNC ── */
 function startSync(){
-  clearInterval(syncT);let lh='';
+  clearInterval(syncT);
+  _lastOrderHash='';
   syncT=setInterval(async()=>{
-    const db=await cloudFetch();const fr=db[M.username];if(!fr)return;
-    const h=JSON.stringify(fr.orders)+JSON.stringify(fr.bill_requests);if(h===lh)return;
-    const po=M.orders.length,pb=(M.bill_requests||[]).length;
-    if(fr.orders.length>po){toast('🔔 داواکاری نوێ!','داواکاری تازە گەیشت');notifBeep();setBL(fr.orders.filter(o=>o.status==='pending').length);}
-    if((fr.bill_requests||[]).length>pb){toast('🔔 داوای حیساب!','مێزێک داوای حسابی کردووە','wrn');notifBeep();}
-    M=fix(fr);lh=h;rOrders();rTables();rAnalytics();
+    if(!M)return;
+    const db=await cloudFetch();
+    const fr=db[M.username];if(!fr)return;
+    const h=JSON.stringify(fr.orders)+JSON.stringify(fr.bill_requests);
+    if(h===_lastOrderHash)return;
+    const poPending=(M.orders||[]).filter(o=>o.status==='pending').length;
+    const poBill=(M.bill_requests||[]).length;
+    const newPending=(fr.orders||[]).filter(o=>o.status==='pending').length;
+    const newBill=(fr.bill_requests||[]).length;
+    if(newPending>poPending){toast('🔔 داواکاری نوێ!','داواکاری تازە گەیشت');notifBeep();}
+    if(newBill>poBill){toast('🔔 داوای حیساب!','مێزێک داوای حسابی کردووە','wrn');notifBeep();}
+    M=fix(JSON.parse(JSON.stringify(fr)));
+    _lastOrderHash=h;
+    rOrders();rTables();
+    setBL((M.orders||[]).filter(o=>o.status==='pending').length);
+    setBT((M.bill_requests||[]).length);
   },8000);
 }
 
-/* AUDIO */
-function notifBeep(){try{const ctx=new(window.AudioContext||window.webkitAudioContext)();[[880,.0],[1100,.15],[1320,.3]].forEach(([f,d])=>{const o=ctx.createOscillator(),gn=ctx.createGain();o.connect(gn);gn.connect(ctx.destination);o.frequency.value=f;o.type='sine';gn.gain.setValueAtTime(.28,ctx.currentTime+d);gn.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+d+.25);o.start(ctx.currentTime+d);o.stop(ctx.currentTime+d+.25);});}catch(e){}}
-function bcBeep(){try{const ctx=new(window.AudioContext||window.webkitAudioContext)();const o=ctx.createOscillator(),gn=ctx.createGain();o.connect(gn);gn.connect(ctx.destination);o.frequency.value=1800;o.type='square';gn.gain.setValueAtTime(.18,ctx.currentTime);gn.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+.08);o.start();o.stop(ctx.currentTime+.08);}catch(e){}}
+/* ── AUDIO ── */
+function notifBeep(){
+  try{
+    const ctx=new(window.AudioContext||window.webkitAudioContext)();
+    [[880,.0],[1100,.15],[1320,.3]].forEach(([f,d])=>{
+      const o=ctx.createOscillator(),gn=ctx.createGain();
+      o.connect(gn);gn.connect(ctx.destination);
+      o.frequency.value=f;o.type='sine';
+      gn.gain.setValueAtTime(.25,ctx.currentTime+d);
+      gn.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+d+.22);
+      o.start(ctx.currentTime+d);o.stop(ctx.currentTime+d+.25);
+    });
+  }catch(e){}
+}
+function bcBeep(){
+  try{
+    const ctx=new(window.AudioContext||window.webkitAudioContext)();
+    const o=ctx.createOscillator(),gn=ctx.createGain();
+    o.connect(gn);gn.connect(ctx.destination);
+    o.frequency.value=1760;o.type='square';
+    gn.gain.setValueAtTime(.15,ctx.currentTime);
+    gn.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+.07);
+    o.start();o.stop(ctx.currentTime+.07);
+  }catch(e){}
+}
 
-/* POS */
+/* ── POS ── */
 function rPOSMenu(){
   const cc=g('pos-cats');if(!cc)return;
   cc.innerHTML='<button class="cbt'+(pCat==='all'?' on':'')+'" onclick="fPOS(\'all\')">هەموو</button>';
-  (M.categories||[]).forEach(c=>{cc.innerHTML+='<button class="cbt'+(pCat===c.id?' on':'')+'" onclick="fPOS(\''+c.id+'\')">'+c.ku+'</button>';});
-  rPFoods(pCat==='all'?M.foods:(M.foods||[]).filter(f=>f.category===pCat));
+  (M.categories||[]).forEach(c=>{
+    cc.innerHTML+='<button class="cbt'+(pCat===c.id?' on':'')+'" onclick="fPOS(\''+c.id+'\')">'+c.ku+'</button>';
+  });
+  const foods=pCat==='all'?M.foods:(M.foods||[]).filter(f=>f.category===pCat);
+  rPFoods(foods);
 }
 function rPFoods(foods){
-  const gd=g('pos-foods');if(!grid)return;gd.innerHTML='';
+  // FIX: was using undefined 'grid' variable instead of 'gd'
+  const gd=g('pos-foods');if(!gd)return;
+  gd.innerHTML='';
   (foods||[]).forEach(food=>{
     const oos=food.stock!==undefined&&food.stock<=0;
-    const d=document.createElement('div');d.className='ftile'+(oos?' oos':'');
+    const d=document.createElement('div');
+    d.className='ftile'+(oos?' oos':'');
     if(!oos)d.onclick=()=>addPOS(food.id);
     d.innerHTML=(oos?'<div class="oosb">نەماوە</div>':'')+
-      '<img src="'+food.img+'" onerror="this.src=\'https://via.placeholder.com/132x80/F1F5F9/94A3B8?text=Food\'" loading="lazy">'+
-      '<div class="fn">'+food.title_ku+'</div><div class="fp">'+iq(food.price)+'</div>'+
-      '<div class="fst">کۆگا: '+(food.stock!==undefined?food.stock:'∞')+'</div>';
+      `<img src="${food.img||''}" onerror="this.src='https://placehold.co/136x82/F1F5F9/94A3B8?text=Food'" loading="lazy">`+
+      `<div class="fn">${food.title_ku}</div><div class="fp">${iq(food.price)}</div>`+
+      `<div class="fst">کۆگا: ${food.stock!==undefined?food.stock:'∞'}</div>`;
     gd.appendChild(d);
   });
 }
 function fPOS(c){pCat=c;rPOSMenu();}
-function rPOSTbls(){const s=g('pos-tbl');if(!s)return;s.innerHTML='';for(let i=1;i<=(M.tables_count||12);i++)s.innerHTML+='<option value="'+i+'">مێزی '+i+'</option>';}
-function addPOS(id){const f=(M.foods||[]).find(f=>f.id===id);if(!f)return;if(pCart[id])pCart[id].qty++;else pCart[id]={...f,qty:1};updCart();}
-function chgPQ(id,d){if(!pCart[id])return;pCart[id].qty+=d;if(pCart[id].qty<=0)delete pCart[id];updCart();}
+function rPOSTbls(){
+  const s=g('pos-tbl');if(!s)return;
+  s.innerHTML='';
+  for(let i=1;i<=(M.tables_count||12);i++)s.innerHTML+='<option value="'+i+'">مێزی '+i+'</option>';
+}
+function addPOS(id){
+  const f=(M.foods||[]).find(f=>f.id===id);if(!f)return;
+  if(pCart[id])pCart[id].qty++;
+  else pCart[id]={...f,qty:1};
+  updCart();
+}
+function chgPQ(id,d){
+  if(!pCart[id])return;
+  pCart[id].qty+=d;
+  if(pCart[id].qty<=0)delete pCart[id];
+  updCart();
+}
 function clearCart(){pCart={};updCart();}
 function updCart(){
   const c=g('pos-cart');if(!c)return;
   const items=Object.values(pCart);
-  if(!items.length){c.innerHTML='<div class="cart-empty"><div style="font-size:36px;margin-bottom:10px">🛒</div><div style="font-size:12px;font-weight:700">سەبەتە بەتاڵە</div><div style="font-size:10px;color:var(--tm);margin-top:3px">بابەتێک هەڵبژێرە</div></div>';}
-  else{
+  if(!items.length){
+    c.innerHTML='<div class="cart-empty"><div style="font-size:38px;margin-bottom:11px">🛒</div><div style="font-size:12px;font-weight:700;color:var(--t)">سەبەتە بەتاڵە</div><div style="font-size:10px;color:var(--tm);margin-top:4px">بابەتێک هەڵبژێرە</div></div>';
+  }else{
     c.innerHTML='';
     items.forEach(it=>{
       const d=document.createElement('div');d.className='ci';
-      d.innerHTML='<div style="flex:1;min-width:0"><div class="ci-n">'+it.title_ku+'</div><div class="ci-p">'+iq(it.price)+'</div></div>'+
-        '<div class="qc"><button class="qb" onclick="chgPQ('+it.id+',-1)">-</button><span class="qn">'+it.qty+'</span><button class="qb" onclick="chgPQ('+it.id+',1)">+</button></div>';
+      d.innerHTML=`<div style="flex:1;min-width:0"><div class="ci-n">${it.title_ku}</div><div class="ci-p">${iq(it.price)}</div></div>`+
+        `<div class="qc"><button class="qb" onclick="chgPQ(${it.id},-1)">−</button><span class="qn">${it.qty}</span><button class="qb" onclick="chgPQ(${it.id},1)">+</button></div>`;
       c.appendChild(d);
     });
   }
@@ -865,80 +1205,146 @@ function updCart(){
 }
 function onBC(e){
   if(e.key!=='Enter')return;
-  const bc=(g('bc-inp')?.value||'').trim();if(g('bc-inp'))g('bc-inp').value='';if(!bc)return;
-  const f=(M.foods||[]).find(f=>f.barcode===bc||(f.title_ku&&f.title_ku.toLowerCase().includes(bc.toLowerCase())));
-  if(f){addPOS(f.id);bcBeep();toast('✅ '+f.title_ku,'زیادکرا');}else toast('هەڵە','بارکۆدەکە نەدۆزرایەوە','err');
+  const bc=(g('bc-inp')?.value||'').trim();
+  if(g('bc-inp'))g('bc-inp').value='';
+  if(!bc)return;
+  const f=(M.foods||[]).find(f=>
+    f.barcode===bc||(f.title_ku&&f.title_ku.toLowerCase().includes(bc.toLowerCase()))
+  );
+  if(f){addPOS(f.id);bcBeep();toast('✅ '+f.title_ku,'زیادکرا');}
+  else toast('هەڵە','بارکۆدەکە نەدۆزرایەوە','err');
 }
 async function checkout(method){
-  const items=Object.values(pCart);if(!items.length){toast('هەڵە','سەبەتە بەتاڵە','err');return;}
+  const items=Object.values(pCart);
+  if(!items.length){toast('هەڵە','سەبەتە بەتاڵە','err');return;}
   const tbl=g('pos-tbl')?.value||'1';
   const disc=Math.max(0,parseInt(g('pos-disc')?.value)||0);
-  const sub=items.reduce((s,i)=>s+i.price*i.qty,0);const tot=Math.max(0,sub-disc);
-  const m=dbGet(M.username);
-  const order={id:Date.now(),table:tbl,items:items.map(i=>({id:i.id,title:i.title_ku,qty:i.qty,price:i.price})),total:tot,discount:disc,method,status:'pending',source:'pos',time:new Date().toISOString()};
+  const sub=items.reduce((s,i)=>s+i.price*i.qty,0);
+  const tot=Math.max(0,sub-disc);
+  const m=dbGet(M.username);if(!m)return;
+  const order={
+    id:Date.now(),table:tbl,
+    items:items.map(i=>({id:i.id,title:i.title_ku,qty:i.qty,price:i.price})),
+    total:tot,discount:disc,method,status:'pending',source:'pos',
+    time:new Date().toISOString()
+  };
+  if(!m.orders)m.orders=[];
   m.orders.push(order);
-  items.forEach(ci=>{const fi=(m.foods||[]).findIndex(f=>f.id===ci.id);if(fi>-1&&m.foods[fi].stock!==undefined)m.foods[fi].stock=Math.max(0,m.foods[fi].stock-ci.qty);});
-  dbSet(M.username,m);M=fix(m);
-  clearCart();if(g('pos-disc'))g('pos-disc').value=0;
+  // Update stock
+  items.forEach(ci=>{
+    const fi=(m.foods||[]).findIndex(f=>f.id===ci.id);
+    if(fi>-1&&m.foods[fi].stock!==undefined)
+      m.foods[fi].stock=Math.max(0,m.foods[fi].stock-ci.qty);
+  });
+  dbSet(M.username,m);
+  M=fix(JSON.parse(JSON.stringify(m)));
+  clearCart();
+  if(g('pos-disc'))g('pos-disc').value=0;
   rOrders();rTables();rPOSMenu();rFoods();rAnalytics();
-  const methodText=method==='cash'?'شێوازی پارەدان نەختینە 💵':'شێوازی پارەدان کارت 💳';
-  toast('✅ فرۆشتن تەواوبوو','مێزی '+tbl+' — '+iq(tot)+' — '+methodText);
+  const ml=method==='cash'?'نەختینە 💵':'کارت 💳';
+  toast('✅ فرۆشتن تەواوبوو','مێزی '+tbl+' — '+iq(tot)+' — '+ml);
   prtReceipt(order);
 }
 
-/* KANBAN */
+/* ── KANBAN ── */
 function rOrders(){
   const cols={pending:g('col-p'),preparing:g('col-r'),ready:g('col-y'),served:g('col-d')};
+  // FIX: was double-counting due to broken if-condition
   const cnts={pending:0,preparing:0,ready:0,served:0};
   Object.values(cols).forEach(c=>{if(c)c.innerHTML='';});
   (M.orders||[]).forEach(ord=>{
-    if (!cnts[ord.status] !== undefined) cnts[ord.status]++;
-    cnts[ord.status] = (cnts[ord.status] || 0) + 1;
-
-    const col=cols[ord.status];if(!col) return;
+    if(cnts[ord.status]!==undefined)cnts[ord.status]++;
+    const col=cols[ord.status];if(!col)return;
     const iHtml=(ord.items||[]).map(i=>'<li class="ok-item"><span>'+i.title+'</span><span style="font-weight:700">x'+i.qty+'</span></li>').join('');
     let btn='';
     if(ord.status==='pending')btn='<button class="ok-btn prep" onclick="mvOrd('+ord.id+',\'preparing\')">ئامادەکردن ▶</button>';
     else if(ord.status==='preparing')btn='<button class="ok-btn rdy" onclick="mvOrd('+ord.id+',\'ready\')">ئامادەیە ✓</button>';
     else if(ord.status==='ready')btn='<button class="ok-btn srv" onclick="mvOrd('+ord.id+',\'served\')">تەواوبوو ✓</button>';
     const card=document.createElement('div');card.className='ok-card';
-    card.innerHTML='<div class="ok-top"><span class="ok-tbl">مێزی '+ord.table+'</span><div style="display:flex;align-items:center;gap:5px"><span class="'+(ord.source==='pos'?'src-pos':'src-qr')+'">'+(ord.source==='pos'?'POS':'QR')+'</span><span class="ok-time">'+new Date(ord.time).toLocaleTimeString('ar',{hour:'2-digit',minute:'2-digit'})+'</span></div></div>'+
-      '<ul class="ok-items">'+iHtml+'</ul>'+(ord.note?'<div class="ok-note">📍 '+ord.note+'</div>':'')+
-      '<div class="ok-foot"><span class="ok-total">'+iq(ord.total)+'</span>'+btn+'</div>';
+    card.innerHTML=`<div class="ok-top">
+      <span class="ok-tbl">مێزی ${ord.table}</span>
+      <div style="display:flex;align-items:center;gap:5px">
+        <span class="${ord.source==='pos'?'src-pos':'src-qr'}">${ord.source==='pos'?'POS':'QR'}</span>
+        <span class="ok-time">${new Date(ord.time).toLocaleTimeString('ar',{hour:'2-digit',minute:'2-digit'})}</span>
+      </div></div>
+      <ul class="ok-items">${iHtml}</ul>
+      ${ord.note?`<div class="ok-note">📍 ${ord.note}</div>`:''}
+      <div class="ok-foot"><span class="ok-total">${iq(ord.total)}</span>${btn}</div>`;
     col.appendChild(card);
   });
-  if(g('cnt-p'))g('cnt-p').textContent=cnts.pending||0;if(g('cnt-r'))g('cnt-r').textContent=cnts.preparing||0;
-  if(g('cnt-y'))g('cnt-y').textContent=cnts.ready||0;if(g('cnt-d'))g('cnt-d').textContent=cnts.served||0;
+  if(g('cnt-p'))g('cnt-p').textContent=cnts.pending||0;
+  if(g('cnt-r'))g('cnt-r').textContent=cnts.preparing||0;
+  if(g('cnt-y'))g('cnt-y').textContent=cnts.ready||0;
+  if(g('cnt-d'))g('cnt-d').textContent=cnts.served||0;
   setBL(cnts.pending||0);
 }
 function mvOrd(id,st){
-  const m=dbGet(M.username);const i=(m.orders||[]).findIndex(o=>o.id===id);
-  if(i>-1){m.orders[i].status=st;if(st==='served')m.orders[i].paid_at=new Date().toISOString();dbSet(M.username,m);M=fix(m);rOrders();rTables();rAnalytics();}
+  const m=dbGet(M.username);if(!m)return;
+  const i=(m.orders||[]).findIndex(o=>o.id===id);
+  if(i>-1){
+    m.orders[i].status=st;
+    if(st==='served')m.orders[i].paid_at=new Date().toISOString();
+    dbSet(M.username,m);
+    M=fix(JSON.parse(JSON.stringify(m)));
+    rOrders();rTables();rAnalytics();
+  }
 }
 function resetOrders(){
   if(!confirm('دڵنیایی لە سڕینەوەی هەموو داواکارییەکان؟'))return;
-  const m=dbGet(M.username);m.orders=[];m.bill_requests=[];dbSet(M.username,m);M=fix(m);rOrders();rTables();rAnalytics();toast('سڕدرایەوە','هەموو داواکارییەکان');
+  const m=dbGet(M.username);if(!m)return;
+  m.orders=[];m.bill_requests=[];
+  dbSet(M.username,m);
+  M=fix(JSON.parse(JSON.stringify(m)));
+  rOrders();rTables();rAnalytics();
+  toast('سڕدرایەوە','هەموو داواکارییەکان');
 }
 
-/* MENU */
-function rCatDrop(){const s=g('f-cat');if(!s)return;s.innerHTML=(M.categories||[]).map(c=>'<option value="'+c.id+'">'+c.ku+'</option>').join('');}
+/* ── MENU MANAGER ── */
+function rCatDrop(){
+  const s=g('f-cat');if(!s)return;
+  s.innerHTML=(M.categories||[]).map(c=>'<option value="'+c.id+'">'+c.ku+'</option>').join('');
+}
 function mkCat(){
-  const ku=(g('c-ku')?.value||'').trim();if(!ku){toast('هەڵە','ناوی کوردی داخڵ بکە','err');return;}
-  const m=dbGet(M.username);m.categories.push({id:'c'+Date.now(),ku,ar:(g('c-ar')?.value||'').trim()||ku,en:(g('c-en')?.value||'').trim()||ku});
-  dbSet(M.username,m);M=fix(m);rCatDrop();rPOSMenu();
+  const ku=(g('c-ku')?.value||'').trim();
+  if(!ku){toast('هەڵە','ناوی کوردی داخڵ بکە','err');return;}
+  const m=dbGet(M.username);if(!m)return;
+  if(!m.categories)m.categories=[];
+  m.categories.push({id:'c'+Date.now(),ku,ar:(g('c-ar')?.value||'').trim()||ku,en:(g('c-en')?.value||'').trim()||ku});
+  dbSet(M.username,m);
+  M=fix(JSON.parse(JSON.stringify(m)));
+  rCatDrop();rPOSMenu();
   ['c-ku','c-ar','c-en'].forEach(id=>{if(g(id))g(id).value='';});
   toast('✅ هاوپۆل دروستکرا',ku);
 }
 async function mkFood(){
-  const ku=(g('f-ku')?.value||'').trim();if(!ku){toast('هەڵە','ناوی کوردی داخڵ بکە','err');return;}
-  const price=parseInt(g('f-price')?.value);if(!price){toast('هەڵە','نرخ داخڵ بکە','err');return;}
-  const lf=g('f-img')?.files[0];let img='https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=400';
+  const ku=(g('f-ku')?.value||'').trim();
+  if(!ku){toast('هەڵە','ناوی کوردی داخڵ بکە','err');return;}
+  const price=parseInt(g('f-price')?.value);
+  if(!price||price<=0){toast('هەڵە','نرخ دروست داخڵ بکە','err');return;}
+  const lf=g('f-img')?.files[0];
+  let img='https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=400';
   if(lf)try{img=await b64(lf)}catch(e){}
-  const food={id:Date.now(),title_ku:ku,title_ar:(g('f-ar')?.value||'').trim()||ku,title_en:(g('f-en')?.value||'').trim()||ku,
-    desc_ku:(g('d-ku')?.value||'').trim(),desc_ar:(g('d-ar')?.value||'').trim()||(g('d-ku')?.value||'').trim(),desc_en:(g('d-en')?.value||'').trim()||(g('d-ku')?.value||'').trim(),
-    price,stock:parseInt(g('f-stk')?.value)||0,barcode:(g('f-bc')?.value||'').trim()||null,category:g('f-cat')?.value||'ff',img};
-  const m=dbGet(M.username);m.foods.push(food);dbSet(M.username,m);M=fix(m);
-  rFoods();rPOSMenu();toast('✅ بابەت زیادکرا',ku);
+  const food={
+    id:Date.now(),
+    title_ku:ku,
+    title_ar:(g('f-ar')?.value||'').trim()||ku,
+    title_en:(g('f-en')?.value||'').trim()||ku,
+    desc_ku:(g('d-ku')?.value||'').trim(),
+    desc_ar:(g('d-ar')?.value||'').trim()||(g('d-ku')?.value||'').trim(),
+    desc_en:(g('d-en')?.value||'').trim()||(g('d-ku')?.value||'').trim(),
+    price,
+    stock:parseInt(g('f-stk')?.value)||0,
+    barcode:(g('f-bc')?.value||'').trim()||null,
+    category:g('f-cat')?.value||(M.categories[0]?.id||''),
+    img
+  };
+  const m=dbGet(M.username);if(!m)return;
+  if(!m.foods)m.foods=[];
+  m.foods.push(food);
+  dbSet(M.username,m);
+  M=fix(JSON.parse(JSON.stringify(m)));
+  rFoods();rPOSMenu();
+  toast('✅ بابەت زیادکرا',ku);
   ['f-ku','f-ar','f-en','d-ku','d-ar','d-en','f-price','f-stk','f-bc'].forEach(id=>{if(g(id))g(id).value='';});
   if(g('f-img'))g('f-img').value='';
 }
@@ -947,163 +1353,398 @@ function rFoods(){
   if(g('f-count'))g('f-count').textContent=(M.foods||[]).length+' بابەت';
   gd.innerHTML='';
   (M.foods||[]).forEach(food=>{
-    const oos=food.stock !==undefined&&food.stock<=0;
+    const oos=food.stock!==undefined&&food.stock<=0;
     const c=document.createElement('div');c.className='fi-card';
-    c.innerHTML='<img src="'+(food.img||'')+'" class="fi-img" onerror="this.src=\'https://via.placeholder.com/178x115/F1F5F9/94A3B8?text=Food\'" loading="lazy">'+
-      '<div class="fi-body"><div class="fi-name">'+food.title_ku+'</div><div class="fi-price">'+iq(food.price)+'</div>'+
-      '<div class="fi-stk" style="color:'+(oos?'var(--d)':'var(--tm)')+';">کۆگا: '+(food.stock!==undefined?food.stock:'∞')+(oos?' ⚠️':'')+'</div></div>'+
-      '<div class="fi-foot"><span class="badge '+(oos?'bdx':'bs')+'">'+(oos?'نەماوە':'مەوجود')+'</span>'+
-      '<div style="display:flex;gap:5px"><button onclick="edtStk('+food.id+')" class="ab edt">کۆگا</button><button onclick="delFood('+food.id+')" class="ab del">سڕ</button></div></div>';
+    c.innerHTML=`<img src="${food.img||''}" class="fi-img" onerror="this.src='https://placehold.co/175x118/F1F5F9/94A3B8?text=Food'" loading="lazy">`+
+      `<div class="fi-body"><div class="fi-name">${food.title_ku}</div><div class="fi-price">${iq(food.price)}</div>`+
+      `<div class="fi-stk" style="color:${oos?'var(--d)':'var(--tm)'}">کۆگا: ${food.stock!==undefined?food.stock:'∞'}${oos?' ⚠️':''}</div></div>`+
+      `<div class="fi-foot"><span class="badge ${oos?'bdx':'bs'}">${oos?'نەماوە':'مەوجود'}</span>`+
+      `<div style="display:flex;gap:5px"><button onclick="edtStk(${food.id})" class="ab edt">کۆگا</button><button onclick="delFood(${food.id})" class="ab del">سڕ</button></div></div>`;
     gd.appendChild(c);
   });
 }
 function edtStk(id){
   const f=(M.foods||[]).find(f=>f.id===id);if(!f)return;
   const v=prompt('کۆگای "'+f.title_ku+'" نوێ بکەرەوە:',f.stock);if(v===null)return;
-  const m=dbGet(M.username);const i=m.foods.findIndex(f=>f.id===id);
-  if(i>-1){m.foods[i].stock=Math.max(0,parseInt(v)||0);dbSet(M.username,m);M=fix(m);rFoods();rPOSMenu();toast('✅ کۆگا نوێکرایەوە',f.title_ku);}
+  const m=dbGet(M.username);if(!m)return;
+  const i=m.foods.findIndex(f=>f.id===id);
+  if(i>-1){m.foods[i].stock=Math.max(0,parseInt(v)||0);dbSet(M.username,m);M=fix(JSON.parse(JSON.stringify(m)));rFoods();rPOSMenu();toast('✅ کۆگا نوێکرایەوە',f.title_ku);}
 }
 function delFood(id){
-  const f=(M.foods||[]).find(f=>f.id===id);if(!f||!confirm('دڵنیایی لە سڕینەوەی "'+f.title_ku+'"؟'))return;
-  const m=dbGet(M.username);m.foods=m.foods.filter(f=>f.id!==id);dbSet(M.username,m);M=fix(m);
+  const f=(M.foods||[]).find(f=>f.id===id);
+  if(!f||!confirm('دڵنیایی لە سڕینەوەی "'+f.title_ku+'"؟'))return;
+  const m=dbGet(M.username);if(!m)return;
+  m.foods=m.foods.filter(f=>f.id!==id);
+  dbSet(M.username,m);M=fix(JSON.parse(JSON.stringify(m)));
   delete pCart[id];rFoods();rPOSMenu();updCart();toast('سڕدرایەوە',f.title_ku);
 }
 
-/* TABLES */
-function setTblCnt(){const n=parseInt(g('tbl-cnt')?.value)||12;const m=dbGet(M.username);m.tables_count=n;dbSet(M.username,m);M=fix(m);rTables();rPOSTbls();toast('✅ نوێکرایەوە',n+' مێز');}
+/* ── TABLES ── */
+function setTblCnt(){
+  const n=parseInt(g('tbl-cnt')?.value)||12;
+  const m=dbGet(M.username);if(!m)return;
+  m.tables_count=n;dbSet(M.username,m);M=fix(JSON.parse(JSON.stringify(m)));
+  rTables();rPOSTbls();toast('✅ نوێکرایەوە',n+' مێز');
+}
 function rTables(){
-  const gd=g('tbl-map');if(!gd)return;const tot=M.tables_count||12;gd.innerHTML='';
+  const gd=g('tbl-map');if(!gd)return;
+  const tot=M.tables_count||12;gd.innerHTML='';
   for(let i=1;i<=tot;i++){
-    const ords=(M.orders||[]).filter(o=>o.table==i&&o.status!=='served');
+    const ords=(M.orders||[]).filter(o=>String(o.table)==String(i)&&o.status!=='served');
     const billReq=(M.bill_requests||[]).includes(String(i));
     const tAmt=ords.reduce((s,o)=>s+o.total,0);
     let cls='t-av',lbl='بەتاڵ',clr='var(--tm)';
-    if(ords.length){const st=ords[0].status;
-      if(st==='pending'){cls='t-pe';lbl='نوێ 🟠';clr='var(--w)';}
+    if(ords.length){
+      const st=ords[0].status;
+      if(st==='pending'){cls='t-pe';lbl='نوێ 🟠';clr='var(--wd)';}
       else if(st==='preparing'){cls='t-oc';lbl='ئامادەکردن 🔵';clr='var(--p)';}
       else if(st==='ready'){cls='t-rd';lbl='ئامادەیە 🟢';clr='var(--s)';}
     }
     if(billReq){cls='t-bi';lbl='⚠️ داوای حیساب';clr='var(--d)';}
     const tile=document.createElement('div');tile.className='ttile '+cls;
-    tile.innerHTML='<span class="t-st" style="color:'+(billReq?'inherit':clr)+'">'+lbl+'</span>'+
-      '<span class="t-num">'+i+'</span><span class="t-tot">'+(tAmt>0?iq(tAmt):'—')+'</span>'+
-      ((tAmt>0||billReq)?'<div class="t-acts"><button class="tbtn prt" onclick="prtTbl('+i+')">🖨️ وەسڵ</button><button class="tbtn pay" onclick="payTbl('+i+')">✓ پارەدان</button></div>':'<div style="height:52px"></div>');
+    tile.innerHTML=`<span class="t-st" style="color:${billReq?'inherit':clr}">${lbl}</span>`+
+      `<span class="t-num">${i}</span>`+
+      `<span class="t-tot">${tAmt>0?iq(tAmt):'—'}</span>`+
+      ((tAmt>0||billReq)?
+        `<div class="t-acts"><button class="tbtn prt" onclick="prtTbl(${i})">🖨️ وەسڵ</button><button class="tbtn pay" onclick="payTbl(${i})">✓ پارەدان</button></div>`
+        :'<div style="height:52px"></div>');
     gd.appendChild(tile);
   }
   setBT((M.bill_requests||[]).length);
 }
 function payTbl(n){
   if(!confirm('پارەدانی مێزی '+n+'؟'))return;
-  const m=dbGet(M.username);
+  const m=dbGet(M.username);if(!m)return;
   m.bill_requests=(m.bill_requests||[]).filter(r=>r!=String(n));
-  m.orders=(m.orders||[]).map(o=>{if(o.table==n&&o.status!=='served'){o.status='served';o.paid_at=new Date().toISOString();}return o;});
-  dbSet(M.username,m);M=fix(m);rTables();rOrders();rAnalytics();toast('✅ پارەدان تەواوبوو','مێزی '+n);
+  m.orders=(m.orders||[]).map(o=>{
+    if(String(o.table)==String(n)&&o.status!=='served'){o.status='served';o.paid_at=new Date().toISOString();}
+    return o;
+  });
+  dbSet(M.username,m);M=fix(JSON.parse(JSON.stringify(m)));
+  rTables();rOrders();rAnalytics();toast('✅ پارەدان تەواوبوو','مێزی '+n);
 }
 
-/* PRINT */
-function buildRcss(){return `@import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700;900&display=swap');*{box-sizing:border-box;margin:0;padding:0}body{font-family:'Vazirmatn',monospace;width:300px;margin:0 auto;padding:18px;direction:rtl;color:#0F172A;font-size:12px}.logo{font-size:17px;font-weight:900;text-align:center;margin-bottom:3px}.sub{font-size:10px;color:#64748B;text-align:center;margin-bottom:11px}.dash{border:none;border-top:1px dashed #CBD5E1;margin:9px 0}table{width:100%;border-collapse:collapse}th{text-align:right;padding:6px 0;font-size:11px;color:#64748B;border-bottom:1px solid #E2E8F0}td{border-bottom:1px solid #F8FAFC;padding:4px 0}.row{display:flex;justify-content:space-between;font-size:11px;margin-bottom:5px}.tbl-b{background:#EFF6FF;color:#2563EB;padding:3px 12px;border-radius:99px;font-weight:900;font-size:12px;display:inline-block}.meth{padding:2px 8px;border-radius:99px;font-size:10px;font-weight:700}.cash{background:#F0FDF4;color:#16A34A}.card{background:#EFF6FF;color:#2563EB}.total{display:flex;justify-content:space-between;font-size:15px;font-weight:900;color:#2563EB}.disc{display:flex;justify-content:space-between;font-size:11px;color:#EF4444;margin-bottom:5px}.foot{text-align:center;font-size:10px;color:#94A3B8;margin-top:13px;line-height:1.9}`;}
-function openPrint(body){const w=window.open('','_blank','width=360,height=720');w.document.write('<!DOCTYPE html><html dir="rtl"><head><meta charset="UTF-8"><style>'+buildRcss()+'</style></head><body>'+body+'<script>window.onload=function(){window.print();setTimeout(function(){window.close()},700);}<\/script></body></html>');w.document.close();}
+/* ── PRINT ── */
+function buildRcss(){
+  return `@import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700;900&display=swap');
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Vazirmatn',monospace;width:295px;margin:0 auto;padding:18px 16px;direction:rtl;color:#0F172A;font-size:12px}
+  .logo{font-size:18px;font-weight:900;text-align:center;margin-bottom:3px;letter-spacing:-.5px}
+  .sub{font-size:10px;color:#64748B;text-align:center;margin-bottom:13px;font-weight:600}
+  .dash{border:none;border-top:1px dashed #CBD5E1;margin:10px 0}
+  table{width:100%;border-collapse:collapse}
+  th{text-align:right;padding:6px 0;font-size:11px;color:#64748B;border-bottom:1px solid #E2E8F0;font-weight:700}
+  td{border-bottom:1px solid #F8FAFC;padding:5px 0;font-size:11px}
+  .row{display:flex;justify-content:space-between;font-size:11px;margin-bottom:5px}
+  .tbl-b{background:#EEF2FF;color:#4F46E5;padding:3px 12px;border-radius:99px;font-weight:900;font-size:12px;display:inline-block}
+  .meth{padding:2px 9px;border-radius:99px;font-size:10px;font-weight:700}
+  .cash{background:#ECFDF5;color:#059669}.card2{background:#EEF2FF;color:#4F46E5}
+  .total{display:flex;justify-content:space-between;font-size:15px;font-weight:900;color:#4F46E5}
+  .disc{display:flex;justify-content:space-between;font-size:11px;color:#EF4444;margin-bottom:5px}
+  .foot{text-align:center;font-size:10px;color:#94A3B8;margin-top:14px;line-height:2}`;
+}
+function openPrint(body){
+  const w=window.open('','_blank','width=360,height=720');
+  if(!w)return;
+  w.document.write('<!DOCTYPE html><html dir="rtl"><head><meta charset="UTF-8"><style>'+buildRcss()+'</style></head><body>'+body+'<script>window.onload=function(){window.print();setTimeout(function(){window.close()},900);}<\/script></body></html>');
+  w.document.close();
+}
 function prtTbl(n){
-  const ords=(M.orders||[]).filter(o=>o.table==n&&o.status!=='served');if(!ords.length){toast('هەڵە','داواکاری نەدۆزرایەوە','err');return;}
-  let items2={},tot=0;ords.forEach(o=>(o.items||[]).forEach(it=>{items2[it.title]?items2[it.title].qty+=it.qty:items2[it.title]={...it};tot+=it.price*it.qty;}));
-  const rows=Object.values(items2).map(it=>'<tr><td>'+it.title+'</td><td style="text-align:center;font-weight:700">'+it.qty+'</td><td style="text-align:left;font-weight:800">'+iq(it.price*it.qty)+'</td></tr>').join('');
-  openPrint('<div class="logo">'+M.name+'</div><div class="sub">وەسڵی مێز</div><hr class="dash"><div class="row"><span>مێز:</span><div class="tbl-b">'+n+'</div></div><div class="row"><span>کاتی پارەدان:</span><span style="font-weight:700">'+new Date().toLocaleString('ar')+'</span></div><hr class="dash"><table><thead><tr><th>بابەت</th><th style="text-align:center">بڕ</th><th style="text-align:left">نرخ</th></tr></thead><tbody>'+rows+'</tbody></table><hr class="dash"><div class="total"><span>کۆی گشتی:</span><span>'+iq(tot)+'</span></div><hr class="dash"><div class="foot">سوپاس بۆ سەردانکردنتان 🙏<br>bytelineagency.vercel.app</div>');
+  const ords=(M.orders||[]).filter(o=>String(o.table)==String(n)&&o.status!=='served');
+  if(!ords.length){toast('هەڵە','داواکاری نەدۆزرایەوە','err');return;}
+  const items2={};let tot=0;
+  ords.forEach(o=>(o.items||[]).forEach(it=>{
+    items2[it.title]?items2[it.title].qty+=it.qty:items2[it.title]={...it};tot+=it.price*it.qty;
+  }));
+  const rows=Object.values(items2).map(it=>`<tr><td>${it.title}</td><td style="text-align:center;font-weight:700">${it.qty}</td><td style="text-align:left;font-weight:800">${iq(it.price*it.qty)}</td></tr>`).join('');
+  openPrint(`<div class="logo">${M.name}</div><div class="sub">وەسڵی مێز</div><hr class="dash">
+    <div class="row"><span>مێز:</span><div class="tbl-b">${n}</div></div>
+    <div class="row"><span>کاتی پارەدان:</span><span style="font-weight:700">${new Date().toLocaleString('ar')}</span></div>
+    <hr class="dash">
+    <table><thead><tr><th>بابەت</th><th style="text-align:center">بڕ</th><th style="text-align:left">نرخ</th></tr></thead><tbody>${rows}</tbody></table>
+    <hr class="dash"><div class="total"><span>کۆی گشتی:</span><span>${iq(tot)}</span></div>
+    <hr class="dash"><div class="foot">سوپاس بۆ سەردانکردنتان 🙏<br>bytelineagency.vercel.app</div>`);
 }
 function prtReceipt(order){
-  const rows=(order.items||[]).map(i=>'<tr><td>'+i.title+'</td><td style="text-align:center;font-weight:700">'+i.qty+'</td><td style="text-align:left;font-weight:800">'+iq(i.price*i.qty)+'</td></tr>').join('');
-  const methodLabel=order.method==='cash'?'شێوازی پارەدان نەختینە 💵':'شێوازی پارەدان کارت 💳';
-  const methodCls=order.method==='cash'?'cash':'card';
-  openPrint('<div class="logo">'+M.name+'</div><div class="sub">وەسڵی POS کاشێر</div><hr class="dash"><div class="row"><span>مێز:</span><div class="tbl-b">'+order.table+'</div></div><div class="row"><span>کاتی پارەدان:</span><span style="font-weight:700">'+new Date(order.time).toLocaleString('ar')+'</span></div><div class="row"><span>شێوازی پارەدان:</span><span class="meth '+methodCls+'">'+methodLabel+'</span></div><hr class="dash"><table><thead><tr><th>بابەت</th><th style="text-align:center">بڕ</th><th style="text-align:left">نرخ</th></tr></thead><tbody>'+rows+'</tbody></table><hr class="dash">'+(order.discount>0?'<div class="disc"><span>داشکاندن:</span><span>-'+iq(order.discount)+'</span></div>':'')+'<div class="total"><span>کۆی کۆتایی:</span><span>'+iq(order.total)+'</span></div><hr class="dash"><div class="foot">سوپاس بۆ سەردانکردنتان 🙏<br>bytelineagency.vercel.app</div>');
+  const rows=(order.items||[]).map(i=>`<tr><td>${i.title}</td><td style="text-align:center;font-weight:700">${i.qty}</td><td style="text-align:left;font-weight:800">${iq(i.price*i.qty)}</td></tr>`).join('');
+  const mc=order.method==='cash'?'cash':'card2';
+  const ml=order.method==='cash'?'نەختینە 💵':'کارت 💳';
+  openPrint(`<div class="logo">${M.name}</div><div class="sub">وەسڵی POS کاشێر</div><hr class="dash">
+    <div class="row"><span>مێز:</span><div class="tbl-b">${order.table}</div></div>
+    <div class="row"><span>کاتی پارەدان:</span><span style="font-weight:700">${new Date(order.time).toLocaleString('ar')}</span></div>
+    <div class="row"><span>شێوازی پارەدان:</span><span class="meth ${mc}">${ml}</span></div>
+    <hr class="dash">
+    <table><thead><tr><th>بابەت</th><th style="text-align:center">بڕ</th><th style="text-align:left">نرخ</th></tr></thead><tbody>${rows}</tbody></table>
+    <hr class="dash">
+    ${order.discount>0?`<div class="disc"><span>داشکاندن:</span><span>−${iq(order.discount)}</span></div>`:''}
+    <div class="total"><span>کۆی کۆتایی:</span><span>${iq(order.total)}</span></div>
+    <hr class="dash"><div class="foot">سوپاس بۆ سەردانکردنتان 🙏<br>bytelineagency.vercel.app</div>`);
 }
 
-/* QR STUDIO */
-function mkQR(){const n=(g('qr-n')?.value||'').trim();if(!n)return;const m=dbGet(M.username);if(!(m.qrcodes||[]).includes(n)){if(!m.qrcodes)m.qrcodes=[];m.qrcodes.push(n);}dbSet(M.username,m);M=fix(m);rQRs();if(g('qr-n'))g('qr-n').value='';toast('✅ QR دروستکرا','مێزی '+n);}
-function clearQRs(){if(!confirm('دڵنیایی؟'))return;const m=dbGet(M.username);m.qrcodes=[];dbSet(M.username,m);M=fix(m);rQRs();}
+/* ── QR STUDIO ── */
+function mkQR(){
+  const n=(g('qr-n')?.value||'').trim();if(!n)return;
+  const m=dbGet(M.username);if(!m)return;
+  if(!m.qrcodes)m.qrcodes=[];
+  if(!m.qrcodes.includes(n))m.qrcodes.push(n);
+  dbSet(M.username,m);M=fix(JSON.parse(JSON.stringify(m)));
+  rQRs();if(g('qr-n'))g('qr-n').value='';
+  toast('✅ QR دروستکرا','مێزی '+n);
+}
+function clearQRs(){
+  if(!confirm('دڵنیایی؟'))return;
+  const m=dbGet(M.username);if(!m)return;
+  m.qrcodes=[];dbSet(M.username,m);M=fix(JSON.parse(JSON.stringify(m)));rQRs();
+}
 function rQRs(){
   const area=g('qr-area');if(!area)return;area.innerHTML='';
   (M.qrcodes||[]).forEach(num=>{
     const url=location.origin+location.pathname+'?shop='+M.username+'&table='+num;
     const cid='qrc'+num;
     const card=document.createElement('div');card.className='qr-card';card.id=cid;
-    card.innerHTML='<div class="qr-body"><div style="font-size:10px;font-weight:800;color:var(--p);margin-bottom:9px;text-transform:uppercase;letter-spacing:.5px">'+M.name+'</div><canvas id="cv'+cid+'" style="display:block;margin:0 auto;border-radius:11px;border:2px solid var(--bd)"></canvas><div style="font-size:20px;font-weight:900;margin-top:12px">مێزی '+num+'</div><div style="font-size:10px;color:var(--tm);margin-top:4px;font-weight:600">📱 سکان بکە بۆ مینیو و داواکاری</div></div>'+
-      '<div class="qr-foot"><button onclick="prtQR(\''+num+'\')" class="btn btn-g" style="flex:1;font-size:10px">🖨️ چاپکردنی لۆکەس</button><button onclick="delQR(\''+num+'\')" class="btn btn-g btn-sq" style="color:var(--d)">✖</button></div>';
+    card.innerHTML=`<div class="qr-body">
+      <div style="font-size:10px;font-weight:800;color:var(--p);margin-bottom:9px;letter-spacing:.5px">${M.name}</div>
+      <canvas id="cv${cid}" style="display:block;margin:0 auto;border-radius:11px;border:2px solid var(--bd)"></canvas>
+      <div style="font-size:20px;font-weight:900;margin-top:12px">مێزی ${num}</div>
+      <div style="font-size:10px;color:var(--tm);margin-top:4px;font-weight:600">📱 سکان بکە بۆ مینیو</div></div>
+      <div class="qr-foot">
+        <button onclick="prtQR('${num}')" class="btn btn-g" style="flex:1;font-size:10px">🖨️ چاپ</button>
+        <button onclick="delQR('${num}')" class="btn btn-g btn-sq" style="color:var(--d)">✖</button>
+      </div>`;
     area.appendChild(card);
-    setTimeout(()=>{const cv=g('cv'+cid);if(cv&&typeof QRious!=='undefined')new QRious({element:cv,value:url,size:155,foreground:'#0F172A',background:'#FFFFFF',padding:9});},80);
+    // Use requestAnimationFrame to ensure DOM is ready, then render QR
+    requestAnimationFrame(()=>{
+      setTimeout(()=>{
+        const cv=g('cv'+cid);
+        if(cv&&typeof QRious!=='undefined'){
+          try{new QRious({element:cv,value:url,size:155,foreground:'#0F172A',background:'#FFFFFF',padding:9});}
+          catch(e){console.warn('QR gen fail',e);}
+        }
+      },60);
+    });
   });
 }
-function delQR(n){const m=dbGet(M.username);m.qrcodes=(m.qrcodes||[]).filter(q=>q!==n);dbSet(M.username,m);M=fix(m);rQRs();}
+function delQR(n){
+  const m=dbGet(M.username);if(!m)return;
+  m.qrcodes=(m.qrcodes||[]).filter(q=>q!==n);
+  dbSet(M.username,m);M=fix(JSON.parse(JSON.stringify(m)));rQRs();
+}
 
-/* QR PRINT */
+/* ── QR PRINT ── */
 function prtQR(num){
   const url=location.origin+location.pathname+'?shop='+M.username+'&table='+num;
-  const cv=g('cvqrc'+num);let qrImg='';if(cv)qrImg=cv.toDataURL();
+  const cv=g('cvqrc'+num);let qrImg='';
+  if(cv){try{qrImg=cv.toDataURL();}catch(e){}}
   const style=M.bc_style||'classic';
   const S={
-    classic:{cardBg:'#fff',topBg:'linear-gradient(135deg,#2563EB,#7C3AED)',botBg:'linear-gradient(180deg,#F8FAFC,#EFF6FF)',radius:'24px',numClr:'#0F172A',lblClr:'#64748B',topNameClr:'#fff',topBrandClr:'rgba(255,255,255,.6)',border:'1px solid #E2E8F0',qzBg:'#fff',qzBorder:'#E2E8F0',scanClr:'#94A3B8'},
-    modern:{cardBg:'#0F172A',topBg:'linear-gradient(135deg,#4F46E5,#7C3AED)',botBg:'#1E293B',radius:'28px',numClr:'#fff',lblClr:'rgba(255,255,255,.5)',topNameClr:'#fff',topBrandClr:'rgba(255,255,255,.6)',border:'none',qzBg:'#1E293B',qzBorder:'#334155',scanClr:'rgba(255,255,255,.4)'},
-    elegant:{cardBg:'#fff',topBg:'linear-gradient(135deg,#0F172A,#1E3A5F)',botBg:'#F8FAFC',radius:'12px',numClr:'#0F172A',lblClr:'#64748B',topNameClr:'#fff',topBrandClr:'rgba(255,255,255,.55)',border:'2px solid #0F172A',qzBg:'#fff',qzBorder:'#E2E8F0',scanClr:'#94A3B8'},
-    minimal:{cardBg:'#fff',topBg:'#fff',botBg:'#fff',radius:'6px',numClr:'#0F172A',lblClr:'#64748B',topNameClr:'#0F172A',topBrandClr:'#64748B',border:'2px solid #0F172A',qzBg:'#fff',qzBorder:'#0F172A',scanClr:'#94A3B8'}
-  }[style]||{cardBg:'#fff',topBg:'linear-gradient(135deg,#2563EB,#7C3AED)',botBg:'#F8FAFC',radius:'24px',numClr:'#0F172A',lblClr:'#64748B',topNameClr:'#fff',topBrandClr:'rgba(255,255,255,.6)',border:'1px solid #E2E8F0',qzBg:'#fff',qzBorder:'#E2E8F0',scanClr:'#94A3B8'};
-  const w=window.open('','_blank','width=420,height=620');
-  w.document.write(`<!DOCTYPE html><html dir="rtl"><head><meta charset="UTF-8"><style>@import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700;900&display=swap');*{box-sizing:border-box;margin:0;padding:0}body{font-family:'Vazirmatn',sans-serif;background:#F1F5F9;display:flex;align-items:center;justify-content:center;min-height:100vh;padding:20px}.card{width:275px;background:${S.cardBg};border-radius:${S.radius};overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.18);border:${S.border}}.top{background:${S.topBg};padding:18px;text-align:center}.brand{font-size:10px;font-weight:700;color:${S.topBrandClr};letter-spacing:1.5px;text-transform:uppercase;margin-bottom:3px}.rname{font-size:16px;font-weight:900;color:${S.topNameClr}}.qz{padding:22px;text-align:center;background:${S.qzBg}}.qz img{width:180px;height:180px;border-radius:12px;border:2px solid ${S.qzBorder};display:block;margin:0 auto}.scan{font-size:11px;color:${S.scanClr};margin-top:11px;font-weight:600}.bot{background:${S.botBg};padding:16px;text-align:center;border-top:1px solid rgba(0,0,0,.06)}.tnum{font-size:36px;font-weight:900;color:${S.numClr};line-height:1}.tlbl{font-size:11px;color:${S.lblClr};font-weight:700;margin-top:2px}.ftr{font-size:9px;color:${S.lblClr};margin-top:9px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;opacity:.5}</style></head><body><div class="card"><div class="top"><div class="brand">Byteline Pro POS</div><div class="rname">${M.name}</div></div><div class="qz">${qrImg?'<img src="'+qrImg+'">':`<div style="width:180px;height:180px;background:#F1F5F9;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:11px;color:#94A3B8;margin:0 auto">QR Code</div>`}<div class="scan">📱 سکان بکە بۆ مینیو و داواکاری</div></div><div class="bot"><div class="tnum">${num}</div><div class="tlbl">مێزی ${num}</div><div class="ftr">bytelineagency.vercel.app</div></div></div><script>window.onload=function(){window.print();setTimeout(function(){window.close()},800);}<\/script></body></html>`);
+    classic:{
+      cardBg:'#fff',topBg:'linear-gradient(135deg,#4F46E5,#7C3AED)',
+      botBg:'linear-gradient(180deg,#F8FAFC,#EEF2FF)',radius:'24px',
+      numClr:'#0F172A',lblClr:'#64748B',topNameClr:'#fff',topBrandClr:'rgba(255,255,255,.55)',
+      border:'1px solid #E2E8F0',qzBg:'#fff',qzBorder:'#E2E8F0',scanClr:'#94A3B8'
+    },
+    modern:{
+      cardBg:'#0F172A',topBg:'linear-gradient(135deg,#4F46E5,#7C3AED)',
+      botBg:'#1E293B',radius:'28px',
+      numClr:'#fff',lblClr:'rgba(255,255,255,.45)',topNameClr:'#fff',topBrandClr:'rgba(255,255,255,.5)',
+      border:'none',qzBg:'#1E293B',qzBorder:'#334155',scanClr:'rgba(255,255,255,.35)'
+    },
+    elegant:{
+      cardBg:'#fff',topBg:'linear-gradient(135deg,#0F172A,#1E3A5F)',
+      botBg:'#F8FAFC',radius:'12px',
+      numClr:'#0F172A',lblClr:'#64748B',topNameClr:'#fff',topBrandClr:'rgba(255,255,255,.5)',
+      border:'2px solid #0F172A',qzBg:'#fff',qzBorder:'#E2E8F0',scanClr:'#94A3B8'
+    },
+    minimal:{
+      cardBg:'#fff',topBg:'#fff',botBg:'#fff',radius:'6px',
+      numClr:'#0F172A',lblClr:'#64748B',topNameClr:'#0F172A',topBrandClr:'#64748B',
+      border:'2px solid #0F172A',qzBg:'#fff',qzBorder:'#0F172A',scanClr:'#94A3B8'
+    }
+  }[style]||{
+    cardBg:'#fff',topBg:'linear-gradient(135deg,#4F46E5,#7C3AED)',
+    botBg:'#F8FAFC',radius:'24px',numClr:'#0F172A',lblClr:'#64748B',
+    topNameClr:'#fff',topBrandClr:'rgba(255,255,255,.55)',
+    border:'1px solid #E2E8F0',qzBg:'#fff',qzBorder:'#E2E8F0',scanClr:'#94A3B8'
+  };
+  const w=window.open('','_blank','width=420,height=640');if(!w)return;
+  w.document.write(`<!DOCTYPE html><html dir="rtl"><head><meta charset="UTF-8"><style>
+    @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700;900&display=swap');
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'Vazirmatn',sans-serif;background:#F1F5F9;display:flex;align-items:center;justify-content:center;min-height:100vh;padding:24px}
+    .card{width:275px;background:${S.cardBg};border-radius:${S.radius};overflow:hidden;box-shadow:0 24px 64px rgba(0,0,0,.2);border:${S.border}}
+    .top{background:${S.topBg};padding:20px;text-align:center}
+    .brand{font-size:10px;font-weight:700;color:${S.topBrandClr};letter-spacing:2px;text-transform:uppercase;margin-bottom:3px}
+    .rname{font-size:17px;font-weight:900;color:${S.topNameClr}}
+    .qz{padding:22px;text-align:center;background:${S.qzBg}}
+    .qz img{width:180px;height:180px;border-radius:12px;border:2px solid ${S.qzBorder};display:block;margin:0 auto}
+    .scan{font-size:11px;color:${S.scanClr};margin-top:11px;font-weight:600}
+    .bot{background:${S.botBg};padding:16px;text-align:center;border-top:1px solid rgba(0,0,0,.05)}
+    .tnum{font-size:38px;font-weight:900;color:${S.numClr};line-height:1}
+    .tlbl{font-size:11px;color:${S.lblClr};font-weight:700;margin-top:2px}
+    .ftr{font-size:9px;color:${S.lblClr};margin-top:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;opacity:.45}
+  </style></head><body>
+  <div class="card">
+    <div class="top"><div class="brand">Byteline Pro POS</div><div class="rname">${M.name}</div></div>
+    <div class="qz">
+      ${qrImg?`<img src="${qrImg}">`:`<div style="width:180px;height:180px;background:#F1F5F9;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:11px;color:#94A3B8;margin:0 auto">QR Code</div>`}
+      <div class="scan">📱 سکان بکە بۆ مینیو و داواکاری</div>
+    </div>
+    <div class="bot"><div class="tnum">${num}</div><div class="tlbl">مێزی ${num}</div><div class="ftr">bytelineagency.vercel.app</div></div>
+  </div>
+  <script>window.onload=function(){window.print();setTimeout(function(){window.close()},900);}<\/script></body></html>`);
   w.document.close();
 }
 
-/* ANALYTICS */
+/* ── ANALYTICS ── */
 function mkExp(){
-  const t=(g('ex-t')?.value||'').trim(),a=parseInt(g('ex-a')?.value);
-  if(!t||!a){toast('هەڵە','خانەکان پڕ بکەرەوە','err');return;}
-  const cat=g('ex-cat')?.value||'تر';const m=dbGet(M.username);if(!m.expenses)m.expenses=[];
+  const t=(g('ex-t')?.value||'').trim();
+  const a=parseInt(g('ex-a')?.value);
+  if(!t||!a||a<=0){toast('هەڵە','خانەکان پڕ بکەرەوە','err');return;}
+  const cat=g('ex-cat')?.value||'تر';
+  const m=dbGet(M.username);if(!m)return;
+  if(!m.expenses)m.expenses=[];
   m.expenses.push({id:Date.now(),title:t,amount:a,category:cat,time:new Date().toISOString()});
-  dbSet(M.username,m);M=fix(m);if(g('ex-t'))g('ex-t').value='';if(g('ex-a'))g('ex-a').value='';
+  dbSet(M.username,m);M=fix(JSON.parse(JSON.stringify(m)));
+  if(g('ex-t'))g('ex-t').value='';if(g('ex-a'))g('ex-a').value='';
   rAnalytics();toast('✅ خەرجی تۆمارکرا',t+' — '+iq(a));
 }
-function delExp(id){const m=dbGet(M.username);m.expenses=(m.expenses||[]).filter(e=>e.id!==id);dbSet(M.username,m);M=fix(m);rAnalytics();toast('سڕدرايەوە');}
+function delExp(id){
+  const m=dbGet(M.username);if(!m)return;
+  m.expenses=(m.expenses||[]).filter(e=>e.id!==id);
+  dbSet(M.username,m);M=fix(JSON.parse(JSON.stringify(m)));
+  rAnalytics();toast('سڕدرايەوە');
+}
 function rAnalytics(){
-  let sales=0,qrCnt=0,posCnt=0;const fs={},pay={cash:0,card:0};
-  (M.orders||[]).forEach(o=>{if(o.status==='served'){sales+=o.total;if(o.source==='qr')qrCnt++;else posCnt++;if(o.method)pay[o.method]=(pay[o.method]||0)+1;(o.items||[]).forEach(it=>{fs[it.title]=(fs[it.title]||0)+it.qty;});}});
-  const exps=(M.expenses||[]).reduce((s,e)=>s+e.amount,0);const prf=sales-exps;
-  const ordCnt=(M.orders||[]).filter(o=>o.status==='served').length;const avg=ordCnt>0?Math.round(sales/ordCnt):0;
+  let sales=0,qrCnt=0,posCnt=0;
+  const fs={};const pay={cash:0,card:0};
+  (M.orders||[]).forEach(o=>{
+    if(o.status==='served'){
+      sales+=o.total;
+      if(o.source==='qr')qrCnt++;else posCnt++;
+      if(o.method)pay[o.method]=(pay[o.method]||0)+1;
+      (o.items||[]).forEach(it=>{fs[it.title]=(fs[it.title]||0)+it.qty;});
+    }
+  });
+  const exps=(M.expenses||[]).reduce((s,e)=>s+e.amount,0);
+  const prf=sales-exps;
+  const ordCnt=(M.orders||[]).filter(o=>o.status==='served').length;
+  const avg=ordCnt>0?Math.round(sales/ordCnt):0;
   const set=(id,v)=>{if(g(id))g(id).textContent=v;};
   set('st-sales',sales.toLocaleString());set('st-exp',exps.toLocaleString());set('st-prf',prf.toLocaleString());
-  set('st-ord',ordCnt);set('st-avg',avg.toLocaleString());set('st-qr',qrCnt);set('st-pos',posCnt);set('st-bill',(M.bill_requests||[]).length);
-  const tp=g('top-prods');const top=Object.entries(fs).sort((a,b)=>b[1]-a[1]).slice(0,5);
-  if(tp)tp.innerHTML=top.length?top.map(([n,q],i)=>`<div style="display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid var(--bd)"><div style="display:flex;align-items:center;gap:8px"><span style="font-size:11px;font-weight:900;color:var(--tm);min-width:16px">${i+1}.</span><span style="font-size:12px;font-weight:700">${n}</span></div><span class="badge bp">${q} دانە</span></div>`).join(''):'<p style="font-size:11px;color:var(--tm);padding:11px 0">هێشتا داتا نییە</p>';
-  const pb=g('pay-bk');if(pb){const tot2=pay.cash+pay.card;pb.innerHTML=[{lbl:'💵 شێوازی پارەدان نەختینە',cnt:pay.cash,bg:'var(--sl)',clr:'var(--s)'},{lbl:'💳 شێوازی پارەدان کارت',cnt:pay.card,bg:'var(--pl)',clr:'var(--p)'}].map(p=>`<div style="flex:1;min-width:150px;background:${p.bg};border-radius:var(--r2);padding:14px;display:flex;justify-content:space-between;align-items:center"><span style="font-size:12px;font-weight:700">${p.lbl}</span><div style="text-align:left"><div style="font-size:20px;font-weight:900;color:${p.clr}">${p.cnt}</div><div style="font-size:10px;color:var(--tm)">${tot2?Math.round(p.cnt/tot2*100):0}%</div></div></div>`).join('');}
-  const el=g('exp-list');if(el)el.innerHTML=(M.expenses||[]).slice().reverse().map(e=>`<div class="exp-item"><div><div style="font-size:12px;font-weight:700">${e.title}</div><div style="font-size:10px;color:var(--tm)">${e.category||''} · ${new Date(e.time).toLocaleDateString('ar')}</div></div><div style="display:flex;align-items:center;gap:7px"><span style="font-size:13px;font-weight:900;color:var(--d)">${iq(e.amount)}</span><button onclick="delExp(${e.id})" style="background:none;border:none;cursor:pointer;color:var(--tm);font-size:14px;line-height:1;padding:2px 4px">✖</button></div></div>`).join('')||'<p style="font-size:11px;color:var(--tm)">خەرجی نییە</p>';
+  set('st-ord',ordCnt);set('st-avg',avg.toLocaleString());set('st-qr',qrCnt);set('st-pos',posCnt);
+  set('st-bill',(M.bill_requests||[]).length);
+  const tp=g('top-prods');
+  const top=Object.entries(fs).sort((a,b)=>b[1]-a[1]).slice(0,5);
+  if(tp)tp.innerHTML=top.length?top.map(([n,q],i)=>`
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--bd)">
+      <div style="display:flex;align-items:center;gap:8px">
+        <span style="font-size:11px;font-weight:900;color:var(--tm);min-width:18px">${i+1}.</span>
+        <span style="font-size:12px;font-weight:700">${n}</span>
+      </div>
+      <span class="badge bp">${q} دانە</span>
+    </div>`).join(''):'<p style="font-size:11px;color:var(--tm);padding:11px 0">هێشتا داتا نییە</p>';
+  const pb=g('pay-bk');
+  if(pb){
+    const tot2=pay.cash+pay.card;
+    pb.innerHTML=[
+      {lbl:'💵 نەختینە',cnt:pay.cash,bg:'var(--sl)',clr:'var(--s)'},
+      {lbl:'💳 کارت',cnt:pay.card,bg:'var(--pl)',clr:'var(--p)'}
+    ].map(p=>`<div style="flex:1;min-width:150px;background:${p.bg};border-radius:var(--r2);padding:15px;display:flex;justify-content:space-between;align-items:center">
+      <span style="font-size:12px;font-weight:700">${p.lbl}</span>
+      <div style="text-align:left"><div style="font-size:22px;font-weight:900;color:${p.clr}">${p.cnt}</div>
+      <div style="font-size:10px;color:var(--tm)">${tot2?Math.round(p.cnt/tot2*100):0}%</div></div></div>`).join('');
+  }
+  const el=g('exp-list');
+  if(el)el.innerHTML=(M.expenses||[]).slice().reverse().map(e=>`
+    <div class="exp-item">
+      <div><div style="font-size:12px;font-weight:700">${e.title}</div>
+      <div style="font-size:10px;color:var(--tm)">${e.category||''} · ${new Date(e.time).toLocaleDateString('ar')}</div></div>
+      <div style="display:flex;align-items:center;gap:7px">
+        <span style="font-size:13px;font-weight:900;color:var(--d)">${iq(e.amount)}</span>
+        <button onclick="delExp(${e.id})" style="background:none;border:none;cursor:pointer;color:var(--tm);font-size:14px;line-height:1;padding:2px 5px;transition:var(--tr)" onmouseover="this.style.color='var(--d)'" onmouseout="this.style.color='var(--tm)'">✖</button>
+      </div></div>`).join('')||'<p style="font-size:11px;color:var(--tm)">خەرجی نییە</p>';
   if(g('exp-total'))g('exp-total').textContent='کۆیی: '+iq(exps);
   rBarChart();
 }
 function rBarChart(){
   const bc=g('bar-chart');if(!bc)return;
-  const days=['شە','یە','دو','سێ','چو','پێ','هە'];const today=new Date();const ds=Array(7).fill(0);
-  (M.orders||[]).forEach(o=>{if(o.status!=='served')return;const diff=Math.floor((today-new Date(o.time))/864e5);if(diff<7&&diff>=0)ds[6-diff]+=o.total;});
+  const days=['شەممە','یەکشەممە','دووشەممە','سێشەممە','چوارشەممە','پێنجشەممە','هەینی'];
+  const today=new Date();const ds=Array(7).fill(0);
+  (M.orders||[]).forEach(o=>{
+    if(o.status!=='served')return;
+    const diff=Math.floor((today-new Date(o.time))/864e5);
+    if(diff>=0&&diff<7)ds[6-diff]+=o.total;
+  });
   const mx=Math.max(...ds,1);
-  bc.innerHTML=ds.map((v,i)=>{const h=Math.round(v/mx*100);return`<div class="bar-col"><div class="bar-v">${v>0?Math.round(v/1000)+'K':''}</div><div class="bar" style="height:${h}px;opacity:${0.4+i*0.09}"></div><div class="bar-label">${days[i]}</div></div>`;}).join('');
+  bc.innerHTML=ds.map((v,i)=>{
+    const h=Math.max(4,Math.round(v/mx*100));
+    const today2=new Date();
+    const dayIdx=(today2.getDay()+(6-i))%7;
+    return `<div class="bar-col">
+      <div class="bar-v">${v>0?Math.round(v/1000)+'K':''}</div>
+      <div class="bar" style="height:${h}px;opacity:${0.35+i*0.095}"></div>
+      <div class="bar-lbl">${days[dayIdx].slice(0,2)}</div>
+    </div>`;
+  }).join('');
 }
 function exportRpt(){
-  const m=M;const sales=(m.orders||[]).filter(o=>o.status==='served').reduce((s,o)=>s+o.total,0);
-  const exps=(m.expenses||[]).reduce((s,e)=>s+e.amount,0);const ordCnt=(m.orders||[]).filter(o=>o.status==='served').length;
-  const w=window.open('','_blank');
-  w.document.write(`<!DOCTYPE html><html dir="rtl"><head><meta charset="UTF-8"><style>@import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700;900&display=swap');body{font-family:'Vazirmatn',sans-serif;padding:32px;direction:rtl;color:#0F172A;max-width:700px;margin:0 auto}h1{font-size:22px;font-weight:900;margin-bottom:4px}.sub{font-size:12px;color:#64748B;margin-bottom:26px}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:26px}.stat{background:#F8FAFC;border:1px solid #E2E8F0;border-radius:14px;padding:18px;text-align:center}.sv{font-size:20px;font-weight:900;margin-top:5px}.sl{font-size:11px;color:#64748B;font-weight:700}table{width:100%;border-collapse:collapse;font-size:12px}th{text-align:right;padding:9px 13px;background:#F1F5F9;border-bottom:2px solid #E2E8F0;font-weight:700}td{padding:9px 13px;border-bottom:1px solid #F1F5F9}</style></head><body><h1>ڕاپۆرتی دارایی — ${m.name}</h1><div class="sub">بەروار: ${new Date().toLocaleDateString('ar')} · Byteline Pro POS · bytelineagency.vercel.app</div><div class="stats"><div class="stat"><div class="sl">کۆیی فرۆش</div><div class="sv" style="color:#22C55E">${iq(sales)}</div></div><div class="stat"><div class="sl">کۆیی خەرجییەکان</div><div class="sv" style="color:#EF4444">${iq(exps)}</div></div><div class="stat"><div class="sl">قازانجی پاک</div><div class="sv" style="color:#2563EB">${iq(sales-exps)}</div></div></div><table><thead><tr><th>کۆیی داواکاری</th><th>تەواوکراو</th><th>ناوەندی هەر داواکاری</th><th>فرۆشی گشتی</th></tr></thead><tbody><tr><td>${(m.orders||[]).length}</td><td>${ordCnt}</td><td>${iq(ordCnt>0?Math.round(sales/ordCnt):0)}</td><td style="font-weight:900;color:#2563EB">${iq(sales)}</td></tr></tbody></table><br><table><thead><tr><th>خەرجی</th><th>جۆر</th><th>بەروار</th><th>نرخ</th></tr></thead><tbody>${(m.expenses||[]).map(e=>`<tr><td>${e.title}</td><td>${e.category||'تر'}</td><td>${new Date(e.time).toLocaleDateString('ar')}</td><td style="color:#EF4444;font-weight:700">${iq(e.amount)}</td></tr>`).join('')}</tbody></table><script>window.onload=function(){window.print();}<\/script></body></html>`);
+  const m=M;
+  const sales=(m.orders||[]).filter(o=>o.status==='served').reduce((s,o)=>s+o.total,0);
+  const exps=(m.expenses||[]).reduce((s,e)=>s+e.amount,0);
+  const ordCnt=(m.orders||[]).filter(o=>o.status==='served').length;
+  const w=window.open('','_blank');if(!w)return;
+  w.document.write(`<!DOCTYPE html><html dir="rtl"><head><meta charset="UTF-8">
+  <style>@import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700;900&display=swap');
+  body{font-family:'Vazirmatn',sans-serif;padding:36px;direction:rtl;color:#0F172A;max-width:700px;margin:0 auto}
+  h1{font-size:22px;font-weight:900;margin-bottom:4px;letter-spacing:-.5px}
+  .sub{font-size:12px;color:#64748B;margin-bottom:28px}
+  .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:28px}
+  .stat{background:#F8FAFC;border:1px solid #E2E8F0;border-radius:14px;padding:20px;text-align:center}
+  .sv{font-size:22px;font-weight:900;margin-top:6px}.sl{font-size:11px;color:#64748B;font-weight:700}
+  table{width:100%;border-collapse:collapse;font-size:12px}
+  th{text-align:right;padding:9px 13px;background:#F1F5F9;border-bottom:2px solid #E2E8F0;font-weight:700}
+  td{padding:9px 13px;border-bottom:1px solid #F1F5F9}
+  </style></head><body>
+  <h1>ڕاپۆرتی دارایی — ${m.name}</h1>
+  <div class="sub">بەروار: ${new Date().toLocaleDateString('ar')} · Byteline Pro POS · bytelineagency.vercel.app</div>
+  <div class="stats">
+    <div class="stat"><div class="sl">کۆیی فرۆش</div><div class="sv" style="color:#10B981">${iq(sales)}</div></div>
+    <div class="stat"><div class="sl">کۆیی خەرجییەکان</div><div class="sv" style="color:#EF4444">${iq(exps)}</div></div>
+    <div class="stat"><div class="sl">قازانجی پاک</div><div class="sv" style="color:#4F46E5">${iq(sales-exps)}</div></div>
+  </div>
+  <table><thead><tr><th>کۆیی داواکاری</th><th>تەواوکراو</th><th>ناوەندی هەر داواکاری</th><th>فرۆشی گشتی</th></tr></thead>
+  <tbody><tr><td>${(m.orders||[]).length}</td><td>${ordCnt}</td><td>${iq(ordCnt>0?Math.round(sales/ordCnt):0)}</td><td style="font-weight:900;color:#4F46E5">${iq(sales)}</td></tr></tbody></table>
+  <br>
+  <table><thead><tr><th>خەرجی</th><th>جۆر</th><th>بەروار</th><th>نرخ</th></tr></thead>
+  <tbody>${(m.expenses||[]).map(e=>`<tr><td>${e.title}</td><td>${e.category||'تر'}</td><td>${new Date(e.time).toLocaleDateString('ar')}</td><td style="color:#EF4444;font-weight:700">${iq(e.amount)}</td></tr>`).join('')}</tbody></table>
+  <script>window.onload=function(){window.print();}<\/script></body></html>`);
   w.document.close();
 }
 
-/* SETTINGS */
+/* ── SETTINGS ── */
 async function saveBrand(){
-  const name=(g('set-name')?.value||'').trim();if(!name){toast('هەڵە','ناوی چێشتخانە داخل بکە','err');return;}
-  const lf=g('set-logo')?.files[0];let logo=M.logo;if(lf)try{logo=await b64(lf)}catch(e){}
-  const m=dbGet(M.username);m.name=name;m.logo=logo;dbSet(M.username,m);M=fix(m);
-  if(g('m-name'))g('m-name').textContent=name;if(g('m-logo'))g('m-logo').src=logo;
+  const name=(g('set-name')?.value||'').trim();
+  if(!name){toast('هەڵە','ناوی چێشتخانە داخل بکە','err');return;}
+  const lf=g('set-logo')?.files[0];let logo=M.logo;
+  if(lf)try{logo=await b64(lf)}catch(e){}
+  const m=dbGet(M.username);if(!m)return;
+  m.name=name;m.logo=logo;
+  dbSet(M.username,m);M=fix(JSON.parse(JSON.stringify(m)));
+  if(g('m-name'))g('m-name').textContent=name;
+  if(g('m-logo')){g('m-logo').src=logo||'';g('m-logo').style.display=logo?'block':'none';}
   toast('✅ پاشەکەوتکرا',name);
 }
 function saveTableSettings(){
   const cnt=parseInt(g('set-tbl')?.value)||M.tables_count;
-  const m=dbGet(M.username);m.tables_count=cnt;dbSet(M.username,m);M=fix(m);
-  if(g('tbl-cnt'))g('tbl-cnt').value=cnt;rTables();rPOSTbls();toast('✅ پاشەکەوتکرا');
+  const m=dbGet(M.username);if(!m)return;
+  m.tables_count=cnt;dbSet(M.username,m);M=fix(JSON.parse(JSON.stringify(m)));
+  if(g('tbl-cnt'))g('tbl-cnt').value=cnt;
+  rTables();rPOSTbls();toast('✅ پاشەکەوتکرا');
 }
 
-/* CUSTOMER */
+/* ═══════════════════════════════════════════
+   CUSTOMER-FACING
+═══════════════════════════════════════════ */
 const TX={
   ku:{all:'هەموو',srch:'🔍 گەڕان لە مینیودا...',add:'زیادکردن',vcrt:'بینینی سەبەتە',tot:'کۆیی گشتی',ctitle:'سەبەتەی مێزەکەت',sub:'ناردنی داواکاری ⚡',ok:'سپاس! داواکاریەکەت نێردرا 🎉',note:'تێبینی (ئارەزوومەند)',oos:'تەواوبوو',bill:'🔔 داواکردنی حیساب'},
   ar:{all:'الكل',srch:'🔍 ابحث في القائمة...',add:'إضافة',vcrt:'عرض السلة',tot:'المجموع',ctitle:'سلة طاولتك',sub:'إرسال الطلب ⚡',ok:'شكراً! تم إرسال طلبك 🎉',note:'ملاحظة (اختياري)',oos:'نفدت',bill:'🔔 طلب الحساب'},
@@ -1112,102 +1753,187 @@ const TX={
 
 function initCust(shop,tbl){
   const m=dbGet(shop);
-  if(!m){sv('customer-menu');const ci=g('cm-items');if(ci)ci.innerHTML='<p style="padding:60px;text-align:center;color:var(--tm);font-weight:600">مینیو نەدۆزرایەوە</p>';return;}
+  if(!m){
+    sv('customer-menu');
+    const ci=g('cm-items');
+    if(ci)ci.innerHTML='<p style="padding:60px;text-align:center;color:var(--tm);font-weight:600">مینیو نەدۆزرایەوە</p>';
+    return;
+  }
   if(isExp(m)){sv('expired');return;}
   cMU=shop;cTbl=tbl;cCart={};
-  applyTheme(m.theme_color||'#2563EB');
-  if(g('cw-logo'))g('cw-logo').src=m.logo||'';if(g('cw-name'))g('cw-name').textContent=m.name;if(g('cw-ku'))g('cw-ku').textContent='بەخێربێن بۆ '+m.name;if(g('cw-tbl'))g('cw-tbl').textContent='مێزی: '+tbl;
-  if(g('cm-logo'))g('cm-logo').src=m.logo||'';if(g('cm-name'))g('cm-name').textContent=m.name;if(g('cm-tbl'))g('cm-tbl').textContent='مێزی: '+tbl;
+  applyTheme(m.theme_color||'#4F46E5');
+  if(g('cw-logo')){g('cw-logo').src=m.logo||'';g('cw-logo').style.display=m.logo?'block':'none';}
+  if(g('cw-name'))g('cw-name').textContent=m.name;
+  if(g('cw-ku'))g('cw-ku').textContent='بەخێربێن بۆ '+m.name;
+  if(g('cw-tbl'))g('cw-tbl').textContent='مێزی: '+tbl;
+  if(g('cm-logo')){g('cm-logo').src=m.logo||'';g('cm-logo').style.display=m.logo?'block':'none';}
+  if(g('cm-name'))g('cm-name').textContent=m.name;
+  if(g('cm-tbl'))g('cm-tbl').textContent='مێزی: '+tbl;
   sv('customer-welcome');
 }
 function openMenu(l){
-  clang=l;if(g('lang-sel'))g('lang-sel').value=l;
-  document.documentElement.dir=l==='en'?'ltr':'rtl';
-  sv('customer-menu');rCustMenu();
+  clang=l;
+  if(g('lang-sel'))g('lang-sel').value=l;
+  // FIX: apply dir only to customer menu wrapper, not whole document
+  const dir=l==='en'?'ltr':'rtl';
+  document.documentElement.dir=dir;
+  document.documentElement.lang=l;
+  sv('customer-menu');
+  rCustMenu();
 }
-function chgLang(){clang=g('lang-sel')?.value||'ku';document.documentElement.dir=clang==='en'?'ltr':'rtl';rCustMenu();}
+function chgLang(){
+  clang=g('lang-sel')?.value||'ku';
+  const dir=clang==='en'?'ltr':'rtl';
+  document.documentElement.dir=dir;
+  document.documentElement.lang=clang;
+  rCustMenu();
+}
 function rCustMenu(){
-  const m=dbGet(cMU);if(!m)return;const t=TX[clang] || TX.ku;
-  if(g('cm-srch'))g('cm-srch').placeholder=t.srch;if(g('txt-bill'))g('txt-bill').textContent=t.bill;
+  const m=dbGet(cMU);if(!m)return;
+  const t=TX[clang]||TX.ku;
+  if(g('cm-srch'))g('cm-srch').placeholder=t.srch;
+  if(g('txt-bill'))g('txt-bill').textContent=t.bill;
   const cc=g('cm-cats');if(!cc)return;
   cc.innerHTML='<button class="ccbtn'+(cCat==='all'?' on':'')+'" onclick="fCust(\'all\')">'+t.all+'</button>';
-  (m.categories||[]).forEach(c=>{const n=c[clang]||c.ku;cc.innerHTML+='<button class="ccbtn'+(cCat===c.id?' on':'')+'" onclick="fCust(\''+c.id+'\')">'+n+'</button>';});
+  (m.categories||[]).forEach(c=>{
+    const n=c[clang]||c.ku;
+    cc.innerHTML+='<button class="ccbtn'+(cCat===c.id?' on':'')+'" onclick="fCust(\''+c.id+'\')">'+n+'</button>';
+  });
   const foods=cCat==='all'?(m.foods||[]):(m.foods||[]).filter(f=>f.category===cCat);
-  rCFoods(foods,t);updCBar(t);
+  rCFoods(foods,t);
+  updCBar(t);
 }
 function fCust(c){cCat=c;rCustMenu();}
 function srchMenu(){
-  const q=(g('cm-srch')?.value||'').trim().toLowerCase();const m=dbGet(cMU);if(!m)return;const t=TX[clang]||TX.ku;
-  const foods=(m.foods||[]).filter(f=>((f['title_'+clang]||f.title_ku||'').toLowerCase()).includes(q));rCFoods(foods,t);
+  const q=(g('cm-srch')?.value||'').trim().toLowerCase();
+  const m=dbGet(cMU);if(!m)return;
+  const t=TX[clang]||TX.ku;
+  const foods=(m.foods||[]).filter(f=>((f['title_'+clang]||f.title_ku||'').toLowerCase()).includes(q)||
+    ((f['desc_'+clang]||f.desc_ku||'').toLowerCase()).includes(q));
+  rCFoods(foods,t);
 }
 function rCFoods(foods,t){
   const c=g('cm-items');if(!c)return;c.innerHTML='';
-  if(!foods||!foods.length){c.innerHTML='<div style="text-align:center;padding:56px 16px;color:var(--tm)"><div style="font-size:38px;margin-bottom:10px">🍽️</div><div style="font-size:13px;font-weight:700">بابەت نەدۆزرایەوە</div></div>';return;}
+  if(!foods||!foods.length){
+    c.innerHTML='<div style="text-align:center;padding:58px 16px;color:var(--tm)"><div style="font-size:40px;margin-bottom:11px">🍽️</div><div style="font-size:13px;font-weight:700">بابەت نەدۆزرایەوە</div></div>';
+    return;
+  }
   foods.forEach(food=>{
-    const title=food['title_'+clang]||food.title_ku||'';const desc=food['desc_'+clang]||food.desc_ku||'';
-    const oos=food.stock!==undefined&&food.stock<=0;const inC=cCart[food.id];
+    const title=food['title_'+clang]||food.title_ku||'';
+    const desc=food['desc_'+clang]||food.desc_ku||'';
+    const oos=food.stock!==undefined&&food.stock<=0;
+    const inC=cCart[food.id];
     let cta='';
     if(oos)cta='<span style="font-size:11px;color:var(--d);font-weight:700">'+t.oos+'</span>';
-    else if(inC)cta='<div class="qty-ctrl"><button class="qcb minus" onclick="chgCrt('+food.id+',-1)">-</button><span class="qn2">'+inC.qty+'</span><button class="qcb plus" onclick="chgCrt('+food.id+',1)">+</button></div>';
+    else if(inC)cta='<div class="qty-ctrl"><button class="qcb minus" onclick="chgCrt('+food.id+',-1)">−</button><span class="qn2">'+inC.qty+'</span><button class="qcb plus" onclick="chgCrt('+food.id+',1)">+</button></div>';
     else cta='<button class="add-btn" onclick="addCrt('+food.id+')">'+t.add+'</button>';
-    const card=document.createElement('div');card.className='mi-card';if(oos)card.style.opacity='.5';
-    card.innerHTML='<img src="'+(food.img||'')+'" class="mi-img" onerror="this.src=\'https://via.placeholder.com/92x92/F1F5F9/94A3B8?text=Food\'" loading="lazy">'+
-      '<div class="mi-body"><div><div class="mi-name">'+title+'</div>'+(desc?'<div class="mi-desc">'+desc+'</div>':'')+
-      '</div><div class="mi-footer"><div class="mi-price">'+iq(food.price)+'</div>'+cta+'</div></div>';
+    const card=document.createElement('div');
+    card.className='mi-card';if(oos)card.style.opacity='.45';
+    card.innerHTML=`<img src="${food.img||''}" class="mi-img" onerror="this.src='https://placehold.co/92x92/F1F5F9/94A3B8?text=Food'" loading="lazy">`+
+      `<div class="mi-body"><div><div class="mi-name">${title}</div>${desc?'<div class="mi-desc">'+desc+'</div>':''}</div>`+
+      `<div class="mi-footer"><div class="mi-price">${iq(food.price)}</div>${cta}</div></div>`;
     c.appendChild(card);
   });
 }
-function addCrt(id){const m=dbGet(cMU);const f=(m.foods||[]).find(f=>f.id===id);if(!f)return;cCart[id]={...f,qty:1};updCBar(TX[clang]);rCustMenu();}
-function chgCrt(id,d){if(!cCart[id])return;cCart[id].qty+=d;if(cCart[id].qty<=0)delete cCart[id];updCBar(TX[clang]);rCustMenu();}
+function addCrt(id){
+  const m=dbGet(cMU);if(!m)return;
+  const f=(m.foods||[]).find(f=>f.id===id);if(!f)return;
+  cCart[id]={...f,qty:1};
+  updCBar(TX[clang]);rCustMenu();
+}
+function chgCrt(id,d){
+  if(!cCart[id])return;
+  cCart[id].qty+=d;
+  if(cCart[id].qty<=0)delete cCart[id];
+  updCBar(TX[clang]);rCustMenu();
+}
 function updCBar(t){
-  const t2=t||TX[clang];const items=Object.values(cCart);
-  const tot=items.reduce((s,i)=>s+i.price*i.qty,0);const cnt=items.reduce((s,i)=>s+i.qty,0);
-  if(g('crt-tot'))g('crt-tot').textContent=iq(tot);if(g('crt-bdg'))g('crt-bdg').textContent=cnt;
-  if(g('txt-tot'))g('txt-tot').textContent=t2.tot;if(g('txt-vcrt'))g('txt-vcrt').textContent=t2.vcrt;
+  const t2=t||TX[clang];
+  const items=Object.values(cCart);
+  const tot=items.reduce((s,i)=>s+i.price*i.qty,0);
+  const cnt=items.reduce((s,i)=>s+i.qty,0);
+  if(g('crt-tot'))g('crt-tot').textContent=iq(tot);
+  if(g('crt-bdg'))g('crt-bdg').textContent=cnt;
+  if(g('txt-tot'))g('txt-tot').textContent=t2.tot;
+  if(g('txt-vcrt'))g('txt-vcrt').textContent=t2.vcrt;
   const bar=g('crt-bar');if(bar)bar.classList.toggle('hidden',cnt===0);
 }
 function openCartModal(){
   const t=TX[clang]||TX.ku;
-  if(g('txt-crt-title'))g('txt-crt-title').textContent=t.ctitle;if(g('txt-sub'))g('txt-sub').textContent=t.sub;if(g('lbl-note'))g('lbl-note').textContent=t.note;if(g('order-note'))g('order-note').placeholder=t.note;
+  if(g('txt-crt-title'))g('txt-crt-title').textContent=t.ctitle;
+  if(g('txt-sub'))g('txt-sub').textContent=t.sub;
+  if(g('lbl-note'))g('lbl-note').textContent=t.note;
+  if(g('order-note'))g('order-note').placeholder=t.note;
   const list=g('crt-items');if(!list)return;
   const items=Object.values(cCart);let tot=0;list.innerHTML='';
   items.forEach(it=>{
-    const title=it['title_'+clang]||it.title_ku||'';tot+=it.price*it.qty;
+    const title=it['title_'+clang]||it.title_ku||'';
+    tot+=it.price*it.qty;
     const row=document.createElement('div');
     row.style.cssText='display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid var(--bd)';
-    row.innerHTML='<div><div style="font-size:13px;font-weight:700">'+title+'</div><div style="font-size:11px;color:var(--p);font-weight:700;margin-top:1px">'+iq(it.price)+'</div></div>'+
-      '<div class="qty-ctrl"><button class="qcb minus" onclick="chgCrt('+it.id+',-1);updModal()">-</button><span class="qn2">'+it.qty+'</span><button class="qcb plus" onclick="chgCrt('+it.id+',1);updModal()">+</button></div>';
+    row.innerHTML=`<div><div style="font-size:13px;font-weight:700">${title}</div><div style="font-size:11px;color:var(--p);font-weight:700;margin-top:1px">${iq(it.price)}</div></div>`+
+      `<div class="qty-ctrl"><button class="qcb minus" onclick="chgCrt(${it.id},-1);updModal()">−</button><span class="qn2">${it.qty}</span><button class="qcb plus" onclick="chgCrt(${it.id},1);updModal()">+</button></div>`;
     list.appendChild(row);
   });
   if(g('crt-modal-tot'))g('crt-modal-tot').textContent=iq(tot);
   const modal=g('crt-modal');if(modal)modal.classList.add('open');
 }
-function updModal(){const items=Object.values(cCart);if(g('crt-modal-tot'))g('crt-modal-tot').textContent=iq(items.reduce((s,i)=>s+i.price*i.qty,0));updCBar(TX[clang]);if(!items.length)closeCartModal();}
+function updModal(){
+  const items=Object.values(cCart);
+  if(g('crt-modal-tot'))g('crt-modal-tot').textContent=iq(items.reduce((s,i)=>s+i.price*i.qty,0));
+  updCBar(TX[clang]);
+  if(!items.length)closeCartModal();
+}
 function closeCartModal(){const m=g('crt-modal');if(m)m.classList.remove('open');}
 function submitOrder(){
   const items=Object.values(cCart);if(!items.length)return;
-  const tot=items.reduce((s,i)=>s+i.price*i.qty,0);const note=(g('order-note')?.value||'').trim();
-  const m=dbGet(cMU);if(!m)return;if(!m.orders)m.orders=[];
-  m.orders.push({id:Date.now(),table:cTbl,items:items.map(i=>({id:i.id,title:i.title_ku||i.title_en||'',qty:i.qty,price:i.price})),total:tot,status:'pending',source:'qr',note:note||null,time:new Date().toISOString()});
-  dbSet(cMU,m);cCart={};closeCartModal();updCBar(TX[clang]);rCustMenu();if(g('order-note'))g('order-note').value='';
+  const tot=items.reduce((s,i)=>s+i.price*i.qty,0);
+  const note=(g('order-note')?.value||'').trim();
+  const m=dbGet(cMU);if(!m)return;
+  if(!m.orders)m.orders=[];
+  m.orders.push({
+    id:Date.now(),table:cTbl,
+    items:items.map(i=>({id:i.id,title:i.title_ku||i.title_en||'',qty:i.qty,price:i.price})),
+    total:tot,status:'pending',source:'qr',note:note||null,
+    time:new Date().toISOString()
+  });
+  dbSet(cMU,m);
+  // FIX: clear cart state after submit, don't carry over
+  cCart={};
+  closeCartModal();
+  updCBar(TX[clang]);
+  rCustMenu();
+  if(g('order-note'))g('order-note').value='';
   toast((TX[clang]||TX.ku).ok,'');
 }
 function reqBill(){
-  const m=dbGet(cMU);if(!m)return;if(!m.bill_requests)m.bill_requests=[];
+  const m=dbGet(cMU);if(!m)return;
+  if(!m.bill_requests)m.bill_requests=[];
   if(!m.bill_requests.includes(String(cTbl)))m.bill_requests.push(String(cTbl));
-  dbSet(cMU,m);toast('✅ نێردرا','داواکاری حیسابەکەت بۆ کاشێر نێردرا');
+  dbSet(cMU,m);
+  toast('✅ نێردرا','داواکاری حیسابەکەت بۆ کاشێر نێردرا');
 }
 
-/* ROUTER */
+/* ── ROUTER ── */
 window.addEventListener('load',async()=>{
   document.querySelectorAll('.view').forEach(v=>v.style.display='none');
   const p=new URLSearchParams(location.search);
-  const shop=p.get('shop'),tbl=p.get('table')||'1';
+  const shop=p.get('shop');
+  const tbl=p.get('table')||'1';
   await cloudFetch();
-  if(shop){initCust(shop,tbl);}
-  else{sv('portal');}
+  if(shop){
+    initCust(shop,tbl);
+  }else{
+    sv('portal');
+  }
 });
-window.addEventListener('beforeunload',e=>{if(M&&Object.keys(pCart).length>0){e.preventDefault();e.returnValue='';}});
+
+window.addEventListener('beforeunload',e=>{
+  if(M&&Object.keys(pCart).length>0){
+    e.preventDefault();
+    e.returnValue='';
+  }
+});
 </script>
 </body>
 </html>

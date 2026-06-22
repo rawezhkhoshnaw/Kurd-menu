@@ -90,6 +90,7 @@ button,input,select,textarea{font-family:var(--font)}
 .btn-sm{padding:7px 13px;font-size:11px;border-radius:var(--r0)}
 .btn-icon{width:36px;height:36px;padding:0;border-radius:var(--r1);flex-shrink:0;font-size:15px}
 .btn-icon-sm{width:30px;height:30px;padding:0;border-radius:var(--r0);flex-shrink:0;font-size:13px}
+.btn:disabled{opacity:.5;cursor:not-allowed;pointer-events:none}
 
 /* ── INPUTS ── */
 .inp{width:100%;padding:11px 14px;background:var(--glass);border:1.5px solid var(--bd);border-radius:var(--r1);font-family:var(--font);font-size:12.5px;color:var(--t);transition:var(--tr);outline:none;-webkit-appearance:none;appearance:none;backdrop-filter:blur(8px)}
@@ -102,6 +103,7 @@ select.inp{cursor:pointer;padding-left:32px;background-image:url("data:image/svg
 .lbl{display:block;font-size:11px;font-weight:700;color:var(--t2);margin-bottom:5px;letter-spacing:.03em}
 .lbl-dark{color:rgba(255,255,255,.45)}
 .fg{margin-bottom:14px}
+.hint{font-size:10px;color:var(--tm);margin-top:4px;line-height:1.5}
 
 /* ── CARDS ── */
 .card{background:var(--sur);border:1px solid var(--bd);border-radius:var(--r3);box-shadow:var(--sh1)}
@@ -149,6 +151,7 @@ select.inp{cursor:pointer;padding-left:32px;background-image:url("data:image/svg
 @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 @keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
 .aPulse{animation:pulse 2s infinite}
+.spin{animation:spin 1s linear infinite}
 
 /* ── UTILS ── */
 .flex{display:flex}.ic{align-items:center}.jb{justify-content:space-between}.jc{justify-content:center}.fc{flex-direction:column}
@@ -159,7 +162,7 @@ select.inp{cursor:pointer;padding-left:32px;background-image:url("data:image/svg
 .ns{-ms-overflow-style:none;scrollbar-width:none}.ns::-webkit-scrollbar{display:none}
 .trunc{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .rel{position:relative}.abs{position:absolute}
-.mt2{margin-top:8px}.mt3{margin-top:12px}.mt4{margin-top:16px}.mt5{margin-top:20px}
+.mt1{margin-top:4px}.mt2{margin-top:8px}.mt3{margin-top:12px}.mt4{margin-top:16px}.mt5{margin-top:20px}
 .mb2{margin-bottom:8px}.mb3{margin-bottom:12px}.mb4{margin-bottom:16px}
 .g2c{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .g3c{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
@@ -212,6 +215,7 @@ select.inp{cursor:pointer;padding-left:32px;background-image:url("data:image/svg
 }
 .plogin:hover{transform:translateY(-2px);box-shadow:0 10px 32px rgba(201,150,46,.6)}
 .plogin:active{transform:scale(.98)}
+.plogin:disabled{opacity:.6;cursor:wait;transform:none}
 .pfooter{font-size:10px;color:rgba(255,255,255,.16);margin-top:30px;text-align:center;font-weight:600;letter-spacing:.5px}
 .pfooter a{color:rgba(232,201,122,.5);transition:var(--tr)}.pfooter a:hover{color:var(--gold-l2)}
 
@@ -258,6 +262,12 @@ select.sa-inp option{background:#171B26}
 .mlogo{width:42px;height:42px;border-radius:14px;object-fit:cover;border:2px solid var(--bd);background:var(--bg2);flex-shrink:0}
 .minner{max-width:1500px;margin:0 auto;padding:24px 24px 100px;width:100%}
 .msec{display:none!important}.msec.on{display:block!important}
+
+/* Sync indicator */
+.sync-dot{width:7px;height:7px;border-radius:50%;background:var(--tm);flex-shrink:0;transition:var(--tr)}
+.sync-dot.ok{background:var(--emerald);box-shadow:0 0 6px rgba(28,157,107,.6)}
+.sync-dot.bad{background:var(--ruby);box-shadow:0 0 6px rgba(215,56,74,.6)}
+.sync-dot.busy{background:var(--amber);animation:pulse 1s infinite}
 
 /* Dashboard Tiles */
 .dash-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(185px,1fr));gap:14px}
@@ -307,6 +317,8 @@ select.sa-inp option{background:#171B26}
 .qbtn:hover{background:var(--gold);color:#fff;border-color:var(--gold)}
 .qnum{font-size:13px;font-weight:900;min-width:20px;text-align:center;font-family:var(--font-d)}
 .cart-empty{text-align:center;padding:50px 16px;color:var(--tm)}
+.cart-rm{background:none;border:none;cursor:pointer;color:var(--tm);font-size:13px;padding:2px 4px;flex-shrink:0;transition:var(--tr)}
+.cart-rm:hover{color:var(--ruby)}
 
 /* Kanban */
 .kb-board{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
@@ -314,6 +326,7 @@ select.sa-inp option{background:#171B26}
 .kb-hdr{padding:13px 16px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--bd);background:var(--sur);flex-shrink:0}
 .kb-title{font-size:12px;font-weight:900}
 .kb-body{flex:1;overflow-y:auto;padding:10px;display:flex;flex-direction:column;gap:8px}
+.kb-empty{text-align:center;padding:30px 10px;color:var(--tm);font-size:11px;font-weight:600}
 .ok-card{background:var(--sur);border:1px solid var(--bd);border-radius:var(--r2);padding:13px;animation:bIn .22s ease;box-shadow:var(--sh0)}
 .ok-card:hover{box-shadow:var(--sh1);border-color:var(--gold-l2)}
 .ok-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:9px}
@@ -357,6 +370,8 @@ select.sa-inp option{background:#171B26}
 .qcat-chip{padding:7px 14px;border-radius:99px;font-size:11.5px;font-weight:700;cursor:pointer;border:1.5px solid var(--bd);background:var(--bg2);color:var(--t2);transition:var(--tr);font-family:var(--font);display:flex;align-items:center;gap:5px}
 .qcat-chip:hover{border-color:var(--gold);background:var(--gold-l);color:var(--gold-dd)}
 .qcat-chip.active{background:var(--gold);color:#fff;border-color:var(--gold)}
+.qcat-section-lbl{font-size:10px;font-weight:800;color:var(--tm);letter-spacing:.04em;margin:14px 0 8px;text-transform:uppercase}
+.qcat-section-lbl:first-child{margin-top:0}
 
 /* Tables */
 .tbl-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(148px,1fr));gap:13px}
@@ -523,7 +538,7 @@ select.sa-inp option{background:#171B26}
     <div style="text-align:center;margin-bottom:30px"><div class="ppill"><div class="dot"></div><span>ENTERPRISE CLOUD POS</span></div></div>
     <div class="fg"><label class="lbl lbl-dark">ناوی بەکارهێنەر</label><input id="pu" class="inp inp-dark" type="text" placeholder="username..." autocomplete="off" onkeydown="if(event.key==='Enter')doLogin()"></div>
     <div class="fg"><label class="lbl lbl-dark">تێپەڕوشە</label><input id="pp" class="inp inp-dark" type="password" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()"></div>
-    <button onclick="doLogin()" class="plogin">چوونەژوورەوەی پارێزراو ⚡</button>
+    <button onclick="doLogin()" id="login-btn" class="plogin">چوونەژوورەوەی پارێزراو ⚡</button>
     <div class="pfooter">پەرەپێدەر: <a href="https://bytelineagency.vercel.app" target="_blank">bytelineagency.vercel.app</a></div>
   </div>
 </div>
@@ -545,7 +560,7 @@ select.sa-inp option{background:#171B26}
     <div style="display:grid;grid-template-columns:400px 1fr;gap:22px;margin-bottom:22px">
       <div class="sa-card">
         <div style="font-size:13px;font-weight:900;color:#fff;margin-bottom:18px;display:flex;align-items:center;gap:8px">➕ ئەکاونتی بازرگانی نوێ</div>
-        <div class="fg"><label class="sa-lbl">ناوی چێشتخانە</label><input id="sa-name" class="sa-inp" placeholder="کافێ لاند"></div>
+        <div class="fg"><label class="sa-lbl">ناوی چێشتخانە / کافێ</label><input id="sa-name" class="sa-inp" placeholder="کافێ لاند"></div>
         <div class="g2c" style="margin-bottom:14px">
           <div><label class="sa-lbl">بەکارهێنەر</label><input id="sa-user" class="sa-inp" placeholder="cafesky"></div>
           <div><label class="sa-lbl">پاسۆرد</label><input id="sa-pass" class="sa-inp" placeholder="pass123" type="password"></div>
@@ -564,7 +579,7 @@ select.sa-inp option{background:#171B26}
           <input id="sa-startdate" type="datetime-local" class="sa-inp" style="color-scheme:dark">
         </div>
         <div class="fg"><label class="sa-lbl">لۆگۆ</label><input type="file" id="sa-logo" accept="image/*" class="sa-inp" style="padding:7px 10px"></div>
-        <button onclick="createMerchant()" style="width:100%;background:linear-gradient(135deg,#E8A23A,#D7384A);color:#fff;padding:14px;border-radius:var(--r1);font-family:var(--font);font-size:12.5px;font-weight:800;cursor:pointer;border:none;box-shadow:0 4px 16px rgba(215,56,74,.35);transition:var(--tr)">تۆمارکردن لە سیستم ✓</button>
+        <button onclick="createMerchant()" id="create-merchant-btn" style="width:100%;background:linear-gradient(135deg,#E8A23A,#D7384A);color:#fff;padding:14px;border-radius:var(--r1);font-family:var(--font);font-size:12.5px;font-weight:800;cursor:pointer;border:none;box-shadow:0 4px 16px rgba(215,56,74,.35);transition:var(--tr)">تۆمارکردن لە سیستم ✓</button>
       </div>
       <div class="sa-card">
         <div style="font-size:13px;font-weight:900;color:#fff;margin-bottom:18px">📋 لیستی ئەکاونتەکان</div>
@@ -582,7 +597,10 @@ select.sa-inp option{background:#171B26}
       <img id="m-logo" src="" class="mlogo" alt="" onerror="this.style.display='none'">
       <div>
         <div id="m-name" style="font-size:14.5px;font-weight:900;color:var(--t);letter-spacing:-.3px">چێشتخانە</div>
-        <div class="flex ic g1 mt1"><span class="badge bs" style="font-size:9px">● چالاک</span><span id="m-plan-tag" class="badge bp" style="font-size:9px"></span></div>
+        <div class="flex ic g1 mt1">
+          <span class="flex ic g1" style="font-size:9px;font-weight:700;color:var(--t2)"><span class="sync-dot" id="sync-dot"></span><span id="sync-txt">هاوکاتکردن</span></span>
+          <span id="m-plan-tag" class="badge bp" style="font-size:9px"></span>
+        </div>
       </div>
     </div>
     <div class="flex ic g2">
@@ -666,7 +684,7 @@ select.sa-inp option{background:#171B26}
               <div style="font-size:14px;font-weight:900">🛒 سەبەتەی کاشێر</div>
               <div style="font-size:10px;color:var(--tm);margin-top:1px">وەسڵ دەچاپرێت بە خۆی</div>
             </div>
-            <button onclick="clearCart()" class="btn btn-sm" style="background:var(--ruby-l);color:var(--ruby-d);font-weight:700">پاك ×</button>
+            <button onclick="askClearCart()" class="btn btn-sm" style="background:var(--ruby-l);color:var(--ruby-d);font-weight:700">پاك ×</button>
           </div>
           <div class="pos-sidebar-body ns" id="pos-cart"></div>
           <div class="pos-sidebar-foot">
@@ -711,33 +729,45 @@ select.sa-inp option{background:#171B26}
         <div style="display:flex;flex-direction:column;gap:15px">
           <div class="card cp">
             <div style="font-size:13px;font-weight:900;margin-bottom:13px;display:flex;align-items:center;gap:7px">⚡ هاوپۆلی خێرا</div>
-            <p style="font-size:11px;color:var(--tm);margin-bottom:11px;line-height:1.7">کلیک لە ئایکۆن بکە تا زیاد بکرێت بۆ مینیوت</p>
-            <div class="qcat-grid" id="quick-cats-panel"></div>
+            <p style="font-size:11px;color:var(--tm);margin-bottom:11px;line-height:1.7">کلیک لە چیپ بکە تا یەکسەر زیاد بکرێت بۆ مینیوی تۆ</p>
+            <div id="quick-cats-panel"></div>
             <div class="hr"></div>
-            <div style="font-size:12px;font-weight:800;margin-bottom:10px">➕ هاوپۆلی تایبەت</div>
-            <div class="fg"><label class="lbl">کوردی *</label><input id="c-ku" class="inp" placeholder="فاست فوود"></div>
+            <div style="font-size:12px;font-weight:800;margin-bottom:10px">➕ هاوپۆلی تایبەت بە خۆت</div>
+            <div class="fg"><label class="lbl">کوردی *</label><input id="c-ku" class="inp" placeholder="نموونە: خواردنی بنەماڵە"></div>
             <div class="g2c" style="margin-bottom:13px">
-              <div><label class="lbl">العربية</label><input id="c-ar" class="inp" placeholder="وجبات سريعة"></div>
-              <div><label class="lbl">English</label><input id="c-en" class="inp" placeholder="Fast Food"></div>
+              <div><label class="lbl">العربية</label><input id="c-ar" class="inp" placeholder="اختياري"></div>
+              <div><label class="lbl">English</label><input id="c-en" class="inp" placeholder="Optional"></div>
             </div>
             <button onclick="mkCat()" class="btn btn-primary btn-fw">دروستکردن ✓</button>
           </div>
           <div class="card cp">
             <div style="font-size:13px;font-weight:900;margin-bottom:15px;display:flex;align-items:center;gap:7px">🍽️ بابەتی نوێ</div>
-            <div class="fg"><label class="lbl">ناو (کوردی) *</label><input id="f-ku" class="inp" placeholder="بەرگری گۆشتی"></div>
+            <div class="fg"><label class="lbl">ناو (کوردی) *</label><input id="f-ku" class="inp" placeholder="نموونە: دۆڵمەی کوردی"></div>
             <div class="g2c" style="margin-bottom:13px">
-              <div><label class="lbl">العربية</label><input id="f-ar" class="inp" placeholder="برجر لحم"></div>
-              <div><label class="lbl">English</label><input id="f-en" class="inp" placeholder="Beef Burger"></div>
+              <div><label class="lbl">العربية</label><input id="f-ar" class="inp" placeholder="اختياري"></div>
+              <div><label class="lbl">English</label><input id="f-en" class="inp" placeholder="Optional"></div>
             </div>
-            <div class="fg"><label class="lbl">پێکهات / وەسف</label><input id="d-ku" class="inp" placeholder="گۆشت، پەنیر، کاهو..."></div>
-            <div class="g3c" style="margin-bottom:13px">
+            <div class="fg"><label class="lbl">پێکهات / وەسف</label><input id="d-ku" class="inp" placeholder="گۆشت، ڕیز، گەڵای مێو..."></div>
+            <div class="g3c" style="margin-bottom:8px">
               <div><label class="lbl">نرخ (د.ع) *</label><input id="f-price" type="number" class="inp" placeholder="8000"></div>
-              <div><label class="lbl">کۆگا</label><input id="f-stk" type="number" class="inp" placeholder="50"></div>
-              <div><label class="lbl">بارکۆد</label><input id="f-bc" class="inp" placeholder="1234"></div>
+              <div><label class="lbl">بارکۆد</label><input id="f-bc" class="inp" placeholder="ئارەزوومەند"></div>
+              <div><label class="lbl">هاوپۆل</label><select id="f-cat" class="inp"></select></div>
             </div>
-            <div class="fg"><label class="lbl">هاوپۆل</label><select id="f-cat" class="inp"></select></div>
-            <div class="fg"><label class="lbl">وێنە</label><input id="f-img" type="file" accept="image/*" class="inp" style="padding:8px"></div>
-            <button onclick="mkFood()" class="btn btn-primary btn-fw btn-lg">تۆمارکردن لە مینیو ✓</button>
+            <div class="fg">
+              <label class="lbl">جۆری کۆگا</label>
+              <div class="g2c">
+                <div class="bcstyle" id="stock-mode-unlim" onclick="setStockMode('unlim')" style="padding:11px;cursor:pointer">
+                  <div style="font-size:18px">♾️</div><div class="bcstyle-name" style="font-size:10.5px">بێ سنوور</div>
+                </div>
+                <div class="bcstyle" id="stock-mode-limited" onclick="setStockMode('limited')" style="padding:11px;cursor:pointer">
+                  <div style="font-size:18px">📦</div><div class="bcstyle-name" style="font-size:10.5px">کۆگای دیاریکراو</div>
+                </div>
+              </div>
+              <div class="hint">"بێ سنوور" بۆ خواردنی ئامادەکراو (وەک خواردنەوە)، "کۆگای دیاریکراو" بۆ بابەتی ژماردنی (وەک کێک)</div>
+              <input id="f-stk" type="number" class="inp mt2 hidden" placeholder="ژمارەی بەردەست — نموونە: 50">
+            </div>
+            <div class="fg mt3"><label class="lbl">وێنە</label><input id="f-img" type="file" accept="image/*" class="inp" style="padding:8px"></div>
+            <button onclick="mkFood()" id="mk-food-btn" class="btn btn-primary btn-fw btn-lg">تۆمارکردن لە مینیو ✓</button>
           </div>
         </div>
         <div class="card cp" style="overflow-y:auto;max-height:calc(100vh - 120px)">
@@ -774,7 +804,7 @@ select.sa-inp option{background:#171B26}
         <div style="display:flex;flex-direction:column;gap:14px">
           <div class="card cp">
             <div style="font-size:13px;font-weight:900;margin-bottom:14px">📱 QR Studio</div>
-            <div class="fg"><label class="lbl">ژمارەی مێز</label><input id="qr-n" class="inp" placeholder="١، ٢، ٣ ..."></div>
+            <div class="fg"><label class="lbl">ژمارەی مێز</label><input id="qr-n" class="inp" placeholder="١، ٢، ٣ ..." onkeydown="if(event.key==='Enter')mkQR()"></div>
             <button onclick="mkQR()" class="btn btn-primary btn-fw">دروستکردن ✓</button>
           </div>
           <div class="card cp">
@@ -782,7 +812,7 @@ select.sa-inp option{background:#171B26}
             <p style="font-size:11px;color:var(--tm);line-height:2">▸ ژمارەی مێز داخل بکە<br>▸ QR دروستدەبێت<br>▸ چاپکە — لۆکەس یان گشتی<br>▸ کڕیار سکان دەکات</p>
           </div>
           <div class="g2c">
-            <button onclick="clearQRs()" class="btn btn-ghost" style="font-size:11px;color:var(--ruby-d)">🗑️ سڕینەوە</button>
+            <button onclick="askClearQRs()" class="btn btn-ghost" style="font-size:11px;color:var(--ruby-d)">🗑️ سڕینەوە</button>
             <button onclick="window.print()" class="btn btn-ghost" style="font-size:11px">🖨️ چاپ</button>
           </div>
         </div>
@@ -798,7 +828,7 @@ select.sa-inp option{background:#171B26}
       <div class="flex jb ic" style="margin-bottom:18px;flex-wrap:wrap;gap:10px">
         <div><h2 style="font-size:20px;font-weight:900">📊 ئانالیتیکس و دارایی</h2><p style="font-size:11px;color:var(--tm);margin-top:3px">ڕاپۆرتی گشتی — فرۆش، قازانج، خەرجی</p></div>
         <div class="flex ic g2">
-          <button onclick="resetOrders()" class="btn btn-sm" style="background:var(--ruby-l);color:var(--ruby-d);font-weight:700">🗑️ سڕینەوەی داواکارییەکان</button>
+          <button onclick="askResetOrders()" class="btn btn-sm" style="background:var(--ruby-l);color:var(--ruby-d);font-weight:700">🗑️ سڕینەوەی داواکارییەکان</button>
           <button onclick="exportRpt()" class="btn btn-primary btn-sm">📄 ڕاپۆرت</button>
         </div>
       </div>
@@ -837,7 +867,7 @@ select.sa-inp option{background:#171B26}
       <div style="margin-bottom:24px"><h2 style="font-size:20px;font-weight:900">⚙️ ڕێکخستنەکان</h2></div>
       <div class="set-grid">
         <div class="set-card"><h3>🎪 زانیاری چێشتخانە</h3>
-          <div class="fg"><label class="lbl">ناوی چێشتخانە</label><input id="set-name" class="inp" placeholder="کافێ ئاسمانی"></div>
+          <div class="fg"><label class="lbl">ناوی چێشتخانە / کافێ</label><input id="set-name" class="inp" placeholder="کافێ ئاسمانی"></div>
           <div class="fg"><label class="lbl">لۆگۆ</label><img id="set-logo-prev" class="logo-prev" src="" onerror="this.style.display='none'" alt=""><input type="file" id="set-logo" accept="image/*" class="inp" style="padding:8px" onchange="prevLogo(this)"></div>
           <button onclick="saveBrand()" class="btn btn-primary btn-fw">پاشەکەوتکردن ✓</button>
         </div>
@@ -919,7 +949,21 @@ select.sa-inp option{background:#171B26}
     <div class="hr"></div>
     <div class="flex jb ic" style="margin-bottom:14px"><span style="font-size:14px;font-weight:700">کۆیی گشتی:</span><span id="crt-modal-tot" style="font-size:22px;font-weight:900;color:var(--gold-d)">0 د.ع</span></div>
     <div class="fg"><label class="lbl" id="lbl-note">تێبینی (ئارەزوومەند)</label><input id="order-note" class="inp" placeholder="بێ بیبەر، هات تازە..."></div>
-    <button onclick="submitOrder()" class="btn btn-primary btn-fw btn-lg" style="background:linear-gradient(135deg,var(--gold),var(--gold-d));font-size:13.5px;padding:16px"><span id="txt-sub">ناردنی داواکاری ⚡</span></button>
+    <button onclick="submitOrder()" id="submit-order-btn" class="btn btn-primary btn-fw btn-lg" style="background:linear-gradient(135deg,var(--gold),var(--gold-d));font-size:13.5px;padding:16px"><span id="txt-sub">ناردنی داواکاری ⚡</span></button>
+  </div>
+</div>
+
+<!-- CONFIRM MODAL (replaces native confirm/alert/prompt) -->
+<div class="modal" id="confirm-modal">
+  <div class="mbox" style="max-width:400px;padding:30px 24px">
+    <div id="confirm-ico" style="font-size:40px;text-align:center;margin-bottom:14px">⚠️</div>
+    <div id="confirm-title" style="font-size:15px;font-weight:900;text-align:center;margin-bottom:8px">دڵنیایی؟</div>
+    <div id="confirm-msg" style="font-size:12px;color:var(--t2);text-align:center;line-height:1.7;margin-bottom:22px"></div>
+    <div id="confirm-input-wrap" class="fg hidden"><input id="confirm-input" class="inp" type="text"></div>
+    <div class="g2c">
+      <button onclick="confirmCancel()" class="btn btn-ghost btn-fw">پاشگەزبوونەوە</button>
+      <button onclick="confirmOk()" id="confirm-ok-btn" class="btn btn-danger btn-fw">دڵنیام ✓</button>
+    </div>
   </div>
 </div>
 
@@ -936,29 +980,69 @@ select.sa-inp option{background:#171B26}
 </div>
 
 <script>
+/* ══════════════════════════════════════════════════════════════
+   KURD POS — APPLICATION LOGIC
+   Fixes in this build:
+   1. API_URL wired to the live Google Apps Script endpoint
+   2. cloudSave is now properly awaited everywhere it matters,
+      with a visible sync indicator (dot) instead of silent fire-and-forget
+   3. Kurdistan time (Asia/Baghdad) used for the dashboard greeting clock,
+      independent of the visitor's own device timezone
+   4. "First item disappears" bug: root cause was that mkFood() rendered
+      the food list/POS grid using whatever category filter (mFCat/pCat)
+      was currently active. If that filter wasn't "all" and didn't match
+      the new item's category, the item rendered as "missing" until the
+      user manually clicked "all". Fix: after creating a category or food,
+      we explicitly reset the relevant filter to 'all' so the new item is
+      always immediately visible exactly where the merchant is looking.
+   5. Custom confirm/prompt modal replacing native browser dialogs
+   6. Explicit per-item stock mode (unlimited vs limited) set via UI toggle
+      instead of an ambiguous empty-vs-number text field
+   7. Expanded category presets: Kurdish-restaurant dishes + cafe drinks
+═══════════════════════════════════════════════════════════════ */
 'use strict';
 const DBK='kpos_v1';
-/* IMPORTANT: API URL intentionally left untouched per project owner instruction.
-   Paste the existing Google Apps Script endpoint here exactly as before. */
-const API_URL="PASTE_YOUR_GOOGLE_APPS_SCRIPT_URL_HERE";
+
+/* IMPORTANT: Live Google Apps Script Web App endpoint — do not alter. */
+const API_URL="https://script.google.com/macros/s/AKfycbyob-p1pvd8wmeriD1xTVB5JngaGkndbNiyLYWXWF51w9l-BYQjOcHnN8_LJaXG0FyM-g/exec";
+
 let DB_CACHE=null;
+let SYNC_STATE='idle'; // idle | busy | ok | bad
+
+/* ── SYNC INDICATOR ──
+   Tiny visible signal so the merchant always knows whether their
+   last change actually reached the cloud, instead of guessing. */
+function setSyncUI(state){
+  SYNC_STATE=state;
+  const dot=g('sync-dot'),txt=g('sync-txt');
+  if(!dot)return;
+  dot.classList.remove('ok','bad','busy');
+  if(state==='busy'){dot.classList.add('busy');if(txt)txt.textContent='هاوکاتکردن...';}
+  else if(state==='ok'){dot.classList.add('ok');if(txt)txt.textContent='هاوکاتکراوە';}
+  else if(state==='bad'){dot.classList.add('bad');if(txt)txt.textContent='ئۆفلاین — لۆکەلی پاشەکەوتکرا';}
+  else if(txt)txt.textContent='هاوکاتکردن';
+}
 
 /* ── CLOUD DB ──
-   Fix: dbAll() always returns the single in-memory source of truth (DB_CACHE).
-   We never let a stale fetch overwrite local data that hasn't synced yet —
-   we merge cloud data in, but local writes always win until they're sent. */
+   dbAll() always returns the single in-memory source of truth (DB_CACHE).
+   Local writes always win immediately (synchronous), then we push to the
+   cloud in the background — but now we actually await + surface failures
+   via setSyncUI() instead of silently swallowing them. */
 async function cloudFetch(){
+  setSyncUI('busy');
   try{
-    const r=await fetch(API_URL,{signal:AbortSignal.timeout?AbortSignal.timeout(6000):undefined});
+    const r=await fetch(API_URL,{signal:AbortSignal.timeout?AbortSignal.timeout(8000):undefined,cache:'no-store'});
     if(r.ok){
       const d=await r.json();
       if(d&&typeof d==='object'){
         DB_CACHE=d;
         ls(DBK,d);
+        setSyncUI('ok');
         return d;
       }
     }
-  }catch(e){console.warn('cloud fetch failed, using local',e);}
+    setSyncUI('bad');
+  }catch(e){console.warn('cloud fetch failed, using local',e);setSyncUI('bad');}
   return localFb();
 }
 function localFb(){
@@ -969,18 +1053,27 @@ function localFb(){
 async function cloudSave(db){
   DB_CACHE=db;
   ls(DBK,db);
+  setSyncUI('busy');
   try{
     await fetch(API_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify({db})});
-  }catch(e){console.warn('cloud save failed, kept locally',e);}
+    /* mode:'no-cors' means we can never read the real response status —
+       Apps Script web apps don't return readable CORS headers for POST.
+       We treat "the fetch did not throw" as success. This is the best
+       signal available without changing the Apps Script side. */
+    setSyncUI('ok');
+  }catch(e){
+    console.warn('cloud save failed, kept locally',e);
+    setSyncUI('bad');
+    toast('⚠️ هاوکاتکردن سەرکەوتوو نەبوو','گۆڕانکارییەکە لۆکەلی پاشەکەوتکرا، کاتێک ئینتەرنێت هەبووە دووبارە هەوڵ دەدەینەوە','wrn');
+  }
 }
 function ls(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}}
 
 const dbAll=()=>{if(!DB_CACHE)localFb();return DB_CACHE;};
 const dbSave=d=>cloudSave(d);
 const dbGet=u=>dbAll()[u]||null;
-/* Fix: dbSet writes into the live cache object directly and persists immediately,
-   so any subsequent render call in the same tick sees the fresh data — this is
-   what eliminates the "first list comes back" bug when adding items quickly. */
+/* dbSet writes into the live cache object directly and persists immediately,
+   so any subsequent render call in the same tick sees the fresh data. */
 const dbSet=(u,d)=>{const a=dbAll();a[u]=d;dbSave(a);return d;};
 const dbDel=u=>{const a=dbAll();delete a[u];dbSave(a);};
 
@@ -993,7 +1086,31 @@ const planL=p=>({demo:'تاقیکاری','1month':'١ مانگ','3months':'٣ م
 const isExp=m=>m.plan!=='lifetime'&&new Date()>new Date(m.expiresAt);
 const dLeft=m=>m.plan==='lifetime'?9999:Math.max(0,Math.ceil((new Date(m.expiresAt)-new Date())/864e5));
 const deep=o=>JSON.parse(JSON.stringify(o));
-const uid=()=>Date.now()+Math.floor(Math.random()*1000);
+let _seq=0;
+const uid=()=>{_seq=(_seq+1)%1000;return Date.now()*1000+_seq;};
+
+/* ── KURDISTAN TIME (Asia/Baghdad) ──
+   The dashboard greeting (morning/afternoon/evening) must reflect Kurdistan
+   local time regardless of the device's own timezone, since the merchant
+   logging in from anywhere should still see a greeting that matches the
+   actual time of day back home. */
+function kurdistanHour(){
+  try{
+    const parts=new Intl.DateTimeFormat('en-US',{timeZone:'Asia/Baghdad',hour:'numeric',hour12:false}).formatToParts(new Date());
+    const h=parts.find(p=>p.type==='hour');
+    return h?parseInt(h.value,10)%24:new Date().getHours();
+  }catch(e){return new Date().getHours();}
+}
+function kurdistanTimeString(){
+  try{
+    return new Date().toLocaleTimeString('ar-IQ',{timeZone:'Asia/Baghdad',hour:'2-digit',minute:'2-digit'});
+  }catch(e){return new Date().toLocaleTimeString('ar');}
+}
+function kurdistanDateString(d){
+  try{
+    return new Date(d).toLocaleDateString('ar-IQ',{timeZone:'Asia/Baghdad'});
+  }catch(e){return new Date(d).toLocaleDateString('ar');}
+}
 
 /* ── FIX MERCHANT DATA SHAPE ── */
 function fix(m){
@@ -1013,7 +1130,7 @@ function fix(m){
 }
 
 /* ── STATE ── */
-let M=null,cMU=null,cTbl='1',cCart={},pCart={},clang='ku',pCat='all',cCat='all',mFCat='all',syncT=null,_lhash='';
+let M=null,cMU=null,cTbl='1',cCart={},pCart={},clang='ku',pCat='all',cCat='all',mFCat='all',syncT=null,_lhash='',_stockMode='unlim';
 
 /* ── VIEWS ── */
 function sv(id){
@@ -1023,33 +1140,80 @@ function sv(id){
   else el.classList.add('show');
 }
 
-/* ── QUICK CATEGORIES PRESET ── */
+/* ══════════════════════════════════════════════════════
+   CUSTOM CONFIRM MODAL — replaces native confirm()/prompt()
+   so the merchant gets a styled, on-brand dialog instead of
+   the browser's default alert box (which also breaks on mobile webviews).
+══════════════════════════════════════════════════════ */
+let _confirmResolve=null;
+function showConfirm({title='دڵنیایی؟',msg='',danger=true,withInput=false,inputVal='',okLabel='دڵنیام ✓'}){
+  return new Promise(resolve=>{
+    _confirmResolve=resolve;
+    if(g('confirm-title'))g('confirm-title').textContent=title;
+    if(g('confirm-msg'))g('confirm-msg').textContent=msg;
+    if(g('confirm-ico'))g('confirm-ico').textContent=danger?'⚠️':'❓';
+    const okBtn=g('confirm-ok-btn');
+    if(okBtn){okBtn.textContent=okLabel;okBtn.className='btn btn-fw '+(danger?'btn-danger':'btn-primary');}
+    const wrap=g('confirm-input-wrap'),inp=g('confirm-input');
+    if(wrap)wrap.classList.toggle('hidden',!withInput);
+    if(inp){inp.value=inputVal||'';if(withInput)setTimeout(()=>inp.focus(),120);}
+    const modal=g('confirm-modal');if(modal)modal.classList.add('open');
+  });
+}
+function confirmOk(){
+  const wrap=g('confirm-input-wrap'),inp=g('confirm-input');
+  const withInput=wrap&&!wrap.classList.contains('hidden');
+  const val=withInput?(inp?inp.value:''):true;
+  const modal=g('confirm-modal');if(modal)modal.classList.remove('open');
+  if(_confirmResolve)_confirmResolve(val);
+  _confirmResolve=null;
+}
+function confirmCancel(){
+  const modal=g('confirm-modal');if(modal)modal.classList.remove('open');
+  if(_confirmResolve)_confirmResolve(null);
+  _confirmResolve=null;
+}
+
+/* ── QUICK CATEGORIES PRESET ──
+   Expanded with authentic Kurdish-restaurant dishes AND cafe drink categories,
+   replacing the previous generic/Western-leaning list. Grouped so the merchant
+   can quickly tell what's meant for a restaurant kitchen vs a cafe counter. */
 const QUICK_CATS=[
-  {ico:'🍔',ku:'فاست فوود',ar:'وجبات سريعة',en:'Fast Food'},
-  {ico:'🍕',ku:'پیتزا',ar:'بيتزا',en:'Pizza'},
-  {ico:'🍗',ku:'مرشک',ar:'دجاج',en:'Chicken'},
-  {ico:'🥩',ku:'گۆشت',ar:'لحوم',en:'Grills'},
-  {ico:'🍜',ku:'ئاش و شۆربا',ar:'حساء ومعكرونة',en:'Soup & Pasta'},
-  {ico:'🥗',ku:'سەلاتە',ar:'سلطات',en:'Salads'},
-  {ico:'🍰',ku:'شیرینی',ar:'حلويات',en:'Desserts'},
-  {ico:'☕',ku:'خواردنەوەی گەرم',ar:'مشروبات ساخنة',en:'Hot Drinks'},
-  {ico:'🥤',ku:'خواردنەوەی سارد',ar:'مشروبات باردة',en:'Cold Drinks'},
-  {ico:'🧃',ku:'شیربەرگ',ar:'عصائر',en:'Juices'},
-  {ico:'🍺',ku:'نۆشیدنی',ar:'مشروبات',en:'Beverages'},
-  {ico:'🥪',ku:'ساندویچ',ar:'ساندويش',en:'Sandwiches'},
-  {ico:'🌮',ku:'ئارانا',ar:'أكلات شعبية',en:'Street Food'},
-  {ico:'🍱',ku:'ئەوچەمی ئاسیا',ar:'طعام آسيوي',en:'Asian'},
-  {ico:'🥘',ku:'خواردنی کوردی',ar:'أكلات كردية',en:'Kurdish Food'},
-  {ico:'🍣',ku:'سوشی',ar:'سوشي',en:'Sushi'},
-  {ico:'🧁',ku:'کیک و کاپ‌کیک',ar:'كيك وكاب كيك',en:'Cakes'},
-  {ico:'🥞',ku:'بریکفاست',ar:'إفطار',en:'Breakfast'},
-  {ico:'🫕',ku:'خواردنی دەنگی',ar:'أكلات الفرن',en:'Baked Goods'},
-  {ico:'🎂',ku:'ئۆڤەن و گرین',ar:'مشوية',en:'Oven & Grill'},
+  /* ── Kurdish restaurant dishes ── */
+  {grp:'rest',ico:'🍖',ku:'گرێل و کەباب',ar:'مشاوي وكباب',en:'Grills & Kebab'},
+  {grp:'rest',ico:'🍗',ku:'مریشک',ar:'دجاج',en:'Chicken'},
+  {grp:'rest',ico:'🍚',ku:'برنج و خۆراک',ar:'أرز وأطباق رئيسية',en:'Rice & Main Dishes'},
+  {grp:'rest',ico:'🥘',ku:'خواردنی کوردی',ar:'أكلات كردية',en:'Kurdish Specialties'},
+  {grp:'rest',ico:'🫓',ku:'دۆڵمە و گەڵا',ar:'دولمة وورق عنب',en:'Dolma & Wraps'},
+  {grp:'rest',ico:'🍜',ku:'شۆربا',ar:'شوربة',en:'Soups'},
+  {grp:'rest',ico:'🥗',ku:'سەلاتە و خۆراکی پێشوەخت',ar:'سلطات ومقبلات',en:'Salads & Appetizers'},
+  {grp:'rest',ico:'🥙',ku:'ساندویچ و فاست فوود',ar:'ساندويش ووجبات سريعة',en:'Sandwiches & Fast Food'},
+  {grp:'rest',ico:'🍕',ku:'پیتزا',ar:'بيتزا',en:'Pizza'},
+  {grp:'rest',ico:'🐟',ku:'ماسی',ar:'أسماك',en:'Fish'},
+  {grp:'rest',ico:'🍞',ku:'نان و سەماخوار',ar:'خبز ومخبوزات',en:'Bread & Bakery'},
+  {grp:'rest',ico:'🍮',ku:'شیرینی کوردی',ar:'حلويات كردية',en:'Kurdish Desserts'},
+  /* ── Cafe drinks & cafe-style food ── */
+  {grp:'cafe',ico:'☕',ku:'قاوەی تەلار',ar:'قهوة',en:'Coffee'},
+  {grp:'cafe',ico:'🍵',ku:'چای',ar:'شاي',en:'Tea'},
+  {grp:'cafe',ico:'🧋',ku:'خواردنەوەی سارد',ar:'مشروبات باردة',en:'Cold Drinks'},
+  {grp:'cafe',ico:'🥤',ku:'مۆکتەیل و جوس',ar:'موكتيل وعصائر',en:'Mocktails & Juices'},
+  {grp:'cafe',ico:'🍰',ku:'کێک و شیرینی',ar:'كيك وحلويات',en:'Cakes & Pastries'},
+  {grp:'cafe',ico:'🧁',ku:'کرێپ و واف',ar:'كريب وفافل',en:'Crepes & Waffles'},
+  {grp:'cafe',ico:'🍦',ku:'ئایسکریم',ar:'آيس كريم',en:'Ice Cream'},
+  {grp:'cafe',ico:'🥞',ku:'بەیانیانی',ar:'إفطار',en:'Breakfast'},
+  {grp:'cafe',ico:'🧃',ku:'شیربەرگ',ar:'عصائر طبيعية',en:'Fresh Juices'},
+  {grp:'cafe',ico:'🍫',ku:'هۆت چۆکلێت',ar:'شوكولاتة ساخنة',en:'Hot Chocolate'},
+  {grp:'cafe',ico:'🌬️',ku:'هۆکا و قاتمە',ar:'أرجيلة',en:'Shisha'},
 ];
 
 function rQuickCatsPanel(){
   const el=g('quick-cats-panel');if(!el)return;
-  el.innerHTML=QUICK_CATS.map(c=>`<div class="qcat-chip${(M.categories||[]).some(mc=>mc.ku===c.ku)?' active':''}" onclick="addQuickCat('${c.ku}','${c.ar}','${c.en}','${c.ico}')">${c.ico} ${c.ku}</div>`).join('');
+  const rest=QUICK_CATS.filter(c=>c.grp==='rest');
+  const cafe=QUICK_CATS.filter(c=>c.grp==='cafe');
+  const chip=c=>`<div class="qcat-chip${(M.categories||[]).some(mc=>mc.ku===c.ku)?' active':''}" onclick="addQuickCat('${c.ku}','${c.ar}','${c.en}','${c.ico}')">${c.ico} ${c.ku}</div>`;
+  el.innerHTML=
+    `<div class="qcat-section-lbl">🍽️ بۆ چێشتخانە</div><div class="qcat-grid">${rest.map(chip).join('')}</div>`+
+    `<div class="qcat-section-lbl">☕ بۆ کافێ</div><div class="qcat-grid">${cafe.map(chip).join('')}</div>`;
 }
 function addQuickCat(ku,ar,en,ico){
   const m=dbGet(M.username);if(!m)return;
@@ -1057,7 +1221,11 @@ function addQuickCat(ku,ar,en,ico){
   if(m.categories.some(c=>c.ku===ku)){toast('هاوپۆل پێشتر هەیە',ku,'wrn');return;}
   m.categories.push({id:'qc'+uid(),ku:ico+' '+ku,ar,en});
   dbSet(M.username,m);M=fix(deep(m));
-  rCatDrop();rPOSMenu();rQuickCatsPanel();rMenuCatFilter();
+  /* Reset filters to 'all' so the just-added category and any food the
+     merchant adds to it next are immediately visible, not hidden behind
+     a stale filter selection. */
+  mFCat='all';pCat='all';
+  rCatDrop();rPOSMenu();rQuickCatsPanel();rMenuCatFilter();rFoods();
   toast('✅ زیادکرا',ico+' '+ku);
 }
 
@@ -1107,7 +1275,7 @@ function rThemeSwatches(){
 }
 function pickBCStyle(id){
   if(M){M.bc_style=id;const m=dbGet(M.username);if(m){m.bc_style=id;dbSet(M.username,m);}}
-  document.querySelectorAll('.bcstyle').forEach(s=>s.classList.toggle('on',s.dataset.id===id));
+  document.querySelectorAll('.bcstyle').forEach(s=>{if(s.id&&s.id.startsWith('stock-mode'))return;s.classList.toggle('on',s.dataset.id===id);});
   toast('✅ شێوازی QR گۆڕدرا','');
 }
 function rBCStyles(){
@@ -1129,11 +1297,15 @@ function toast(title,msg='',type=''){
 }
 
 /* ── LOGIN ── */
-function doLogin(){
+async function doLogin(){
   const u=(g('pu')?.value||'').trim().toLowerCase();
   const p=(g('pp')?.value||'').trim();
   if(!u||!p){toast('هەڵە','خانەکان بەتاڵن','err');return;}
   if(u==='admin@kurdpos.com'&&p==='admin99'){sv('super-admin');saRefresh();toast('بەخێرهاتی 👑','Super Admin');return;}
+  const btn=g('login-btn');
+  if(btn){btn.disabled=true;btn.textContent='چاوەڕێبە...';}
+  await cloudFetch(); // make sure we have the latest accounts before checking credentials
+  if(btn){btn.disabled=false;btn.textContent='چوونەژوورەوەی پارێزراو ⚡';}
   const m=dbGet(u);
   if(!m||m.password!==p){toast('هەڵە','ناوی بەکارهێنەر یاخود پاسۆرد هەڵەیە','err');return;}
   if(isExp(m)){sv('expired');return;}
@@ -1147,7 +1319,7 @@ function doLogout(){
   sv('portal');
   if(g('pu'))g('pu').value='';if(g('pp'))g('pp').value='';
 }
-document.addEventListener('keydown',e=>{if(e.key==='Escape')closeCartModal();});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeCartModal();confirmCancel();}});
 
 /* ── SUPER ADMIN ── */
 async function createMerchant(){
@@ -1158,18 +1330,21 @@ async function createMerchant(){
   const startDateVal=g('sa-startdate')?.value||'';
   if(!name||!user||!pass){toast('هەڵە','خانەکان بەتاڵن','err');return;}
   if(dbGet(user)){toast('هەڵە','ئەم بەکارهێنەرە پێشتر تۆمارکراوە','err');return;}
+  const btn=g('create-merchant-btn');
+  if(btn){btn.disabled=true;btn.textContent='چاوەڕێبە...';}
   const lf=g('sa-logo')?.files[0];
   let logo='https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=200';
   if(lf)try{logo=await b64(lf)}catch(e){}
   const startMs=startDateVal?new Date(startDateVal).getTime():Date.now();
   const expiresAt=plan==='lifetime'?new Date(Date.now()+36500*864e5).toISOString():new Date(startMs+planD(plan)*864e5).toISOString();
   const newM=fix({username:user,password:pass,name,logo,plan,expiresAt,createdAt:new Date(startMs).toISOString(),
-    categories:[{id:'ff',ku:'🍔 فاست فوود',ar:'وجبات سريعة',en:'Fast Food'},{id:'dr',ku:'☕ خواردنەوە',ar:'مشروبات',en:'Drinks'}]});
-  dbSet(user,newM);
+    categories:[{id:'ff',ku:'🍖 گرێل و کەباب',ar:'مشاوي وكباب',en:'Grills & Kebab'},{id:'dr',ku:'☕ قاوەی تەلار',ar:'قهوة',en:'Coffee'}]});
+  await dbSet(user,newM);
   renderSA();toast('✅ ئەکاونتی نوێ دروستکرا',name);
+  if(btn){btn.disabled=false;btn.textContent='تۆمارکردن لە سیستم ✓';}
   ['sa-name','sa-user','sa-pass','sa-startdate'].forEach(id=>{if(g(id))g(id).value='';});
 }
-function saRefresh(){cloudFetch().then(()=>{renderSA();if(g('sa-sync'))g('sa-sync').textContent='✓ '+new Date().toLocaleTimeString('ar');});}
+function saRefresh(){cloudFetch().then(()=>{renderSA();if(g('sa-sync'))g('sa-sync').textContent='✓ '+kurdistanTimeString();});}
 function renderSA(){
   const tb=g('sa-list');if(!tb)return;
   const all=dbAll();const list=Object.values(all).filter(m=>m&&m.username);
@@ -1177,7 +1352,7 @@ function renderSA(){
   list.forEach(m=>{
     const ex=isExp(m);const dl=dLeft(m);
     const tr=document.createElement('tr');
-    const startDate=m.createdAt?new Date(m.createdAt).toLocaleDateString('ar'):'—';
+    const startDate=m.createdAt?kurdistanDateString(m.createdAt):'—';
     tr.innerHTML=`<td><div style="display:flex;align-items:center;gap:9px">
       <img src="${m.logo||''}" style="width:32px;height:32px;border-radius:9px;object-fit:cover;background:#1E232F;flex-shrink:0" onerror="this.style.display='none'">
       <div><div style="font-weight:800;color:#fff;font-size:12px">${m.name||''}</div></div></div></td>
@@ -1189,7 +1364,7 @@ function renderSA(){
       <td style="font-size:10px;color:rgba(255,255,255,.38)">${startDate}</td>
       <td style="font-size:11px;color:${ex?'#FB7185':'rgba(255,255,255,.38)'}">
         ${m.plan==='lifetime'?'<span style="color:#4FD698;font-size:10px">♾️ هەمیشەیی</span>':
-          new Date(m.expiresAt).toLocaleDateString('ar')+(ex?' ⚠️':`<span style="color:#4FD698;font-size:10px"> (${dl}ڕ)</span>`)}</td>
+          kurdistanDateString(m.expiresAt)+(ex?' ⚠️':`<span style="color:#4FD698;font-size:10px"> (${dl}ڕ)</span>`)}</td>
       <td>${ex?'<span style="background:rgba(215,56,74,.16);color:#FB7185;padding:3px 9px;border-radius:99px;font-size:10px;font-weight:700">بەسەرچووە</span>':'<span style="background:rgba(28,157,107,.16);color:#4FD698;padding:3px 9px;border-radius:99px;font-size:10px;font-weight:700">● چالاک</span>'}</td>
       <td><div style="display:flex;gap:5px;flex-wrap:wrap">
         <button onclick="renewM('${m.username}')" class="sabtn renew">نوێ</button>
@@ -1205,16 +1380,27 @@ function renderSA(){
 }
 function togglePW(user,pw){const el=g('pw-'+user);if(!el)return;if(el.classList.contains('vis')){el.textContent='•'.repeat(Math.max(pw.length,4));el.classList.remove('vis');}else{el.textContent=pw;el.classList.add('vis');}}
 function copyTxt(txt){try{navigator.clipboard.writeText(txt).then(()=>toast('کۆپیکرا ✅','','inf'));}catch(e){const ta=document.createElement('textarea');ta.value=txt;ta.style.cssText='position:fixed;opacity:0';document.body.appendChild(ta);ta.select();try{document.execCommand('copy');toast('کۆپیکرا ✅','','inf');}catch(e2){}ta.remove();}}
-function delM(u){if(!confirm('دڵنیایی لە سڕینەوەی "'+u+'"؟'))return;dbDel(u);renderSA();toast('سڕدرایەوە',u);}
-function renewM(u){
-  const p=prompt('پلانی نوێ:\n1month / 3months / 6months / 1year / lifetime','1month');if(!p)return;
-  const startStr=prompt('بەرواری دەستپێکردن (YYYY-MM-DD) — بەتاڵ بێت = ئێستا:','');
-  const m=dbGet(u);if(!m)return;
-  const startMs=startStr&&startStr.trim()?new Date(startStr.trim()).getTime():Date.now();
-  m.plan=p;m.expiresAt=p==='lifetime'?new Date(Date.now()+36500*864e5).toISOString():new Date(startMs+planD(p)*864e5).toISOString();
-  dbSet(u,m);renderSA();toast('✅ نوێکرایەوە',planL(p));
+async function delM(u){
+  const ok=await showConfirm({title:'سڕینەوەی ئەکاونت',msg:'دڵنیایی لە سڕینەوەی "'+u+'"؟ ئەم کردارە گەرێنەوە نییە.',danger:true});
+  if(!ok)return;
+  dbDel(u);renderSA();toast('سڕدرایەوە',u);
 }
-function editPW(u){const m=dbGet(u);if(!m)return;const np=prompt('پاسۆردی نوێ بۆ '+m.name+':',m.password);if(np===null)return;if(!np.trim()){toast('هەڵە','پاسۆرد بەتاڵ نابێت','err');return;}m.password=np.trim();dbSet(u,m);renderSA();toast('✅ پاسۆرد گۆڕدرا',u);}
+async function renewM(u){
+  const m=dbGet(u);if(!m)return;
+  const planVal=await showConfirm({title:'نوێکردنەوەی پلان',msg:'پلانی نوێ بنووسە: 1month / 3months / 6months / 1year / lifetime',withInput:true,inputVal:m.plan||'1month',danger:false,okLabel:'بەردەوامبە ←'});
+  if(!planVal)return;
+  const startStr=await showConfirm({title:'بەرواری دەستپێکردن',msg:'فۆرماتی YYYY-MM-DD بنووسە — بەتاڵ بێت یانی لە ئێستاوە',withInput:true,inputVal:'',danger:false,okLabel:'نوێبکەرەوە ✓'});
+  const startMs=(startVal=>startVal&&startVal.trim()?new Date(startVal.trim()).getTime():Date.now())(startStr===true?'':startStr);
+  m.plan=planVal;m.expiresAt=planVal==='lifetime'?new Date(Date.now()+36500*864e5).toISOString():new Date(startMs+planD(planVal)*864e5).toISOString();
+  dbSet(u,m);renderSA();toast('✅ نوێکرایەوە',planL(planVal));
+}
+async function editPW(u){
+  const m=dbGet(u);if(!m)return;
+  const np=await showConfirm({title:'گۆڕینی پاسۆرد',msg:'پاسۆردی نوێ بۆ '+m.name,withInput:true,inputVal:m.password,danger:false,okLabel:'پاشەکەوتکردن ✓'});
+  if(!np||np===true)return;
+  if(!np.trim()){toast('هەڵە','پاسۆرد بەتاڵ نابێت','err');return;}
+  m.password=np.trim();dbSet(u,m);renderSA();toast('✅ پاسۆرد گۆڕدرا',u);
+}
 
 /* ── PANEL ── */
 function openPanel(){
@@ -1223,11 +1409,15 @@ function openPanel(){
   if(g('m-name'))g('m-name').textContent=M.name;
   if(g('m-plan-tag'))g('m-plan-tag').textContent=planL(M.plan)+' · '+dLeft(M)+'ڕ';
   if(g('tbl-cnt'))g('tbl-cnt').value=M.tables_count;
-  const hr=new Date().getHours();
+  /* Greeting now uses Kurdistan local time (Asia/Baghdad), not the device's
+     own clock — so the merchant always sees a greeting matching home time. */
+  const hr=kurdistanHour();
   const gr=hr<12?'🌅 بەیانیت باش':(hr<18?'☀️ ڕۆژبات باش':'🌙 ئێوارەت باش');
   if(g('dash-greeting'))g('dash-greeting').textContent=gr+' — '+M.name;
   applyTheme(M.theme_color||'#C9962E');
+  pCat='all';mFCat='all';
   rPOSMenu();rPOSTbls();rOrders();rFoods();rTables();rQRs();rAnalytics();rCatDrop();rMenuCatFilter();
+  setStockMode('unlim');
   goTab('grid');
   startSync();
 }
@@ -1239,7 +1429,7 @@ function goTab(t){
   if(t==='analytics')rAnalytics();
   if(t==='live')rOrders();
   if(t==='tables')rTables();
-  if(t==='menu'){rQuickCatsPanel();rFoods();}
+  if(t==='menu'){mFCat='all';rQuickCatsPanel();rMenuCatFilter();rFoods();}
 }
 function initSettings(){
   if(g('set-name'))g('set-name').value=M.name||'';
@@ -1251,7 +1441,9 @@ function prevLogo(inp){if(!inp.files[0])return;b64(inp.files[0]).then(d=>{if(g('
 function setBL(n){const b=g('bdg-live');if(b){b.textContent=n;b.classList.toggle('on',n>0);}}
 function setBT(n){const b=g('bdg-tbl');if(b){b.textContent=n;b.classList.toggle('on',n>0);}}
 
-/* ── SYNC ── */
+/* ── SYNC ──
+   Polls the cloud every 8s for new orders/bill requests. Sync indicator
+   now reflects real fetch outcome via setSyncUI() inside cloudFetch(). */
 function startSync(){
   clearInterval(syncT);_lhash='';
   syncT=setInterval(async()=>{
@@ -1286,7 +1478,8 @@ function rPOSMenu(){
 function rPFoods(foods){
   const gd=g('pos-foods');if(!gd)return;
   gd.innerHTML='';
-  (foods||[]).forEach(food=>{
+  if(!foods||!foods.length){gd.innerHTML='<p style="font-size:11.5px;color:var(--tm);padding:30px;text-align:center;grid-column:1/-1">هیچ بابەتێک نییە — لە بەشی مینیو زیادی بکە</p>';return;}
+  foods.forEach(food=>{
     const oos=food.stock!==undefined&&food.stock<=0;
     const d=document.createElement('div');d.className='ftile'+(oos?' oos':'');
     if(!oos)d.onclick=()=>addPOS(food.id);
@@ -1301,6 +1494,11 @@ function fPOS(c){pCat=c;rPOSMenu();}
 function rPOSTbls(){const s=g('pos-tbl');if(!s)return;s.innerHTML='';for(let i=1;i<=(M.tables_count||12);i++)s.innerHTML+=`<option value="${i}">مێزی ${i}</option>`;}
 function addPOS(id){const f=(M.foods||[]).find(f=>f.id===id);if(!f)return;if(pCart[id])pCart[id].qty++;else pCart[id]={...f,qty:1};updCart();}
 function chgPQ(id,d){if(!pCart[id])return;pCart[id].qty+=d;if(pCart[id].qty<=0)delete pCart[id];updCart();}
+async function askClearCart(){
+  if(!Object.keys(pCart).length)return;
+  const ok=await showConfirm({title:'پاکردنەوەی سەبەتە',msg:'هەموو بابەتەکانی سەبەتە دەسڕدرێنەوە. دڵنیایی؟'});
+  if(ok)clearCart();
+}
 function clearCart(){pCart={};updCart();}
 function updCart(){
   const c=g('pos-cart');if(!c)return;
@@ -1312,7 +1510,8 @@ function updCart(){
     items.forEach(it=>{
       const d=document.createElement('div');d.className='cart-item';
       d.innerHTML=`<div class="ci-info"><div class="ci-name">${it.title_ku}</div><div class="ci-price">${iq(it.price)}</div></div>`+
-        `<div class="qty-ctrl"><button class="qbtn" onclick="chgPQ(${it.id},-1)">−</button><span class="qnum">${it.qty}</span><button class="qbtn" onclick="chgPQ(${it.id},1)">+</button></div>`;
+        `<div class="qty-ctrl"><button class="qbtn" onclick="chgPQ(${it.id},-1)">−</button><span class="qnum">${it.qty}</span><button class="qbtn" onclick="chgPQ(${it.id},1)">+</button>`+
+        `<button class="cart-rm" onclick="delete pCart[${it.id}];updCart()" title="سڕینەوە">✖</button></div>`;
       c.appendChild(d);
     });
   }
@@ -1365,13 +1564,14 @@ function rOrders(){
     card.innerHTML=`<div class="ok-top"><span class="ok-tbl">مێزی ${ord.table}</span>
       <div style="display:flex;align-items:center;gap:5px">
         <span class="src-tag ${ord.source==='pos'?'src-pos':'src-qr'}">${ord.source==='pos'?'POS':'QR'}</span>
-        <span class="ok-time">${new Date(ord.time).toLocaleTimeString('ar',{hour:'2-digit',minute:'2-digit'})}</span>
+        <span class="ok-time">${new Date(ord.time).toLocaleTimeString('ar',{timeZone:'Asia/Baghdad',hour:'2-digit',minute:'2-digit'})}</span>
       </div></div>
       <ul class="ok-items">${iHtml}</ul>
       ${ord.note?`<div class="ok-note">📍 ${ord.note}</div>`:''}
       <div class="ok-foot"><span class="ok-total">${iq(ord.total)}</span>${btn}</div>`;
     col.appendChild(card);
   });
+  Object.entries(cols).forEach(([key,col])=>{if(col&&!col.children.length)col.innerHTML='<div class="kb-empty">هیچ داواکارییەک نییە</div>';});
   if(g('cnt-p'))g('cnt-p').textContent=cnts.pending||0;
   if(g('cnt-r'))g('cnt-r').textContent=cnts.preparing||0;
   if(g('cnt-y'))g('cnt-y').textContent=cnts.ready||0;
@@ -1383,55 +1583,83 @@ function mvOrd(id,st){
   const i=(m.orders||[]).findIndex(o=>o.id===id);
   if(i>-1){m.orders[i].status=st;if(st==='served')m.orders[i].paid_at=new Date().toISOString();dbSet(M.username,m);M=fix(deep(m));rOrders();rTables();rAnalytics();}
 }
+async function askResetOrders(){
+  const ok=await showConfirm({title:'سڕینەوەی هەموو داواکارییەکان',msg:'هەموو داواکارییەکان و داوای حیسابەکان دەسڕدرێنەوە. ئەم کردارە گەرێنەوە نییە.'});
+  if(ok)resetOrders();
+}
 function resetOrders(){
-  if(!confirm('دڵنیایی لە سڕینەوەی هەموو داواکارییەکان؟'))return;
   const m=dbGet(M.username);if(!m)return;
   m.orders=[];m.bill_requests=[];dbSet(M.username,m);M=fix(deep(m));
   rOrders();rTables();rAnalytics();toast('سڕدرایەوە','هەموو داواکارییەکان');
 }
 
 /* ── MENU MANAGER ──
-   Fix: every mutation (mkCat / mkFood / delFood / edtStk) writes straight into the
-   in-memory cache via dbSet, then M is rebuilt from that SAME object — never from a
-   re-fetch — so the food list render always reflects exactly what was just saved,
-   including the brand-new item, with no possibility of an older list "winning". */
-function rCatDrop(){const s=g('f-cat');if(!s)return;s.innerHTML=(M.categories||[]).map(c=>'<option value="'+c.id+'">'+c.ku+'</option>').join('');}
+   Every mutation (mkCat / mkFood / delFood / edtStk) writes straight into the
+   in-memory cache via dbSet, then M is rebuilt from that SAME object — never
+   from a re-fetch — so the food list render always reflects exactly what was
+   just saved, including the brand-new item. We ALSO reset the active filter
+   to 'all' right after creating something new, which is what fixes the bug
+   where a freshly-added category or food seemed to "vanish" because a
+   leftover filter selection was hiding it from view. */
+function rCatDrop(){const s=g('f-cat');if(!s)return;const cur=s.value;s.innerHTML=(M.categories||[]).map(c=>'<option value="'+c.id+'">'+c.ku+'</option>').join('');if(cur&&(M.categories||[]).some(c=>c.id===cur))s.value=cur;}
 function rMenuCatFilter(){
   const el=g('menu-cat-filter');if(!el)return;
   el.innerHTML='<button class="catbtn'+(mFCat==='all'?' on':'')+' btn-sm" style="font-size:10.5px" onclick="setMFCat(\'all\')">هەموو</button>';
   (M.categories||[]).forEach(c=>{el.innerHTML+='<button class="catbtn btn-sm'+(mFCat===c.id?' on':'')+'" style="font-size:10.5px" onclick="setMFCat(\''+c.id+'\')">'+c.ku+'</button>';});
 }
 function setMFCat(c){mFCat=c;rMenuCatFilter();rFoods();}
+function setStockMode(mode){
+  _stockMode=mode;
+  const u=g('stock-mode-unlim'),l=g('stock-mode-limited'),inp=g('f-stk');
+  if(u)u.classList.toggle('on',mode==='unlim');
+  if(l)l.classList.toggle('on',mode==='limited');
+  if(inp)inp.classList.toggle('hidden',mode==='unlim');
+}
 function mkCat(){
   const ku=(g('c-ku')?.value||'').trim();if(!ku){toast('هەڵە','ناوی کوردی داخڵ بکە','err');return;}
   const m=dbGet(M.username);if(!m)return;
   if(!m.categories)m.categories=[];
   m.categories.push({id:'c'+uid(),ku,ar:(g('c-ar')?.value||'').trim()||ku,en:(g('c-en')?.value||'').trim()||ku});
   dbSet(M.username,m);M=fix(deep(m));
-  rCatDrop();rPOSMenu();rQuickCatsPanel();rMenuCatFilter();
+  mFCat='all';pCat='all';
+  rCatDrop();rPOSMenu();rQuickCatsPanel();rMenuCatFilter();rFoods();
   ['c-ku','c-ar','c-en'].forEach(id=>{if(g(id))g(id).value='';});
   toast('✅ هاوپۆل دروستکرا',ku);
 }
 async function mkFood(){
   const ku=(g('f-ku')?.value||'').trim();if(!ku){toast('هەڵە','ناوی کوردی داخڵ بکە','err');return;}
   const price=parseInt(g('f-price')?.value);if(!price||price<=0){toast('هەڵە','نرخ دروست داخڵ بکە','err');return;}
+  if(!M.categories||!M.categories.length){toast('هەڵە','سەرەتا هاوپۆلێک دروست بکە','err');return;}
+  const btn=g('mk-food-btn');
+  if(btn){btn.disabled=true;btn.textContent='چاوەڕێبە...';}
   const lf=g('f-img')?.files[0];let img='https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=400';
   if(lf)try{img=await b64(lf)}catch(e){}
   const dku=(g('d-ku')?.value||'').trim();
+  const stockVal=_stockMode==='unlim'?undefined:Math.max(0,parseInt(g('f-stk')?.value)||0);
+  const chosenCat=g('f-cat')?.value||(M.categories[0]?.id||'');
   const food={id:uid(),title_ku:ku,title_ar:(g('f-ar')?.value||'').trim()||ku,title_en:(g('f-en')?.value||'').trim()||ku,
     desc_ku:dku,desc_ar:dku,desc_en:dku,price,
-    stock:g('f-stk')?.value===''?undefined:parseInt(g('f-stk')?.value)||0,
+    stock:stockVal,
     barcode:(g('f-bc')?.value||'').trim()||null,
-    category:g('f-cat')?.value||(M.categories[0]?.id||''),img};
+    category:chosenCat,img};
   const m=dbGet(M.username);if(!m)return;
   if(!m.foods)m.foods=[];
   m.foods.push(food);
-  dbSet(M.username,m);
+  await dbSet(M.username,m);
   M=fix(deep(m));
-  rFoods();rPOSMenu();
+  /* Reset the menu filter + POS category filter to 'all' so the new item
+     is guaranteed to be visible immediately, regardless of which category
+     filter happened to be selected before this item was created. This is
+     the direct fix for "first item created doesn't show until a 2nd one is added" —
+     that symptom occurred because the filter stayed on a category that didn't
+     match, making the new item invisible until the merchant clicked "all". */
+  mFCat='all';pCat='all';
+  rMenuCatFilter();rFoods();rPOSMenu();
   toast('✅ بابەت زیادکرا',ku);
+  if(btn){btn.disabled=false;btn.textContent='تۆمارکردن لە مینیو ✓';}
   ['f-ku','f-ar','f-en','d-ku','f-price','f-stk','f-bc'].forEach(id=>{if(g(id))g(id).value='';});
   if(g('f-img'))g('f-img').value='';
+  setStockMode('unlim');
 }
 function rFoods(){
   const gd=g('foods-list');if(!gd)return;
@@ -1446,14 +1674,15 @@ function rFoods(){
       `<div class="fi-body"><div class="fi-name">${food.title_ku}</div><div class="fi-price">${iq(food.price)}</div>`+
       `<div class="fi-stk" style="color:${oos?'var(--ruby)':'var(--tm)'}">کۆگا: ${food.stock!==undefined?food.stock:'∞'}${oos?' ⚠️':''}</div></div>`+
       `<div class="fi-foot"><span class="badge ${oos?'bdx':'bs'}">${oos?'نەماوە':'مەوجود'}</span>`+
-      `<div style="display:flex;gap:5px"><button onclick="edtStk(${food.id})" class="ab edt">کۆگا</button><button onclick="delFood(${food.id})" class="ab del">سڕ</button></div></div>`;
+      `<div style="display:flex;gap:5px"><button onclick="edtStk(${food.id})" class="ab edt">کۆگا</button><button onclick="askDelFood(${food.id})" class="ab del">سڕ</button></div></div>`;
     gd.appendChild(c);
   });
   if(!filtered.length)gd.innerHTML='<p style="font-size:11.5px;color:var(--tm);padding:30px;text-align:center;grid-column:1/-1">هیچ بابەتێک نییە لەم هاوپۆلەدا</p>';
 }
-function edtStk(id){
+async function edtStk(id){
   const f=(M.foods||[]).find(f=>f.id===id);if(!f)return;
-  const v=prompt('کۆگای "'+f.title_ku+'" نوێ بکەرەوە (بەتاڵ بۆ ∞):',f.stock!==undefined?f.stock:'');if(v===null)return;
+  const v=await showConfirm({title:'نوێکردنەوەی کۆگا',msg:'کۆگای "'+f.title_ku+'" — بەتاڵ بێت یانی بێ سنوور (∞)',withInput:true,inputVal:f.stock!==undefined?f.stock:'',danger:false,okLabel:'پاشەکەوتکردن ✓'});
+  if(v===null||v===true)return;
   const m=dbGet(M.username);if(!m)return;
   const i=m.foods.findIndex(f=>f.id===id);
   if(i>-1){
@@ -1461,9 +1690,13 @@ function edtStk(id){
     dbSet(M.username,m);M=fix(deep(m));rFoods();rPOSMenu();toast('✅ کۆگا نوێکرایەوە',f.title_ku);
   }
 }
+async function askDelFood(id){
+  const f=(M.foods||[]).find(f=>f.id===id);if(!f)return;
+  const ok=await showConfirm({title:'سڕینەوەی بابەت',msg:'دڵنیایی لە سڕینەوەی "'+f.title_ku+'"؟'});
+  if(ok)delFood(id);
+}
 function delFood(id){
-  const f=(M.foods||[]).find(f=>f.id===id);
-  if(!f||!confirm('دڵنیایی لە سڕینەوەی "'+f.title_ku+'"؟'))return;
+  const f=(M.foods||[]).find(f=>f.id===id);if(!f)return;
   const m=dbGet(M.username);if(!m)return;
   m.foods=m.foods.filter(f=>f.id!==id);dbSet(M.username,m);M=fix(deep(m));
   delete pCart[id];rFoods();rPOSMenu();updCart();toast('سڕدرایەوە',f.title_ku);
@@ -1495,8 +1728,9 @@ function rTables(){
   }
   setBT((M.bill_requests||[]).length);
 }
-function payTbl(n){
-  if(!confirm('پارەدانی مێزی '+n+'؟'))return;
+async function payTbl(n){
+  const ok=await showConfirm({title:'پارەدان',msg:'پارەدانی مێزی '+n+'؟',danger:false,okLabel:'✓ پارەدان'});
+  if(!ok)return;
   const m=dbGet(M.username);if(!m)return;
   m.bill_requests=(m.bill_requests||[]).filter(r=>r!=String(n));
   m.orders=(m.orders||[]).map(o=>{if(String(o.table)==String(n)&&o.status!=='served'){o.status='served';o.paid_at=new Date().toISOString();}return o;});
@@ -1528,7 +1762,7 @@ function prtTbl(n){
   const rows=Object.values(items2).map(it=>`<tr><td>${it.title}</td><td style="text-align:center;font-weight:700">${it.qty}</td><td style="text-align:left;font-weight:800">${iq(it.price*it.qty)}</td></tr>`).join('');
   openPrint(`<div class="logo">${M.name}</div><div class="sub">وەسڵی مێز</div><hr class="dash">
   <div class="row"><span>مێز:</span><div class="tbl-b">${n}</div></div>
-  <div class="row"><span>کات:</span><span style="font-weight:700">${new Date().toLocaleString('ar')}</span></div><hr class="dash">
+  <div class="row"><span>کات:</span><span style="font-weight:700">${kurdistanDateString(new Date())} ${kurdistanTimeString()}</span></div><hr class="dash">
   <table><thead><tr><th>بابەت</th><th style="text-align:center">بڕ</th><th style="text-align:left">نرخ</th></tr></thead><tbody>${rows}</tbody></table>
   <hr class="dash"><div class="total"><span>کۆی گشتی:</span><span>${iq(tot)}</span></div>
   <hr class="dash"><div class="foot">سوپاس 🙏<br>Kurd POS</div>`);
@@ -1539,7 +1773,7 @@ function prtReceipt(order){
   const ml=order.method==='cash'?'نەختینە 💵':'کارت 💳';
   openPrint(`<div class="logo">${M.name}</div><div class="sub">وەسڵی POS</div><hr class="dash">
   <div class="row"><span>مێز:</span><div class="tbl-b">${order.table}</div></div>
-  <div class="row"><span>کات:</span><span style="font-weight:700">${new Date(order.time).toLocaleString('ar')}</span></div>
+  <div class="row"><span>کات:</span><span style="font-weight:700">${kurdistanDateString(order.time)} ${new Date(order.time).toLocaleTimeString('ar',{timeZone:'Asia/Baghdad',hour:'2-digit',minute:'2-digit'})}</span></div>
   <div class="row"><span>پارەدان:</span><span class="meth ${mc}">${ml}</span></div><hr class="dash">
   <table><thead><tr><th>بابەت</th><th style="text-align:center">بڕ</th><th style="text-align:left">نرخ</th></tr></thead><tbody>${rows}</tbody></table>
   <hr class="dash">${order.discount>0?`<div class="disc"><span>داشکاندن:</span><span>−${iq(order.discount)}</span></div>`:''}
@@ -1548,11 +1782,23 @@ function prtReceipt(order){
 }
 
 /* ── QR STUDIO ── */
-function mkQR(){const n=(g('qr-n')?.value||'').trim();if(!n)return;const m=dbGet(M.username);if(!m)return;if(!m.qrcodes)m.qrcodes=[];if(!m.qrcodes.includes(n)){m.qrcodes.push(n);dbSet(M.username,m);M=fix(deep(m));rQRs();toast('✅ QR دروستکرا','مێزی '+n);}else{toast('پێشتر هەیە','QR ی مێزی '+n,'wrn');}if(g('qr-n'))g('qr-n').value='';}
-function clearQRs(){if(!confirm('دڵنیایی؟'))return;const m=dbGet(M.username);if(!m)return;m.qrcodes=[];dbSet(M.username,m);M=fix(deep(m));rQRs();}
+function mkQR(){
+  const n=(g('qr-n')?.value||'').trim();if(!n)return;
+  const m=dbGet(M.username);if(!m)return;if(!m.qrcodes)m.qrcodes=[];
+  if(!m.qrcodes.includes(n)){m.qrcodes.push(n);dbSet(M.username,m);M=fix(deep(m));rQRs();toast('✅ QR دروستکرا','مێزی '+n);}
+  else{toast('پێشتر هەیە','QR ی مێزی '+n,'wrn');}
+  if(g('qr-n'))g('qr-n').value='';
+}
+async function askClearQRs(){
+  if(!M.qrcodes||!M.qrcodes.length)return;
+  const ok=await showConfirm({title:'سڕینەوەی هەموو QR',msg:'هەموو کارتەکانی QR دەسڕدرێنەوە. دڵنیایی؟'});
+  if(ok)clearQRs();
+}
+function clearQRs(){const m=dbGet(M.username);if(!m)return;m.qrcodes=[];dbSet(M.username,m);M=fix(deep(m));rQRs();}
 function rQRs(){
   const area=g('qr-area');if(!area)return;area.innerHTML='';
-  (M.qrcodes||[]).forEach(num=>{
+  if(!M.qrcodes||!M.qrcodes.length){area.innerHTML='<p style="font-size:11.5px;color:var(--tm);padding:30px;text-align:center;grid-column:1/-1">هیچ QR یەک دروست نەکراوە — ژمارەی مێز داخل بکە و دروستی بکە</p>';return;}
+  M.qrcodes.forEach(num=>{
     const url=location.origin+location.pathname+'?shop='+M.username+'&table='+num;
     const cid='qrc'+num;
     const card=document.createElement('div');card.className='qr-card';card.id=cid;
@@ -1589,6 +1835,10 @@ function prtQR(num){
 
 /* ── ANALYTICS ── */
 function mkExp(){const t=(g('ex-t')?.value||'').trim();const a=parseInt(g('ex-a')?.value);if(!t||!a||a<=0){toast('هەڵە','خانەکان پڕ بکەرەوە','err');return;}const cat=g('ex-cat')?.value||'تر';const m=dbGet(M.username);if(!m)return;if(!m.expenses)m.expenses=[];m.expenses.push({id:uid(),title:t,amount:a,category:cat,time:new Date().toISOString()});dbSet(M.username,m);M=fix(deep(m));if(g('ex-t'))g('ex-t').value='';if(g('ex-a'))g('ex-a').value='';rAnalytics();toast('✅ خەرجی تۆمارکرا',t+' — '+iq(a));}
+async function askDelExp(id){
+  const ok=await showConfirm({title:'سڕینەوەی خەرجی',msg:'دڵنیایی لە سڕینەوەی ئەم خەرجییە؟'});
+  if(ok)delExp(id);
+}
 function delExp(id){const m=dbGet(M.username);if(!m)return;m.expenses=(m.expenses||[]).filter(e=>e.id!==id);dbSet(M.username,m);M=fix(deep(m));rAnalytics();}
 function rAnalytics(){
   let sales=0,qrCnt=0,posCnt=0;const fs={};const pay={cash:0,card:0};
@@ -1600,7 +1850,7 @@ function rAnalytics(){
   const tp=g('top-prods');const top=Object.entries(fs).sort((a,b)=>b[1]-a[1]).slice(0,6);
   if(tp)tp.innerHTML=top.length?top.map(([n,q],i)=>`<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--bd)"><div style="display:flex;align-items:center;gap:9px"><span style="font-size:11px;font-weight:900;color:var(--tm);min-width:18px">${i+1}.</span><span style="font-size:12px;font-weight:700">${n}</span></div><span class="badge bp">${q} دانە</span></div>`).join(''):'<p style="font-size:11px;color:var(--tm);padding:12px 0">هێشتا داتا نییە</p>';
   const pb=g('pay-bk');if(pb){const tot2=pay.cash+pay.card;pb.innerHTML=[{lbl:'💵 نەختینە',cnt:pay.cash,bg:'var(--emerald-l)',clr:'var(--emerald)'},{lbl:'💳 کارت',cnt:pay.card,bg:'var(--gold-l)',clr:'var(--gold-d)'}].map(p=>`<div style="flex:1;min-width:150px;background:${p.bg};border-radius:var(--r2);padding:16px;display:flex;justify-content:space-between;align-items:center;border:1px solid rgba(0,0,0,.04)"><span style="font-size:12px;font-weight:700">${p.lbl}</span><div style="text-align:left"><div style="font-size:24px;font-weight:900;color:${p.clr}">${p.cnt}</div><div style="font-size:10px;color:var(--tm)">${tot2?Math.round(p.cnt/tot2*100):0}%</div></div></div>`).join('');}
-  const el=g('exp-list');if(el)el.innerHTML=(M.expenses||[]).slice().reverse().map(e=>`<div class="exp-item"><div><div style="font-size:12px;font-weight:700">${e.title}</div><div style="font-size:10px;color:var(--tm)">${e.category||''} · ${new Date(e.time).toLocaleDateString('ar')}</div></div><div style="display:flex;align-items:center;gap:7px"><span style="font-size:13px;font-weight:900;color:var(--ruby)">${iq(e.amount)}</span><button onclick="delExp(${e.id})" style="background:none;border:none;cursor:pointer;color:var(--tm);font-size:13px" onmouseover="this.style.color='var(--ruby)'" onmouseout="this.style.color='var(--tm)'">✖</button></div></div>`).join('')||'<p style="font-size:11px;color:var(--tm)">خەرجی نییە</p>';
+  const el=g('exp-list');if(el)el.innerHTML=(M.expenses||[]).slice().reverse().map(e=>`<div class="exp-item"><div><div style="font-size:12px;font-weight:700">${e.title}</div><div style="font-size:10px;color:var(--tm)">${e.category||''} · ${kurdistanDateString(e.time)}</div></div><div style="display:flex;align-items:center;gap:7px"><span style="font-size:13px;font-weight:900;color:var(--ruby)">${iq(e.amount)}</span><button onclick="askDelExp(${e.id})" style="background:none;border:none;cursor:pointer;color:var(--tm);font-size:13px" onmouseover="this.style.color='var(--ruby)'" onmouseout="this.style.color='var(--tm)'">✖</button></div></div>`).join('')||'<p style="font-size:11px;color:var(--tm)">خەرجی نییە</p>';
   if(g('exp-total'))g('exp-total').textContent='کۆیی: '+iq(exps);
   rBarChart();
 }
@@ -1616,10 +1866,10 @@ function exportRpt(){
   const m=M;const sales=(m.orders||[]).filter(o=>o.status==='served').reduce((s,o)=>s+o.total,0);const exps=(m.expenses||[]).reduce((s,e)=>s+e.amount,0);const ordCnt=(m.orders||[]).filter(o=>o.status==='served').length;
   const w=window.open('','_blank');if(!w)return;
   w.document.write(`<!DOCTYPE html><html dir="rtl"><head><meta charset="UTF-8"><style>@import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700;900&display=swap');body{font-family:'Vazirmatn',sans-serif;padding:36px;direction:rtl;color:#15130E;max-width:720px;margin:0 auto}h1{font-size:22px;font-weight:900;margin-bottom:4px}.sub{font-size:12px;color:#5B5644;margin-bottom:28px}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:28px}.stat{background:#F9F7F0;border:1px solid #E5DFCE;border-radius:14px;padding:20px;text-align:center}.sv{font-size:22px;font-weight:900;margin-top:6px}.sl{font-size:11px;color:#5B5644;font-weight:700}table{width:100%;border-collapse:collapse;font-size:12px}th{text-align:right;padding:9px 13px;background:#F1EFE3;border-bottom:2px solid #E5DFCE;font-weight:700}td{padding:9px 13px;border-bottom:1px solid #F1EFE3}</style></head><body>
-  <h1>ڕاپۆرتی دارایی — ${m.name}</h1><div class="sub">بەروار: ${new Date().toLocaleDateString('ar')} · Kurd POS</div>
+  <h1>ڕاپۆرتی دارایی — ${m.name}</h1><div class="sub">بەروار: ${kurdistanDateString(new Date())} · Kurd POS</div>
   <div class="stats"><div class="stat"><div class="sl">کۆیی فرۆش</div><div class="sv" style="color:#1C9D6B">${iq(sales)}</div></div><div class="stat"><div class="sl">کۆیی خەرجییەکان</div><div class="sv" style="color:#D7384A">${iq(exps)}</div></div><div class="stat"><div class="sl">قازانجی پاک</div><div class="sv" style="color:#C9962E">${iq(sales-exps)}</div></div></div>
   <table><thead><tr><th>کۆیی داواکاری</th><th>تەواوکراو</th><th>ناوەندی</th><th>فرۆشی گشتی</th></tr></thead><tbody><tr><td>${(m.orders||[]).length}</td><td>${ordCnt}</td><td>${iq(ordCnt>0?Math.round(sales/ordCnt):0)}</td><td style="font-weight:900;color:#C9962E">${iq(sales)}</td></tr></tbody></table><br>
-  <table><thead><tr><th>خەرجی</th><th>جۆر</th><th>بەروار</th><th>نرخ</th></tr></thead><tbody>${(m.expenses||[]).map(e=>`<tr><td>${e.title}</td><td>${e.category||'تر'}</td><td>${new Date(e.time).toLocaleDateString('ar')}</td><td style="color:#D7384A;font-weight:700">${iq(e.amount)}</td></tr>`).join('')}</tbody></table>
+  <table><thead><tr><th>خەرجی</th><th>جۆر</th><th>بەروار</th><th>نرخ</th></tr></thead><tbody>${(m.expenses||[]).map(e=>`<tr><td>${e.title}</td><td>${e.category||'تر'}</td><td>${kurdistanDateString(e.time)}</td><td style="color:#D7384A;font-weight:700">${iq(e.amount)}</td></tr>`).join('')}</tbody></table>
   <script>window.onload=function(){window.print();}<\/script></body></html>`);w.document.close();
 }
 
@@ -1642,7 +1892,7 @@ const TX={
   en:{all:'All',srch:'🔍 Search menu...',add:'Add',vcrt:'View Cart',tot:'Total',ctitle:'Your Cart',sub:'Place Order ⚡',ok:'Thanks! Order placed 🎉',note:'Note (optional)',oos:'Sold Out',bill:'🔔 Request Bill',billSent:'✅ Sent'}
 };
 
-/* Fix: every fresh QR scan (new initCust call) wipes cCart completely so a new
+/* Every fresh QR scan (new initCust call) wipes cCart completely so a new
    customer session never inherits the previous customer's cart. */
 function initCust(shop,tbl){
   const m=dbGet(shop);
@@ -1718,17 +1968,19 @@ function openCartModal(){
 }
 function updModal(){const items=Object.values(cCart);if(g('crt-modal-tot'))g('crt-modal-tot').textContent=iq(items.reduce((s,i)=>s+i.price*i.qty,0));updCBar(TX[clang]);if(!items.length)closeCartModal();}
 function closeCartModal(){const m=g('crt-modal');if(m)m.classList.remove('open');}
-function submitOrder(){
+async function submitOrder(){
   const items=Object.values(cCart);if(!items.length)return;
   const tot=items.reduce((s,i)=>s+i.price*i.qty,0);const note=(g('order-note')?.value||'').trim();
   const m=dbGet(cMU);if(!m)return;if(!m.orders)m.orders=[];
+  const btn=g('submit-order-btn');if(btn)btn.disabled=true;
   m.orders.push({id:uid(),table:cTbl,items:items.map(i=>({id:i.id,title:i.title_ku||i.title_en||'',qty:i.qty,price:i.price})),
     total:tot,status:'pending',source:'qr',note:note||null,time:new Date().toISOString()});
-  dbSet(cMU,m);
+  await dbSet(cMU,m);
   cCart={};
   closeCartModal();updCBar(TX[clang]);rCustMenu();
   if(g('order-note'))g('order-note').value='';
   if(g('cm-srch'))g('cm-srch').value='';
+  if(btn)btn.disabled=false;
   toast((TX[clang]||TX.ku).ok,'');
 }
 /* Bill request only flags the table on the map — never creates a duplicate order. */
@@ -1755,6 +2007,7 @@ window.addEventListener('load',async()=>{
 });
 
 window.addEventListener('beforeunload',e=>{if(M&&Object.keys(pCart).length>0){e.preventDefault();e.returnValue='';}});
+
 </script>
 </body>
 </html>

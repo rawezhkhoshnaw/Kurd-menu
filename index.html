@@ -9,7 +9,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
 <style>
 /* ════════════════════════════════════════════════════════════
-   KURD POS — DESIGN TOKENS & RESPONSIVE LAYOUT
+   KURD POS — DESIGN TOKENS
+   Palette: deep ink + warm gold (heritage, not literal-flag)
+   Display: Outfit (numerals/UI chrome) · Body/Kurdish: Vazirmatn
 ════════════════════════════════════════════════════════════ */
 :root{
   --gold:#C9962E;--gold-d:#A87A1E;--gold-dd:#7A5714;--gold-l:#F4E4BC;--gold-l2:#E8C97A;
@@ -47,6 +49,7 @@ img{display:block}
 a{text-decoration:none;color:inherit}
 button,input,select,textarea{font-family:var(--font)}
 :focus-visible{outline:2.5px solid var(--gold);outline-offset:2px}
+@media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
 
 .view{display:none!important}
 .view.show{display:block!important}
@@ -234,6 +237,7 @@ select.sa-inp option{background:#171B26}
 .tile-shine{position:absolute;top:-40%;left:-40%;width:80%;height:80%;background:radial-gradient(circle,rgba(201,150,46,.08) 0%,transparent 70%);pointer-events:none;transition:var(--tr)}
 .tile:hover{border-color:var(--gold);box-shadow:var(--sh3);transform:translateY(-4px)}
 .tile:hover .tile-shine{top:-20%;left:-20%}
+.tile:active{transform:scale(.98) translateY(-2px)}
 .tile-ico{width:52px;height:52px;border-radius:16px;background:linear-gradient(135deg,var(--gold-l),var(--gold-l2));display:flex;align-items:center;justify-content:center;font-size:26px;margin-bottom:16px;box-shadow:0 4px 12px rgba(201,150,46,.22)}
 .tile-title{font-size:14px;font-weight:900;color:var(--t);transition:var(--tr)}.tile:hover .tile-title{color:var(--gold-d)}
 .tile-desc{font-size:11px;color:var(--tm);line-height:1.6;margin-top:4px}
@@ -394,7 +398,7 @@ select.sa-inp option{background:#171B26}
 .lang-btn:hover{border-color:var(--gold);background:var(--gold-l);color:var(--gold-dd);box-shadow:0 4px 16px rgba(201,150,46,.22)}
 
 /* ══════════════════════════════════════════════════════
-   CUSTOMER MENU
+   CUSTOMER MENU (read-only digital menu — no cart, no ordering)
 ══════════════════════════════════════════════════════ */
 #view-customer-menu{min-height:100vh;background:var(--bg);padding-bottom:60px}
 .cm-hdr{background:var(--glass);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-bottom:1px solid rgba(255,255,255,.7);padding:12px 16px;position:sticky;top:0;z-index:50;box-shadow:0 2px 16px rgba(40,32,10,.06)}
@@ -441,6 +445,7 @@ select.sa-inp option{background:#171B26}
     <h2 style="font-size:22px;font-weight:900;margin-bottom:11px">پلانەکەت بەسەرچووە</h2>
     <p style="font-size:12px;color:var(--tm);line-height:1.9;margin-bottom:24px">بۆ بەردەوامبوونی کارکردنی مینیوی دیجیتاڵ، تکایە پلانەکەت نوێ بکەرەوە.</p>
     <a href="https://wa.me/9647511742922" target="_blank" style="display:block;background:linear-gradient(135deg,#1C9D6B,#147A53);color:#fff;padding:16px;border-radius:var(--r2);font-weight:900;font-size:13px;margin-bottom:10px">💬 واتسئەپ — پەیوەندی بکە</a>
+    <a href="https://bytelineagency.vercel.app" target="_blank" style="display:block;background:linear-gradient(135deg,var(--gold),var(--gold-d));color:#fff;padding:13px;border-radius:var(--r2);font-weight:900;font-size:12px;margin-bottom:14px">🌐 bytelineagency.vercel.app</a>
     <button onclick="sv('portal')" style="background:none;border:none;font-size:12px;color:var(--tm);cursor:pointer;font-family:var(--font);font-weight:600">← گەڕانەوە</button>
   </div>
 </div>
@@ -449,7 +454,7 @@ select.sa-inp option{background:#171B26}
 <script>
 'use strict';
 
-/* ── CONFIGURATION & THEME PRESETS (Hoisted at Top) ── */
+/* ── CONFIGURATION & THEME PRESETS ── */
 const THEMES = [
   {name:'زێڕی',color:'#C9962E'},{name:'زەیتوونی',color:'#7A8C3F'},
   {name:'زەمەردی',color:'#1C9D6B'},{name:'ئاسمانی',color:'#2E84C9'},
@@ -470,7 +475,6 @@ const QUICK_CATS = [
 ];
 
 const DBK='kpos_v1';
-// بەستەری ڕاستەوخۆی ئەپ سکریپتی فەرمی خۆت لێرە جێگیر کراوە
 const API_URL="https://script.google.com/macros/s/AKfycbxsViY_HlCqkap6RSF_tqke3Hsgu__zkF0-cYV7LGCIes_-1gZdkXOVcJ_ghTDDQ2rXRA/exec";
 
 let DB_CACHE=null;
@@ -1080,7 +1084,7 @@ function addPOS(id){const f=(M.foods||[]).find(f=>f.id===id);if(!f)return;if(pCa
 function chgPQ(id,d){if(!pCart[id])return;pCart[id].qty+=d;if(pCart[id].qty<=0)delete pCart[id];updCart();}
 async function askClearCart(){
   if(!Object.keys(pCart).length)return;
-  const ok=await showConfirm({title:'سڕینەوەی سەبەتە',msg:'سەبەتەکە دەتەوێت بە تەواوی بەتاڵ بکەیتەوە؟'});
+  const ok=await showConfirm({title:'سڕینەوەی سەبەتە',msg:'سەبەتەی کڕین بەتاڵ دەکرێتەوە؟'});
   if(ok)clearCart();
 }
 function clearCart(){pCart={};updCart();if(g('pos-active-indicator'))g('pos-active-indicator').textContent='';}

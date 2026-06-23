@@ -420,514 +420,6 @@ select.sa-inp option{background:#171B26}
 .bill-btn:hover{box-shadow:0 8px 26px rgba(215,56,74,.42);transform:translateY(-1px)}
 .bill-btn:disabled{opacity:.55;cursor:not-allowed;transform:none}
 
-/* Expired */
-#view-expired{min-height:100vh;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px}
-.exp-card{max-width:380px;width:100%;background:var(--sur);border:1px solid var(--bd);border-radius:var(--r5);padding:48px 32px;text-align:center;box-shadow:var(--sh4)}
-
-/* ── RESPONSIVE ── */
-@media(max-width:1100px){
-  .pos-wrap{grid-template-columns:1fr}.pos-sidebar{height:auto;position:static;max-height:500px}
-  .menu-wrap,.qr-wrap{grid-template-columns:1fr}
-}
-@media(max-width:720px){
-  .food-grid{grid-template-columns:repeat(2,1fr)}
-  .minner{padding:13px 13px 100px}
-  .dash-grid{grid-template-columns:repeat(2,1fr)}
-  .pcard{padding:38px 26px}
-  .sa-nav{padding:14px 16px}
-  .anl-grid{grid-template-columns:1fr 1fr}
-}
-@media(max-width:460px){
-  .dash-grid{grid-template-columns:1fr}
-  .anl-grid{grid-template-columns:1fr}
-}
-</style>
-</head>
-<body>
-<div id="toasts"></div>
-
-<!-- ══════════════ PORTAL ══════════════ -->
-<div id="view-portal" class="view">
-  <div class="p-motif motif-bg-dark"></div>
-  <div class="orb" style="width:700px;height:700px;background:radial-gradient(circle,#C9962E,transparent 70%);opacity:.15;top:-220px;right:-180px;animation:pulse 4s infinite"></div>
-  <div class="pcard">
-    <div class="p-mark">
-      <svg viewBox="0 0 76 76" xmlns="http://www.w3.org/2000/svg">
-        <defs><linearGradient id="markGrad" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0" stop-color="#F4E4BC"/><stop offset=".55" stop-color="#C9962E"/><stop offset="1" stop-color="#7A5714"/>
-        </linearGradient></defs>
-        <path d="M38 4 L47 22 L67 22 L52 35 L58 56 L38 44 L18 56 L24 35 L9 22 L29 22 Z" fill="url(#markGrad)"/>
-        <circle cx="38" cy="38" r="6.5" fill="#11151C"/>
-        <circle cx="38" cy="38" r="3" fill="#F4E4BC"/>
-      </svg>
-    </div>
-    <div class="pbrand">Kurd <em>POS</em></div>
-    <div class="psub">سیستەمی پێشکەوتووی فرۆشتنی کاشێر و کاپتن<br>مینیوی دیجیتاڵ · بەدواداچوونی مێزەکان · ئانالیتیکس</div>
-    <div style="text-align:center;margin-bottom:30px"><div class="ppill"><div class="dot"></div><span>ENTERPRISE CLOUD POS</span></div></div>
-    <div class="fg"><label class="lbl lbl-dark">ناوی بەکارهێنەر (کاشێر یان کاپتن)</label><input id="pu" class="inp inp-dark" type="text" placeholder="بەکارهێنەر بنووسە..." autocomplete="off" onkeydown="if(event.key==='Enter')doLogin()"></div>
-    <div class="fg"><label class="lbl lbl-dark">تێپەڕوشە (پاسۆرد)</label><input id="pp" class="inp inp-dark" type="password" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()"></div>
-    <button onclick="doLogin()" id="login-btn" class="plogin">چوونەژوورەوەی پارێزراو ⚡</button>
-    <div class="pfooter">پەرەپێدەر: <a href="https://bytelineagency.vercel.app" target="_blank">bytelineagency.vercel.app</a></div>
-  </div>
-</div>
-
-<!-- ══════════════ SUPER ADMIN ══════════════ -->
-<div id="view-super-admin" class="view">
-  <nav class="sa-nav">
-    <div class="flex ic g3">
-      <div style="width:44px;height:44px;background:linear-gradient(135deg,#C9962E,#7A5714);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;">👑</div>
-      <div><div style="font-size:14.5px;font-weight:900;color:#fff;letter-spacing:-.3px">Super Admin Panel</div><div style="font-size:10px;color:rgba(255,255,255,.32);margin-top:1px">کۆنتڕۆڵی گشتی سیستم</div></div>
-    </div>
-    <div class="flex ic g2">
-      <span id="sa-sync" style="font-size:10px;color:rgba(255,255,255,.22);font-weight:600"></span>
-      <button onclick="saRefresh()" class="sabtn edit2">🔄 نوێکردنەوە</button>
-      <button onclick="doLogout()" class="sabtn del">دەرچوون</button>
-    </div>
-  </nav>
-  <div style="max-width:1440px;margin:0 auto;padding:28px 24px">
-    <div style="display:grid;grid-template-columns:400px 1fr;gap:22px;margin-bottom:22px">
-      <div class="sa-card">
-        <div style="font-size:13px;font-weight:900;color:#fff;margin-bottom:18px;display:flex;align-items:center;gap:7px">➕ ئەکاونتی بازرگانی نوێ</div>
-        <div class="fg"><label class="sa-lbl">ناوی چێشتخانە / کافێ</label><input id="sa-name" class="sa-inp" placeholder="کافێ لاند"></div>
-        <div class="g2c" style="margin-bottom:14px">
-          <div><label class="sa-lbl">بەکارهێنەر</label><input id="sa-user" class="sa-inp" placeholder="cafesky"></div>
-          <div><label class="sa-lbl">پاسۆرد</label><input id="sa-pass" class="sa-inp" placeholder="pass123" type="password"></div>
-        </div>
-        <div class="fg"><label class="sa-lbl">پلان</label>
-          <select id="sa-plan" class="sa-inp">
-            <option value="1month">١ مانگ</option>
-            <option value="3months">٣ مانگ</option>
-            <option value="6months">٦ مانگ</option>
-            <option value="1year">ساڵانە</option>
-            <option value="lifetime">هەمیشەیی ♾️</option>
-          </select>
-        </div>
-        <div class="fg">
-          <label class="sa-lbl">بەرواری دەستپێکردن (ئارەزوومەند — بەتاڵ بێت = ئێستا)</label>
-          <input id="sa-startdate" type="datetime-local" class="sa-inp" style="color-scheme:dark">
-        </div>
-        <div class="fg"><label class="sa-lbl">لۆگۆ</label><input type="file" id="sa-logo" accept="image/*" class="sa-inp" style="padding:7px 10px"></div>
-        <button onclick="createMerchant()" id="create-merchant-btn" style="width:100%;background:linear-gradient(135deg,#E8A23A,#D7384A);color:#fff;padding:14px;border-radius:var(--r1);font-family:var(--font);font-size:12.5px;font-weight:800;cursor:pointer;border:none;box-shadow:0 4px 16px rgba(215,56,74,.35);transition:var(--tr)">تۆمارکردن لە سیستەمدا ✓</button>
-      </div>
-      <div class="sa-card">
-        <div style="font-size:13px;font-weight:900;color:#fff;margin-bottom:18px">📋 لیستی ئەکاونتەکان</div>
-        <div style="overflow-x:auto"><table class="sa-table"><thead><tr><th>چێشتخانە</th><th>بەکارهێنەر</th><th>پاسۆرد</th><th>پلان</th><th>دەستپێکردن</th><th>بەسەرچوون</th><th>بارودۆخ</th><th>کردار</th></tr></thead><tbody id="sa-list"></tbody></table></div>
-      </div>
-    </div>
-    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(168px,1fr));gap:14px" id="sa-stats"></div>
-  </div>
-</div>
-
-<!-- ══════════════ MERCHANT PANEL ══════════════ -->
-<div id="view-merchant-panel" class="view">
-  <nav class="mnav">
-    <div class="flex ic g3">
-      <img id="m-logo" src="" class="mlogo" alt="" onerror="this.style.display='none'">
-      <div>
-        <div id="m-name" style="font-size:14.5px;font-weight:900;color:var(--t);letter-spacing:-.3px">چێشتخانە</div>
-        <div class="flex ic g1 mt1">
-          <span class="flex ic g1" style="font-size:9px;font-weight:700;color:var(--t2)"><span class="sync-dot" id="sync-dot"></span><span id="sync-txt">هاوکاتکردن</span></span>
-          <span id="m-plan-tag" class="badge bp" style="font-size:9px"></span>
-        </div>
-      </div>
-    </div>
-    <div class="flex ic g2">
-      <button onclick="goHome()" class="btn btn-ghost btn-sm">🏠 سەرەکی</button>
-      <button onclick="doLogout()" class="btn btn-sm" style="background:var(--ruby-l);color:var(--ruby-d);font-weight:700">دەرچوون</button>
-    </div>
-  </nav>
-  <div class="minner">
-
-    <!-- DASHBOARD -->
-    <div id="s-grid" class="msec">
-      <div style="margin-bottom:26px">
-        <h2 style="font-size:24px;font-weight:900;letter-spacing:-.7px" id="dash-greeting">بەخێربێیت</h2>
-        <p style="font-size:12px;color:var(--tm);margin-top:5px">بەشێک هەڵبژێرە بۆ دەستپێکردن</p>
-      </div>
-      <div class="dash-grid">
-        <div class="tile" onclick="goTab('pos')">
-          <div class="tile-shine"></div>
-          <div class="tile-ico">🖥️</div>
-          <div class="tile-title">تێرمیناڵی POS</div>
-          <div class="tile-desc">فرۆشتنی کاشێری — چاپی وەسڵ</div>
-        </div>
-        <div class="tile" onclick="goTab('menu')">
-          <div class="tile-shine"></div>
-          <div class="tile-ico">🍽️</div>
-          <div class="tile-title">ڕێکخستنی مینیو</div>
-          <div class="tile-desc">خواردن، هاوپۆل، کۆگا</div>
-        </div>
-        <div class="tile" onclick="goTab('tables')">
-          <div class="tile-shine"></div>
-          <div class="nbadge" id="bdg-tbl">0</div>
-          <div class="tile-ico">🗺️</div>
-          <div class="tile-title">نەخشەی مێزەکان</div>
-          <div class="tile-desc">داوای حسابی کڕیاران و مێزە چالاکەکان</div>
-        </div>
-        <div class="tile" onclick="goTab('qr')">
-          <div class="tile-shine"></div>
-          <div class="tile-ico">📱</div>
-          <div class="tile-title">QR Studio</div>
-          <div class="tile-desc">دروستکردن و چاپکردنی کۆدی QR</div>
-        </div>
-        <div class="tile" onclick="goTab('analytics')">
-          <div class="tile-shine"></div>
-          <div class="tile-ico">📊</div>
-          <div class="tile-title">ئانالیتیکس</div>
-          <div class="tile-desc">فرۆش، خەرجی، قازانجی پاک و دەستکاری ڕاپۆرت</div>
-        </div>
-        <div class="tile" onclick="goTab('settings')">
-          <div class="tile-shine"></div>
-          <div class="tile-ico">⚙️</div>
-          <div class="tile-title">ڕێکخستنەکان</div>
-          <div class="tile-desc">کاپتنەکان، دیزاین، لۆگۆ، سۆشیاڵ</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- POS -->
-    <div id="s-pos" class="msec">
-      <div class="flex ic jb" style="margin-bottom:14px;flex-wrap:wrap;gap:10px">
-        <div><h2 style="font-size:19px;font-weight:900">🖥️ تێرمیناڵی POS</h2><p style="font-size:11px;color:var(--tm);margin-top:3px">فرۆشتنی ڕاستەوخۆ · بەکارخستنی داواکاری مەلزەمەکان</p></div>
-        <div class="flex ic g2">
-          <select id="pos-tbl" class="inp" style="width:130px" onchange="checkTblActiveOrder()"></select>
-        </div>
-      </div>
-
-      <!-- Active orders waiting cashier confirmation (Submitted by Captains) -->
-      <div class="active-tables-container">
-        <h4 style="font-size:12px;font-weight:800;margin-bottom:8px;color:var(--gold-d)">🛎️ داواکارییە چالاکەکانی مەلزەمەکان (کاپتن)</h4>
-        <div id="active-captain-orders" style="display:flex;gap:8px;flex-wrap:wrap;"></div>
-      </div>
-
-      <div class="pos-wrap">
-        <div>
-          <input id="bc-inp" class="inp" style="margin-bottom:11px" type="text" placeholder="🏷️ بارکۆد یان ناوی خواردن بنووسە..." onkeydown="onBC(event)">
-          <div class="cats-bar ns" id="pos-cats"></div>
-          <div class="food-grid" id="pos-foods"></div>
-        </div>
-        <div class="pos-sidebar">
-          <div class="pos-sidebar-hdr">
-            <div>
-              <div style="font-size:14px;font-weight:900">🛒 سەبەتەی کڕین <span id="pos-active-indicator" style="color:var(--amber);font-size:11px"></span></div>
-              <div style="font-size:10px;color:var(--tm);margin-top:1px">وەسڵەکە بە خۆکاری چاپ دەبێت</div>
-            </div>
-            <button onclick="askClearCart()" class="btn btn-sm" style="background:var(--ruby-l);color:var(--ruby-d);font-weight:700">پاککردنەوە ×</button>
-          </div>
-          <div class="pos-sidebar-body ns" id="pos-cart"></div>
-          <div class="pos-sidebar-foot">
-            <div class="flex jb ic" style="margin-bottom:8px;font-size:12px;color:var(--t2)"><span>کۆی گشتی:</span><span id="pos-sub" style="font-weight:800;color:var(--t)">٠ د.ع</span></div>
-            <div class="flex jb ic" style="margin-bottom:8px;font-size:12px;color:var(--t2)">
-              <span>داشکاندن:</span>
-              <input id="pos-disc" type="number" value="0" min="0" oninput="updCart()" class="inp" style="width:105px;text-align:center;padding:6px 10px">
-            </div>
-            <div class="hr" style="margin:10px 0"></div>
-            <div class="flex jb ic" style="margin-bottom:14px;font-size:16px;font-weight:900">
-              <span>کۆی کۆتایی:</span><span id="pos-tot" style="color:var(--gold-d)">٠ د.ع</span>
-            </div>
-            <div class="g2c">
-              <button onclick="checkout('cash')" class="btn btn-success" style="padding:13px;font-size:13px">💵 نەختینە (کاش)</button>
-              <button onclick="checkout('card')" class="btn btn-primary" style="padding:13px;font-size:13px">💳 کارت</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- MENU MANAGER -->
-    <div id="s-menu" class="msec">
-      <div class="menu-wrap">
-        <div style="display:flex;flex-direction:column;gap:15px">
-          <div class="card cp">
-            <div style="font-size:13px;font-weight:900;margin-bottom:13px;display:flex;align-items:center;gap:7px">⚡ هاوپۆلە باوەکان</div>
-            <p style="font-size:11px;color:var(--tm);margin-bottom:11px;line-height:1.7">کلیک لەسەر هەر هاوپۆلێک بکە بۆ ئەوەی زیاد بکرێت بۆ مینیوەکەت</p>
-            <div id="quick-cats-panel"></div>
-            <div class="hr"></div>
-            <div style="font-size:12px;font-weight:800;margin-bottom:10px">➕ دروستکردۆنی هاوپۆلی تایبەت</div>
-            <div class="fg"><label class="lbl">ناوی هاوپۆل (کوردی) *</label><input id="c-ku" class="inp" placeholder="نموونە: خواردنە بنەماڵەییەکان"></div>
-            <div class="g2c" style="margin-bottom:13px">
-              <div><label class="lbl">العربية</label><input id="c-ar" class="inp" placeholder="اختياري"></div>
-              <div><label class="lbl">English</label><input id="c-en" class="inp" placeholder="Optional"></div>
-            </div>
-            <button onclick="mkCat()" class="btn btn-primary btn-fw">دروستکردن ✓</button>
-          </div>
-          <div class="card cp">
-            <div style="font-size:13px;font-weight:900;margin-bottom:15px;display:flex;align-items:center;gap:7px">🍽️ زیادکردنی بابەتی نوێ</div>
-            <div class="fg"><label class="lbl">ناوی بابەت (کوردی) *</label><input id="f-ku" class="inp" placeholder="نموونە: دۆڵمەی کوردی"></div>
-            <div class="g2c" style="margin-bottom:13px">
-              <div><label class="lbl">العربية</label><input id="f-ar" class="inp" placeholder="اختياري"></div>
-              <div><label class="lbl">English</label><input id="f-en" class="inp" placeholder="Optional"></div>
-            </div>
-            <div class="fg"><label class="lbl">پێکهاتەکان / وەسف</label><input id="d-ku" class="inp" placeholder="گۆشت، برنج، گەڵای مێو..."></div>
-            <div class="g3c" style="margin-bottom:8px">
-              <div><label class="lbl">نرخ (د.ع) *</label><input id="f-price" type="number" class="inp" placeholder="8000"></div>
-              <div><label class="lbl">بارکۆد</label><input id="f-bc" class="inp" placeholder="ئارەزوومەند"></div>
-              <div><label class="lbl">هاوپۆل</label><select id="f-cat" class="inp"></select></div>
-            </div>
-            <div class="fg">
-              <label class="lbl">سیستەمی کۆگا</label>
-              <div class="g2c">
-                <div class="bcstyle" id="stock-mode-unlim" onclick="setStockMode('unlim')" style="padding:11px;cursor:pointer">
-                  <div style="font-size:18px">♾️</div><div class="bcstyle-name" style="font-size:10.5px">بێ سنوور</div>
-                </div>
-                <div class="bcstyle" id="stock-mode-limited" onclick="setStockMode('limited')" style="padding:11px;cursor:pointer">
-                  <div style="font-size:18px">📦</div><div class="bcstyle-name" style="font-size:10.5px">کۆگای دیاریکراو</div>
-                </div>
-              </div>
-              <input id="f-stk" type="number" class="inp mt2 hidden" placeholder="بڕی بەردەست لە کۆگادا بنووسە...">
-            </div>
-            <div class="fg mt3"><label class="lbl">وێنەی بابەت</label><input id="f-img" type="file" accept="image/*" class="inp" style="padding:8px"></div>
-            <button onclick="mkFood()" id="mk-food-btn" class="btn btn-primary btn-fw btn-lg">تۆمارکردن لە مینیودا ✓</button>
-          </div>
-        </div>
-        <div class="card cp" style="overflow-y:auto;max-height:calc(100vh - 120px)">
-          <div class="flex jb ic" style="margin-bottom:14px">
-            <div style="font-size:14px;font-weight:900">مینیوی چالاک</div>
-            <span class="badge bp" id="f-count">0 بابەت</span>
-          </div>
-          <div class="cats-bar ns" id="menu-cat-filter" style="padding-bottom:12px;margin-bottom:12px;border-bottom:1px solid var(--bd)"></div>
-          <div class="food-grid2" id="foods-list"></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- TABLES -->
-    <div id="s-tables" class="msec">
-      <div class="flex jb ic" style="margin-bottom:18px;flex-wrap:wrap;gap:10px">
-        <div><h2 style="font-size:20px;font-weight:900">🗺️ نەخشەی مێزەکان</h2><p style="font-size:11px;color:var(--tm);margin-top:3px">داواکارییە جیاوازەکان لێرەدا دەردەکەون</p></div>
-        <div class="flex ic g2">
-          <label style="font-size:12px;font-weight:700;color:var(--t2)">کۆی مێزەکان:</label>
-          <input id="tbl-cnt" type="number" onchange="setTblCnt()" min="1" max="200" class="inp" style="width:72px;text-align:center">
-        </div>
-      </div>
-      <div class="flex g2" style="margin-bottom:16px;flex-wrap:wrap">
-        <span class="badge bg2">⬜ ئاسایی</span>
-        <span class="badge bdx">🔴 داوای حیساب</span>
-        <span class="badge bw" style="background:var(--amber-l);color:var(--amber)">🟡 داواکاری کاپتن</span>
-      </div>
-      <div class="tbl-grid" id="tbl-map"></div>
-    </div>
-
-    <!-- QR STUDIO -->
-    <div id="s-qr" class="msec">
-      <div class="qr-wrap">
-        <div style="display:flex;flex-direction:column;gap:14px">
-          <div class="card cp">
-            <div style="font-size:13px;font-weight:900;margin-bottom:14px">📱 QR Studio</div>
-            <div class="fg"><label class="lbl">ژمارەی مێز</label><input id="qr-n" class="inp" placeholder="١، ٢، ٣ ..." onkeydown="if(event.key==='Enter')mkQR()"></div>
-            <button onclick="mkQR()" class="btn btn-primary btn-fw">دروستکردن ✓</button>
-          </div>
-          <div class="g2c">
-            <button onclick="askClearQRs()" class="btn btn-ghost" style="font-size:11px;color:var(--ruby-d)">🗑️ سڕینەوەی هەموو</button>
-            <button onclick="window.print()" class="btn btn-ghost" style="font-size:11px">🖨️ چاپکردنی گشتی</button>
-          </div>
-        </div>
-        <div class="card cp">
-          <div style="font-size:14px;font-weight:900;margin-bottom:18px">کۆدەکانی مێز</div>
-          <div class="qr-grid pra" id="qr-area"></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- ANALYTICS & HISTORICAL REPORT -->
-    <div id="s-analytics" class="msec">
-      <div class="flex jb ic" style="margin-bottom:18px;flex-wrap:wrap;gap:10px">
-        <div><h2 style="font-size:20px;font-weight:900">📊 ئانالیتیکس و ڕاپۆرتی دارایی</h2><p style="font-size:11px;color:var(--tm);margin-top:3px">بەدواداچوون بۆ گشت فرۆشتنەکان لەگەڵ بەڕێوەبردن و دەستکاری</p></div>
-        <div class="flex ic g2">
-          <button onclick="askResetSales()" class="btn btn-sm" style="background:var(--ruby-l);color:var(--ruby-d);font-weight:700">🗑️ سڕینەوەی تۆماری فرۆشتن</button>
-          <button onclick="exportRpt()" class="btn btn-primary btn-sm">📄 دەرکردنی ڕاپۆرت</button>
-        </div>
-      </div>
-      <div class="anl-grid">
-        <div class="stat-card"><div class="stat-ico" style="background:var(--emerald-l)">💵</div><div class="stat-info"><div class="stat-lbl">کۆی فرۆش</div><div class="stat-val" style="color:var(--emerald)" id="st-sales">٠</div><div class="stat-unit">د.ع</div></div></div>
-        <div class="stat-card"><div class="stat-ico" style="background:var(--ruby-l)">📤</div><div class="stat-info"><div class="stat-lbl">کۆی خەرجییەکان</div><div class="stat-val" style="color:var(--ruby)" id="st-exp">٠</div><div class="stat-unit">د.ع</div></div></div>
-        <div class="stat-card"><div class="stat-ico" style="background:var(--gold-l)">📈</div><div class="stat-info"><div class="stat-lbl">قازانجی پاک</div><div class="stat-val" style="color:var(--gold-d)" id="st-prf">٠</div><div class="stat-unit">د.ع</div></div></div>
-        <div class="stat-card"><div class="stat-ico" style="background:var(--amber-l)">🧾</div><div class="stat-info"><div class="stat-lbl">ژمارەی فرۆشتنەکان</div><div class="stat-val" id="st-ord">٠</div><div class="stat-unit">جار</div></div></div>
-      </div>
-
-      <!-- Financial Reports History Grid -->
-      <div class="card cp" style="margin-bottom:18px">
-        <div class="flex jb ic" style="margin-bottom:12px">
-          <h4 style="font-size:14px;font-weight:900">📑 تۆماری مێژوویی سەرجەم فرۆشتنەکان</h4>
-          <span class="badge bp">دەتوانیت دەستکاری یان کاڵاوە بکەیتەوە</span>
-        </div>
-        <div style="overflow-x:auto">
-          <table class="sa-table" style="color:var(--t)">
-            <thead>
-              <tr style="border-bottom:2px solid var(--bd)">
-                <th style="color:var(--t2)">کات و بەروار</th>
-                <th style="color:var(--t2)">مێز</th>
-                <th style="color:var(--t2)">بابەتەکان</th>
-                <th style="color:var(--t2)">داشکاندن</th>
-                <th style="color:var(--t2)">کۆی گشتی</th>
-                <th style="color:var(--t2)">شێواز</th>
-                <th style="color:var(--t2)">کردارەکان</th>
-              </tr>
-            </thead>
-            <tbody id="sales-history-tbody"></tbody>
-          </table>
-        </div>
-      </div>
-
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:18px">
-        <div class="chart-card"><div style="font-size:13px;font-weight:800">🏆 بابەتە پڕفرۆشەکان</div><div id="top-prods" style="display:flex;flex-direction:column;gap:5px;margin-top:13px"></div></div>
-        <div class="chart-card"><div style="font-size:13px;font-weight:800">📊 فرۆشی ٧ ڕۆژی ڕابردوو</div><div class="bar-chart" id="bar-chart"></div></div>
-      </div>
-      <div style="display:grid;grid-template-columns:300px 1fr;gap:14px">
-        <div class="chart-card">
-          <div style="font-size:13px;font-weight:800;margin-bottom:14px">➕ تۆمارکردنی خەرجی نوێ</div>
-          <div class="fg"><label class="lbl">تێبینی خەرجی (بۆچی؟)</label><input id="ex-t" class="inp" placeholder="مووچەی کارمەندان"></div>
-          <div class="fg"><label class="lbl">جۆری خەرجی</label><select id="ex-cat" class="inp"><option value="مووچە">مووچە</option><option value="کڕینی کاڵا">کڕینی کاڵا</option><option value="کارەبا و ئاو">کارەبا و ئاو</option><option value="کرێی بینا">کرێی بینا</option><option value="تر">تر</option></select></div>
-          <div class="fg"><label class="lbl">بڕی خەرجی (د.ع)</label><input id="ex-a" type="number" class="inp" placeholder="100000"></div>
-          <button onclick="mkExp()" class="btn btn-primary btn-fw">تۆمارکردن ✓</button>
-        </div>
-        <div class="chart-card">
-          <div class="flex jb ic" style="margin-bottom:14px"><div style="font-size:13px;font-weight:800">📋 لیستی خەرجییەکان</div><div id="exp-total" style="font-size:11px;font-weight:700;color:var(--ruby)"></div></div>
-          <div id="exp-list" style="max-height:260px;overflow-y:auto;display:flex;flex-direction:column;gap:7px"></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- SETTINGS -->
-    <div id="s-settings" class="msec">
-      <div style="margin-bottom:24px"><h2 style="font-size:20px;font-weight:900">⚙️ ڕێکخستنەکانی سیستم</h2></div>
-      <div class="set-grid">
-        <div class="set-card"><h3>🎪 زانیارییەکانی شوێن</h3>
-          <div class="fg"><label class="lbl">ناوی چێشتخانە / کافێ</label><input id="set-name" class="inp" placeholder="کافێ لاند"></div>
-          <div class="fg"><label class="lbl">لۆگۆ</label><img id="set-logo-prev" class="logo-prev" src="" onerror="this.style.display='none'" alt=""><input type="file" id="set-logo" accept="image/*" class="inp" style="padding:8px" onchange="prevLogo(this)"></div>
-          <button onclick="saveBrand()" class="btn btn-primary btn-fw">پاشەکەوتکردنی گۆڕانکارییەکان ✓</button>
-        </div>
-
-        <!-- Captain Manager (Captains config) -->
-        <div class="set-card">
-          <h3>👥 مەلزەمەکان (کاپتنەکان)</h3>
-          <p style="font-size:11px;color:var(--tm);margin-bottom:10px">دەتوانیت تا ٤ کاپتن لێرە زیاد بکەیت بۆ چوونە ناو مینیوی داواکاری مێزەکان.</p>
-          <div class="fg"><label class="lbl">ناوی کاپتن</label><input id="cap-name" class="inp" placeholder="ئارام عەلی"></div>
-          <div class="g2c" style="margin-bottom:12px">
-            <div><label class="lbl">ناوی بەکارهێنەر</label><input id="cap-user" class="inp" placeholder="aram88"></div>
-            <div><label class="lbl">تێپەڕوشە</label><input id="cap-pass" class="inp" placeholder="aram123"></div>
-          </div>
-          <button onclick="addCaptain()" class="btn btn-success btn-fw" style="margin-bottom:14px">زیادکردنی کاپتن ✓</button>
-          <div class="hr"></div>
-          <div style="font-size:11px;font-weight:700;margin-bottom:6px">لیستی چالاکی کاپتنەکان:</div>
-          <div id="captains-list" style="display:flex;flex-direction:column;gap:6px"></div>
-        </div>
-
-        <div class="set-card"><h3>🎨 ڕەنگی سەرەکی مینیو</h3>
-          <div class="theme-grid" id="theme-swatches"></div>
-          <div class="fg mt4"><label class="lbl">کۆدی ڕەنگی تایبەت (Hex)</label><div class="flex g2"><input id="custom-clr" class="inp" placeholder="#C9962E" style="flex:1"><button onclick="applyCustomColor()" class="btn btn-primary">جێبەجێکردن</button></div></div>
-        </div>
-        <div class="set-card"><h3>🏷️ دیزاینی کارتی QR</h3>
-          <div class="bcstyle-grid" id="bc-styles"></div>
-        </div>
-        <div class="set-card"><h3>🗺️ ڕێکخستنی ژمارەی مێزەکان</h3>
-          <div class="fg"><label class="lbl">کۆی مێزەکان</label><input id="set-tbl" type="number" class="inp" placeholder="12" min="1" max="200"></div>
-          <button onclick="saveTableSettings()" class="btn btn-primary btn-fw">پاشەکەوتکردن ✓</button>
-        </div>
-        <div class="set-card" style="grid-column:1/-1">
-          <h3>🔗 لینکەکانی سۆشیاڵ میدیا</h3>
-          <div class="social-row"><div class="social-ico ig">📷</div><input id="soc-ig" class="inp" placeholder="لینکی ئینستاگرام"></div>
-          <div class="social-row"><div class="social-ico wa">💬</div><input id="soc-wa" class="inp" placeholder="ژمارەی واتسئاپ"></div>
-          <div class="social-row"><div class="social-ico fb">📘</div><input id="soc-fb" class="inp" placeholder="لینکی فەیسبووک"></div>
-          <div class="social-row"><div class="social-ico sc">👻</div><input id="soc-sc" class="inp" placeholder="لینکی سناپچات"></div>
-          <button onclick="saveSocial()" class="btn btn-primary btn-fw mt2">پاشەکەوتکردنی لینکەکان ✓</button>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ══════════════ CAPTAIN PANEL (Waiters Side) ══════════════ -->
-<div id="view-captain-panel" class="view">
-  <nav class="cap-hdr">
-    <div class="flex ic g3">
-      <div style="font-size:22px">📋</div>
-      <div>
-        <div id="cap-current-name" style="font-size:14px;font-weight:900">کاپتن چالاک</div>
-        <div id="cap-merchant-label" style="font-size:10px;color:var(--tm)">ناوی چێشتخانە</div>
-      </div>
-    </div>
-    <div class="flex ic g2">
-      <button onclick="doLogout()" class="btn btn-sm" style="background:var(--ruby-l);color:var(--ruby-d)">دەرچوون</button>
-    </div>
-  </nav>
-
-  <div class="cap-inner">
-    <div style="margin-bottom:14px">
-      <label class="lbl">مێز هەڵبژێرە:</label>
-      <select id="cap-tbl-select" class="inp" onchange="loadCaptainTblCart()"></select>
-    </div>
-
-    <div class="cap-pos-grid">
-      <!-- Catalog / Items selection -->
-      <div>
-        <input id="cap-srch" type="text" oninput="capSrchMenu()" class="inp" placeholder="🔍 گەڕان لە مینیودا..." style="margin-bottom:8px">
-        <div class="cats-bar ns" id="cap-cats" style="margin-bottom:10px"></div>
-        <div class="food-grid" id="cap-foods"></div>
-      </div>
-
-      <!-- Captain Cart Side -->
-      <div class="cap-cart-area">
-        <div class="flex jb ic" style="margin-bottom:10px">
-          <h4 style="font-size:13px;font-weight:800">🛒 داواکاری مێزەکە</h4>
-          <button onclick="clearCapCart()" class="btn btn-sm" style="background:var(--ruby-l);color:var(--ruby-d);padding:5px 8px">سڕینەوە</button>
-        </div>
-        <div id="cap-cart-items-list" style="margin-bottom:14px"></div>
-        <div class="hr"></div>
-        <div class="flex jb ic" style="font-size:14px;font-weight:900;margin-bottom:14px">
-          <span>کۆی گشتی:</span><span id="cap-cart-total" style="color:var(--gold-d)">٠ د.ع</span>
-        </div>
-        <button onclick="submitCaptainOrder()" class="btn btn-success btn-fw btn-lg">⚡ ناردنی داواکاری بۆ کاشێر</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ══════════════ CUSTOMER WELCOME ══════════════ -->
-<div id="view-customer-welcome" class="view">
-  <div class="p-motif motif-bg" style="position:absolute;inset:0;pointer-events:none"></div>
-  <div class="wlc-card">
-    <img id="cw-logo" src="" class="wlc-logo" alt="" onerror="this.style.display='none'">
-    <div class="wlc-name" id="cw-name">بەخێرهاتن</div>
-    <div class="wlc-txt" id="cw-ku">بەخێربێن بۆ چێشتخانەکەمان</div>
-    <div class="wlc-txt" id="cw-ar" style="font-family:serif">أهلاً بكم في مطعمنا</div>
-    <div class="wlc-txt" id="cw-en" style="direction:ltr">Welcome to our restaurant</div>
-    <span id="cw-tbl" class="badge bp" style="font-size:13px;padding:6px 18px;margin:16px 0;display:inline-flex">مێز: --</span>
-    <div class="hr"></div>
-    <p style="font-size:11px;color:var(--tm);margin-bottom:14px;font-weight:600">زمانەکەت هەڵبژێرە / اختر لغتك / Select Language</p>
-    <button onclick="openMenu('ku')" class="lang-btn">کوردی <span style="opacity:.3">◀</span></button>
-    <button onclick="openMenu('ar')" class="lang-btn" style="font-family:serif">العربية <span style="opacity:.3">◀</span></button>
-    <button onclick="openMenu('en')" class="lang-btn" style="direction:ltr">English <span style="opacity:.3">▶</span></button>
-    <a href="https://bytelineagency.vercel.app" target="_blank" style="display:block;text-align:center;font-size:10px;color:var(--tm);margin-top:18px;font-weight:600">⚡ bytelineagency.vercel.app</a>
-  </div>
-</div>
-
-<!-- ══════════════ CUSTOMER MENU ══════════════ -->
-<div id="view-customer-menu" class="view">
-  <header class="cm-hdr">
-    <div class="cm-hdr-in">
-      <div class="flex ic g3">
-        <img id="cm-logo" src="" class="cm-logo" alt="" onerror="this.style.display='none'">
-        <div>
-          <div id="cm-name" style="font-size:14.5px;font-weight:900;color:var(--t);letter-spacing:-.3px"></div>
-          <div id="cm-tbl" style="font-size:10px;color:var(--gold-d);font-weight:700;margin-top:1px"></div>
-        </div>
-      </div>
-      <select id="lang-sel" onchange="chgLang()" class="inp" style="width:auto;padding:7px 12px;font-size:11px">
-        <option value="ku">کوردی</option><option value="ar">العربية</option><option value="en">English</option>
-      </select>
-    </div>
-  </header>
-  <div class="cm-inner" style="margin-top:12px">
-    <button onclick="reqBill()" class="bill-btn" id="bill-btn-el">🔔 <span id="txt-bill">داواکردنی حیساب</span></button>
-    <input id="cm-srch" type="text" oninput="srchMenu()" class="inp" placeholder="🔍 گەڕان لە مینیودا...">
-    <div class="ccats ns" id="cm-cats"></div>
-    <div id="cm-items"></div>
-    <div class="cm-social" id="cm-social-bar"></div>
-    <div style="text-align:center;font-size:10px;color:var(--tm);padding:10px 0 40px;font-weight:600">⚡ bytelineagency.vercel.app</div>
-  </div>
-</div>
-
 <!-- CONFIRM MODAL -->
 <div class="modal" id="confirm-modal">
   <div class="mbox" style="max-width:400px;padding:30px 24px">
@@ -978,8 +470,8 @@ const QUICK_CATS = [
 ];
 
 const DBK='kpos_v1';
-// بەستەری Google Web App لێرەدا جێگیر بکە
-const API_URL="https://script.google.com/macros/s/AKfycbyob-p1pvd8wmeriD1xTVB5JngaGkndbNiyLYWXWF51w9l-BYQjOcHnN8_LJaXG0FyM-g/exec";
+// بەستەری ڕاستەوخۆی ئەپ سکریپتی فەرمی خۆت لێرە جێگیر کراوە
+const API_URL="https://script.google.com/macros/s/AKfycbxsViY_HlCqkap6RSF_tqke3Hsgu__zkF0-cYV7LGCIes_-1gZdkXOVcJ_ghTDDQ2rXRA/exec";
 
 let DB_CACHE=null;
 
@@ -1337,7 +829,7 @@ function rCaptainsList(){
   });
 }
 async function delCaptain(id){
-  const ok=await showConfirm({title:'سڕینەوەی کاپتن',msg:'دڵنیاییت لە سڕینەوە؟'});
+  const ok=await showConfirm({title:'سڕینەوەی کاپتن',msg:'دڵنیاییت لەسەر سڕینەوە؟'});
   if(!ok)return;
   const m=dbGet(M.username);if(!m)return;
   m.captains=(m.captains||[]).filter(c=>c.id!==id);
@@ -1452,7 +944,6 @@ async function submitCaptainOrder(){
   const m=dbGet(activeCap.merchantUser);if(!m)return;
   if(!m.active_orders)m.active_orders=[];
 
-  // Remove previous captain order for same table to prevent replication
   m.active_orders=m.active_orders.filter(o=>o.table!==tbl);
 
   const total=items.reduce((s,i)=>s+i.price*i.qty,0);
@@ -1849,7 +1340,7 @@ function prtReceipt(sale){
   const w=window.open('','_blank','width=340,height=600');
   w.document.write(receiptHTML);
   w.document.close();
-  setTimeout(()=>{ w.print(); w.close(); },500);
+  setTimeout(function(){ w.print(); w.close(); },500);
 }
 
 /* ── HISTORICAL SALES ── */
@@ -1959,7 +1450,7 @@ function exportRpt(){
   <h1>ڕاپۆرتی گشتی دارایی — ${m.name}</h1>
   <h3>کۆی گشتی فرۆش: ${iq(sales)} | کۆی خەرجی: ${iq(exps)} | قازانج: ${iq(sales-exps)}</h3>
   <table><thead><tr><th>بەروار</th><th>مێز</th><th>داشکاندن</th><th>کۆی گشتی</th></tr></thead><tbody>${(m.sales||[]).map(s=>`<tr><td>${kurdistanDateString(s.time)}</td><td>مێزی ${s.table}</td><td>${iq(s.discount)}</td><td>${iq(s.total)}</td></tr>`).join('')}</tbody></table>
-  <script>window.onload=function(){window.print();}</script></body></html>`);w.document.close();
+  <script>window.onload=function(){window.print();}<' + '/script></body></html>`);w.document.close();
 }
 function mkExp(){
   const t=(g('ex-t')?.value||'').trim();const a=parseInt(g('ex-a')?.value);if(!t||!a||a<=0){toast('تکایە خانەکان بە دروستی پڕ بکەرەوە','err');return;}
@@ -1996,13 +1487,13 @@ function rQRs(){
       <div style="font-size:21px;font-weight:900;margin-top:12px">مێزی ${num}</div></div>
       <div class="qr-foot"><button onclick="prtQR('${num}')" class="btn btn-ghost btn-sm" style="flex:1;">🖨️ چاپ</button></div>`;
     area.appendChild(card);
-    setTimeout(()=>{const cv=g('cv'+cid);if(cv)new QRious({element:cv,value:url,size:150});},100);
+    setTimeout(function(){const cv=g('cv'+cid);if(cv)new QRious({element:cv,value:url,size:150});},100);
   });
 }
 function prtQR(num){
   const cv=g('cvqrc'+num);let qrImg='';if(cv)try{qrImg=cv.toDataURL();}catch(e){}
   const w=window.open('','_blank','width=400,height=500');
-  w.document.write(`<div style="text-align:center;padding:40px;font-family:sans-serif;"><h2>${M.name}</h2><img src="${qrImg}"><br><h1>مێزی ${num}</h1></div><script>window.onload=function(){window.print();}</script>`);
+  w.document.write(`<div style="text-align:center;padding:40px;font-family:sans-serif;"><h2>${M.name}</h2><img src="${qrImg}"><br><h1>مێزی ${num}</h1></div><script>window.onload=function(){window.print();setTimeout(function(){window.close()},900);}<' + '/script>`);
   w.document.close();
 }
 

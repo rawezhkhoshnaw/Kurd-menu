@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ku" dir="rtl">
 <head>
@@ -6,10 +5,11 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <title>Kurd POS — سیستەمی فرۆشتنی کاشێر و کاپتن</title>
 <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<!-- کتێبخانەی فەرمی QRious بۆ دروستکردنی کۆدی QR مێزەکان -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
 <style>
 /* ════════════════════════════════════════════════════════════
-   KURD POS — DESIGN TOKENS
+   KURD POS — DESIGN TOKENS & RESPONSIVE LAYOUT
 ════════════════════════════════════════════════════════════ */
 :root{
   --gold:#C9962E;--gold-d:#A87A1E;--gold-dd:#7A5714;--gold-l:#F4E4BC;--gold-l2:#E8C97A;
@@ -47,7 +47,6 @@ img{display:block}
 a{text-decoration:none;color:inherit}
 button,input,select,textarea{font-family:var(--font)}
 :focus-visible{outline:2.5px solid var(--gold);outline-offset:2px}
-@media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
 
 .view{display:none!important}
 .view.show{display:block!important}
@@ -310,7 +309,7 @@ select.sa-inp option{background:#171B26}
 .ttile.t-pending{border-color:var(--amber);background:linear-gradient(135deg,var(--amber-l),#fff)}
 .t-num{font-size:30px;font-weight:900;line-height:1;font-family:var(--font-d)}
 .t-st{font-size:10px;font-weight:700;letter-spacing:.03em}
-.tbtn{width:100%;padding:7px 8px;border-radius:9px;font-size:10px;font-weight:700;cursor:pointer;border:none;font-family:var(--font);transition:var(--tr)}
+.tbtn{width:100%;padding:7px 8px;border-radius:99px;font-size:10px;font-weight:700;cursor:pointer;border:none;font-family:var(--font);transition:var(--tr)}
 .tbtn.pay{background:var(--ruby-l);color:var(--ruby-d)}.tbtn.pay:hover{background:var(--ruby);color:#fff}
 
 /* QR Studio */
@@ -644,7 +643,7 @@ select.sa-inp option{background:#171B26}
             <p style="font-size:11px;color:var(--tm);margin-bottom:11px;line-height:1.7">کلیک لەسەر هەر هاوپۆلێک بکە بۆ ئەوەی زیاد بکرێت بۆ مینیوەکەت</p>
             <div id="quick-cats-panel"></div>
             <div class="hr"></div>
-            <div style="font-size:12px;font-weight:800;margin-bottom:10px">➕ دروستکردنی هاوپۆلی تایبەت</div>
+            <div style="font-size:12px;font-weight:800;margin-bottom:10px">➕ دروستکردۆنی هاوپۆلی تایبەت</div>
             <div class="fg"><label class="lbl">ناوی هاوپۆل (کوردی) *</label><input id="c-ku" class="inp" placeholder="نموونە: خواردنە بنەماڵەییەکان"></div>
             <div class="g2c" style="margin-bottom:13px">
               <div><label class="lbl">العربية</label><input id="c-ar" class="inp" placeholder="اختياري"></div>
@@ -957,8 +956,29 @@ select.sa-inp option{background:#171B26}
 <!-- ══════════════ APPLICATION LOGIC ══════════════ -->
 <script>
 'use strict';
+
+/* ── CONFIGURATION & THEME PRESETS (Hoisted at Top) ── */
+const THEMES = [
+  {name:'زێڕی',color:'#C9962E'},{name:'زەیتوونی',color:'#7A8C3F'},
+  {name:'زەمەردی',color:'#1C9D6B'},{name:'ئاسمانی',color:'#2E84C9'},
+  {name:'شینی',color:'#3151B5'},{name:'پرتەقاڵی',color:'#E8A23A'},
+  {name:'سوور',color:'#D7384A'},{name:'گوڵناری',color:'#B53D6E'}
+];
+const BC_STYLES = [
+  {id:'classic',name:'کلاسیک',ico:'🎨'},{id:'modern',name:'مۆدێرن',ico:'🌙'},
+  {id:'elegant',name:'ئێستێتیک',ico:'✨'},{id:'minimal',name:'مینیمال',ico:'⬜'}
+];
+const QUICK_CATS = [
+  {ico:'🍢',ku:'کەباب و برژاوەکان'},
+  {ico:'🍚',ku:'برنج و شلە'},
+  {ico:'🥗',ku:'زەڵاتە'},
+  {ico:'🥙',ku:'ساندویچەکان'},
+  {ico:'☕',ku:'قاوە'},
+  {ico:'🍰',ku:'کێک'}
+];
+
 const DBK='kpos_v1';
-// بەستەری Google Script Web App لێرە جێگیر بکە
+// بەستەری Google Web App لێرەدا جێگیر بکە
 const API_URL="https://script.google.com/macros/s/AKfycbyob-p1pvd8wmeriD1xTVB5JngaGkndbNiyLYWXWF51w9l-BYQjOcHnN8_LJaXG0FyM-g/exec";
 
 let DB_CACHE=null;
@@ -1103,18 +1123,6 @@ function confirmCancel(){
   _confirmResolve=null;
 }
 
-/* ── THEMES ── */
-const THEMES=[
-  {name:'زێڕی',color:'#C9962E'},{name:'زەیتوونی',color:'#7A8C3F'},
-  {name:'زەمەردی',color:'#1C9D6B'},{name:'ئاسمانی',color:'#2E84C9'},
-  {name:'شینی',color:'#3151B5'},{name:'پرتەقاڵی',color:'#E8A23A'},
-  {name:'سوور',color:'#D7384A'},{name:'گوڵناری',color:'#B53D6E'}
-];
-const BC_STYLES=[
-  {id:'classic',name:'کلاسیک',ico:'🎨'},{id:'modern',name:'مۆدێرن',ico:'🌙'},
-  {id:'elegant',name:'ئێستێتیک',ico:'✨'},{id:'minimal',name:'مینیمال',ico:'⬜'}
-];
-
 function applyTheme(color){
   if(!color||!/^#[0-9A-Fa-f]{6}$/.test(color))color='#C9962E';
   const root=document.documentElement;
@@ -1257,7 +1265,7 @@ function renderSA(){
     const tr=document.createElement('tr');
     const startDate=m.createdAt?kurdistanDateString(m.createdAt):'—';
     tr.innerHTML=`<td><div style="display:flex;align-items:center;gap:9px">
-      <img src="${m.logo||''}" style="width:32px;height:32px;border-radius:9px;object-fit:cover;background:#1E232F;flex-shrink:0" onerror="this.style.display='none'">
+      <img src="${m.logo||''}" style="width:32px;height:32px;border-radius:99px;object-fit:cover;background:#1E232F;flex-shrink:0" onerror="this.style.display='none'">
       <div><div style="font-weight:800;color:#fff;font-size:12px">${m.name||''}</div></div></div></td>
       <td style="font-family:monospace;color:#E8C97A;font-size:11px">${m.username||''}</td>
       <td><div class="pw-wrap"><span class="pw-val" id="pw-${m.username}">••••</span>
@@ -1395,7 +1403,9 @@ function getCapCart(){
   if(!capCarts[tbl])capCarts[tbl]={};
   return capCarts[tbl];
 }
-function loadCaptainTblCart(){rCapCartList();}
+function loadCaptainTblCart(){
+  rCapCartList();
+}
 function addCapCart(food){
   const cart=getCapCart();
   if(cart[food.id])cart[food.id].qty++;
@@ -1442,6 +1452,7 @@ async function submitCaptainOrder(){
   const m=dbGet(activeCap.merchantUser);if(!m)return;
   if(!m.active_orders)m.active_orders=[];
 
+  // Remove previous captain order for same table to prevent replication
   m.active_orders=m.active_orders.filter(o=>o.table!==tbl);
 
   const total=items.reduce((s,i)=>s+i.price*i.qty,0);
@@ -2010,12 +2021,6 @@ function saveTableSettings(){
 }
 
 /* ── CUSTOMER digital menu ── */
-const TX={
-  ku:{all:'هەموو',srch:'🔍 گەڕان...',oos:'تەواوبوو',bill:'🔔 داواکردنی حیساب'},
-  ar:{all:'الكل',srch:'🔍 ابحث...',oos:'نفدت',bill:'🔔 طلب الحساب'},
-  en:{all:'All',srch:'🔍 Search...',oos:'Sold Out',bill:'🔔 Request Bill'}
-};
-
 function initCust(shop,tbl){
   const m=dbGet(shop);
   if(!m){sv('customer-menu');g('cm-items').innerHTML='<p style="padding:40px;text-align:center;">مینیو بەردەست نییە.</p>';return;}
@@ -2084,11 +2089,6 @@ window.addEventListener('load',async()=>{
   else sv('portal');
 });
 
-const QUICK_CATS=[{ico:'🍢',ku:'کەباب و برژاوەکان'},{ico:'🍚',ku:'برنج و شلە'},{ico:'🥗',ku:'زەڵاتە'},{ico:'🥙',ku:'ساندویچەکان'},{ico:'☕',ku:'قاوە'},{ico:'🍰',ku:'کێک'}];
-function rQuickCatsPanel(){
-  const el=g('quick-cats-panel');if(!el)return;
-  el.innerHTML=QUICK_CATS.map(c=>`<div class="qcat-chip" onclick="addQuickCat('${c.ku}','${c.ico}')">${c.ico} ${c.ku}</div>`).join('');
-}
 function addQuickCat(ku,ico){
   const m=dbGet(M.username);if(!m)return;
   if(!m.categories)m.categories=[];

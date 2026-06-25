@@ -42,7 +42,7 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
 body{font-family:var(--font);background:var(--bg);color:var(--t);min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased}
-::-webkit-scrollbar{width:5px;height:5px}
+::-webkit-scrollbar{width:6px;height:6px}
 ::-webkit-scrollbar-track{background:transparent}
 ::-webkit-scrollbar-thumb{background:var(--gold-l2);border-radius:99px}
 img{display:block;max-width:100%}
@@ -175,7 +175,7 @@ select.inp{cursor:pointer;padding-left:32px;background-image:url("data:image/svg
 .pfooter{font-size:10px;color:rgba(255,255,255,.16);margin-top:26px;text-align:center;font-weight:600;letter-spacing:.5px}
 .pfooter a{color:rgba(232,201,122,.5);transition:var(--tr)}.pfooter a:hover{color:var(--gold-l2)}
 .role-tabs{display:flex;gap:6px;background:rgba(255,255,255,.05);border-radius:var(--r1);padding:4px;margin-bottom:22px}
-.role-tab{flex:1;text-align:center;padding:9px 6px;border-radius:9px;font-size:11.5px;font-weight:700;color:rgba(255,255,255,.4);cursor:pointer;transition:var(--tr)}
+.role-tab{flex:1;text-align:center;padding:9px 6px;border-radius:99px;font-size:11.5px;font-weight:700;color:rgba(255,255,255,.4);cursor:pointer;transition:var(--tr)}
 .role-tab.on{background:var(--gold);color:#1A1304;box-shadow:0 3px 10px rgba(201,150,46,.4)}
 
 /* ══════════════════════════════════════════════════════
@@ -210,7 +210,8 @@ select.sa-inp option{background:#171B26}
 .mnav{background:var(--glass);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-bottom:1px solid rgba(255,255,255,.7);padding:calc(10px + var(--safe-t)) 16px 10px;position:sticky;top:0;z-index:100;display:flex;justify-content:space-between;align-items:center;box-shadow:0 2px 20px rgba(40,32,10,.07);flex-wrap:wrap;gap:8px}
 .mlogo{width:40px;height:40px;border-radius:13px;object-fit:cover;border:2px solid var(--bd);background:var(--bg2);flex-shrink:0}
 .minner{max-width:1500px;margin:0 auto;padding:18px 16px calc(100px + var(--safe-b));width:100%}
-.msec{display:none!important}.msec.on{display:block!important}
+.msec{display:none!important}
+.msec.on{display:block!important}
 
 .sync-dot{width:7px;height:7px;border-radius:50%;background:var(--tm);flex-shrink:0;transition:var(--tr)}
 .sync-dot.ok{background:var(--emerald);box-shadow:0 0 6px rgba(28,157,107,.6)}
@@ -415,19 +416,22 @@ select.sa-inp option{background:#171B26}
 #view-expired{min-height:100vh;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px}
 .exp-card{max-width:380px;width:100%;background:var(--sur);border:1px solid var(--bd);border-radius:var(--r5);padding:40px 28px;text-align:center;box-shadow:var(--sh4)}
 
-/* ── RESPONSIVE ── */
+/* ── RESPONSIVE STYLES FOR TABLETS AND MOBILE PHONES ── */
 @media(max-width:1100px){
-  .pos-wrap{grid-template-columns:1fr}
-  .pos-sidebar{height:auto;position:static;max-height:460px;min-height:280px}
+  .pos-wrap{grid-template-columns:1fr; gap: 14px;}
+  .pos-sidebar{height:auto;position:static;max-height:500px;min-height:300px;box-shadow: var(--sh1);}
 }
-@media(max-width:720px){
-  .food-grid{grid-template-columns:repeat(3,1fr)}
+@media(max-width:760px){
+  .food-grid{grid-template-columns:repeat(auto-fill, minmax(100px, 1fr));}
+  .food-grid2{grid-template-columns:repeat(auto-fill, minmax(130px, 1fr));}
   .minner{padding:12px 10px calc(90px + var(--safe-b))}
   .dash-grid{grid-template-columns:repeat(2,1fr)}
   .pcard{padding:34px 22px}
   .sa-nav{padding:12px 14px}
   .anl-grid{grid-template-columns:1fr 1fr}
   .mnav{padding:calc(8px + var(--safe-t)) 12px 8px}
+  .cap-pos-grid {grid-template-columns: 1fr;}
+  .cap-cart-area {position: static; margin-top: 14px;}
 }
 @media(max-width:460px){
   .dash-grid{grid-template-columns:1fr 1fr}
@@ -435,6 +439,7 @@ select.sa-inp option{background:#171B26}
   .food-grid{grid-template-columns:repeat(2,1fr)}
   .g2c{grid-template-columns:1fr}
   .pos-sidebar-foot .g2c{grid-template-columns:1fr 1fr}
+  .g3c{grid-template-columns:1fr}
 }
 </style>
 </head>
@@ -571,7 +576,7 @@ select.sa-inp option{background:#171B26}
           <div class="tile-shine"></div>
           <div class="tile-ico">📊</div>
           <div class="tile-title">ئانالیتیکس</div>
-          <div class="tile-desc">فرۆش، خەرجی، قازانجی پاک</div>
+          <div class="tile-desc">فرۆش, خەرجی, قازانجی پاک</div>
         </div>
         <div class="tile" onclick="goTab('settings')">
           <div class="tile-shine"></div>
@@ -792,10 +797,10 @@ select.sa-inp option{background:#171B26}
         <!-- CAPTAIN MANAGEMENT -->
         <div class="set-card" style="grid-column:1/-1">
           <h3>👨‍💼 بەڕێوەبردنی کاپتنەکان (مەلزەمەکان) <span class="badge bp" id="cap-count-badge">٠/٤</span></h3>
-          <p style="font-size:10.5px;color:var(--tm);margin-bottom:14px;line-height:1.7">دەتوانیت تا ٤ کاپتن زیاد بکەیت. هەر کاپتنێک بە یوسەرنیم و پاسۆردی خۆی دەتوانێت بچێتە ناو پانێلی تایبەتی خۆی و داواکاری موشتەری تۆمار بکات کە ڕاستەوخۆ بۆ کاشێر دەنێردرێت.</p>
+          <p style="font-size:10.5px;color:var(--tm);margin-bottom:14px;line-height:1.7">دەتوانیت تا ٤ کاپتن زیاد بکەیت. بۆ ڕێگریکردن لە هەر چەشنە تێکەڵبوونێک، ناوی بەکارهێنەری هەر کاپتنێک بە شێوەی ئۆتۆماتیکی پێشگری تایبەت بە چێشتخانەکەی لێ دەدرێت (بۆ نموونە ئەگەر ناوی بەکارهێنەری کاپتنەکە <code style="font-weight:bold;color:var(--gold-d)">aso</code> بێت، ناوی فەرمی لۆگینەکەی دەبێتە <code style="font-weight:bold;color:var(--gold-d)">[ناوی_تۆ_aso]</code>).</p>
           <div class="g3c" style="margin-bottom:12px">
             <div><label class="lbl">ناوی کاپتن</label><input id="cap-name" class="inp" placeholder="ئاسۆ"></div>
-            <div><label class="lbl">یوسەرنیم</label><input id="cap-user" class="inp" placeholder="aso1"></div>
+            <div><label class="lbl">یوسەرنیم</label><input id="cap-user" class="inp" placeholder="aso"></div>
             <div><label class="lbl">پاسۆرد</label><input id="cap-pass" class="inp" placeholder="1234"></div>
           </div>
           <button onclick="addCaptain()" id="add-captain-btn" class="btn btn-primary btn-fw">زیادکردنی کاپتن ✓</button>
@@ -812,7 +817,7 @@ select.sa-inp option{background:#171B26}
         </div>
         <div class="set-card"><h3>🗺️ ڕێکخستنی ژمارەی مێزەکان</h3>
           <div class="fg"><label class="lbl">کۆی مێزەکان</label><input id="set-tbl" type="number" class="inp" placeholder="12" min="1" max="200"></div>
-          <button onclick="saveTableSettings()" class="btn btn-primary btn-fw">پاشەکەوتکردن ✓</button>
+          <button onclick="saveTableSettings()" class="btn btn-primary btn-fw">پاشەکەوتکردنی ژمارە مێزەکان ✓</button>
         </div>
         <div class="set-card" style="grid-column:1/-1">
           <h3>🔗 لینکەکانی سۆشیاڵ میدیا <span class="badge bp" style="font-size:9px">لە خوارەوەی مینیوی دیجیتاڵ دەردەکەوێت</span></h3>
@@ -854,8 +859,8 @@ select.sa-inp option{background:#171B26}
 
     <div class="cap-pos-grid">
       <div>
-        <input id="cap-srch" type="text" oninput="capSrchMenu()" class="inp" placeholder="🔍 گەڕان لە مینیودا..." style="margin-bottom:9px">
-        <div class="cats-bar ns" id="cap-cats" style="margin-bottom:9px"></div>
+        <input id="cap-srch" type="text" oninput="capSrchMenu()" class="inp" placeholder="🔍 گەڕان لە مینیودا...">
+        <div class="cats-bar ns mt2" id="cap-cats" style="margin-bottom:9px"></div>
         <div class="food-grid" id="cap-foods"></div>
       </div>
 
@@ -948,6 +953,7 @@ select.sa-inp option{background:#171B26}
 <script>
 'use strict';
 const DBK='kpos_v3';
+// Apps Script URL (بێ دەستکاریکردن هێڵدراوەتەوە)
 const API_URL="https://script.google.com/macros/s/AKfycbyEYjGj5msum2neLvwsKlyk69qWB20nI1sScvSIGyO2BoVcFTIMWtyoawO6-5cfHP1m-Q/exec";
 
 let DB_CACHE=null;
@@ -967,9 +973,8 @@ function ld(k){try{return JSON.parse(localStorage.getItem(k)||'null');}catch(e){
 
 /* ════════════════════════════════════════════════════════
    SYNC ENGINE — write-queue architecture
-   Prevents race conditions: periodic fetch never overwrites
-   local changes that are still pending a save to the cloud.
-════════════════════════════════════════════════════════════ */
+   Prevents race conditions
+════════════════════════════════════════════════════════ */
 function setSyncUI(state){
   [['sync-dot','sync-txt'],['cap-sync-dot','cap-sync-txt']].forEach(([dId,tId])=>{
     const dot=g(dId),txt=g(tId);
@@ -982,8 +987,6 @@ function setSyncUI(state){
 }
 
 async function cloudFetch(){
-  // Don't overwrite local cache if a save is currently pending —
-  // this is what prevented the "items disappearing" race condition.
   if(_isSaving || _saveQueue.length>0){
     return dbAll();
   }
@@ -1005,9 +1008,6 @@ function localFb(){
   return DB_CACHE;
 }
 
-/* Queued save: every save is appended to a queue and flushed serially,
-   so two near-simultaneous saves (e.g. captain order + cashier checkout)
-   never clobber each other. */
 async function cloudSave(db){
   DB_CACHE=db;
   ls(DBK,db);
@@ -1019,7 +1019,7 @@ async function flushSaveQueue(){
   _isSaving=true;
   setSyncUI('busy');
   while(_saveQueue.length){
-    const payload=_saveQueue[_saveQueue.length-1]; // always send latest
+    const payload=_saveQueue[_saveQueue.length-1];
     _saveQueue=[];
     try{
       await fetch(API_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify({db:payload})});
@@ -1264,7 +1264,7 @@ function toast(title,msg='',type=''){
 </script>
 
 <script>
-/* ── LOGIN — checks merchant accounts, then checks all captains across all merchants ── */
+/* ── LOGIN ── */
 async function doLogin(){
   const u=(g('pu')?.value||'').trim().toLowerCase();
   const p=(g('pp')?.value||'').trim();
@@ -1279,9 +1279,9 @@ async function doLogin(){
   const db=await cloudFetch();
   if(btn){btn.disabled=false;btn.textContent='چوونەژوورەوەی پارێزراو ⚡';}
 
-  // 1) Try merchant (owner/cashier) login
+  // 1) Try merchant login
   const m=db[u];
-  if(m&&m.password===p){
+  if(m && m.password===p){
     if(isExp(m)){sv('expired');return;}
     M=fix(deep(m));
     activeCap=null;
@@ -1290,11 +1290,12 @@ async function doLogin(){
     return;
   }
 
-  // 2) Try captain login — search every merchant's captains list
+  // 2) Try Isolated captain login (سەرتا چێشتخانەکە و دواتر کاپتنەکە بە وردی جیادەکاتەوە)
   for(const key in db){
     const merc=db[key];
-    if(merc&&Array.isArray(merc.captains)){
-      const foundCap=merc.captains.find(c=>c.username===u&&c.password===p);
+    if(merc && Array.isArray(merc.captains)){
+      // لێرەدا دڵنیا دەبینەوە کە ناوی بەکارهێنەر بە وردی پێشگری ناوی بازرگانەکەی پێوەیە
+      const foundCap=merc.captains.find(c => c.username===u && c.password===p && c.username.startsWith(merc.username + "_"));
       if(foundCap){
         if(isExp(merc)){sv('expired');return;}
         M=fix(deep(merc));
@@ -1311,6 +1312,7 @@ async function doLogin(){
 
 function doLogout(){
   clearInterval(syncT);syncT=null;
+  clearInterval(capSyncT);capSyncT=null;
   M=null;pCart={};activeCap=null;cMU=null;
   sv('portal');
   if(g('pu'))g('pu').value='';if(g('pp'))g('pp').value='';
@@ -1397,10 +1399,10 @@ async function editPW(u){
   m.password=np.trim();dbSet(u,m);renderSA();toast('✅ پاسۆرد گۆڕدرا',u);
 }
 
-/* ── CAPTAIN MANAGEMENT (max 4 per merchant) ── */
+/* ── CAPTAIN MANAGEMENT ── */
 function addCaptain(){
   const name=(g('cap-name')?.value||'').trim();
-  const user=(g('cap-user')?.value||'').trim().toLowerCase();
+  let user=(g('cap-user')?.value||'').trim().toLowerCase();
   const pass=(g('cap-pass')?.value||'').trim();
   if(!name||!user||!pass){toast('هەڵە','خانەکان بەتاڵن','err');return;}
 
@@ -1408,6 +1410,13 @@ function addCaptain(){
   if(!m.captains)m.captains=[];
 
   if(m.captains.length>=4){toast('هەڵە','تەنها دەتوانیت تا ٤ کاپتن زیاد بکەیت','err');return;}
+
+  // پاراستن و جیاکردنەوە: ناوی بەکارهێنەری هەر کاپتنێک پێشگری ناوی بەکارهێنەری بازرگانەکەی پێوە دەنوسێنرێت
+  const prefix = M.username + "_";
+  if(!user.startsWith(prefix)){
+    user = prefix + user;
+  }
+
   if(m.captains.some(c=>c.username===user)){toast('هەڵە','ئەم ناوی بەکارهێنەرە پێشتر هەیە','err');return;}
 
   m.captains.push({id:'cap'+uid(),name,username:user,password:pass});
@@ -1430,10 +1439,11 @@ function rCaptainsList(){
     item.style.cssText='display:flex;justify-content:space-between;align-items:center;padding:11px 13px;background:var(--bg2);border-radius:var(--r1);border:1px solid var(--bd2)';
     item.innerHTML=`<div>
         <div style="font-size:12.5px;font-weight:800">${c.name}</div>
-        <div style="font-size:10px;color:var(--tm);font-family:monospace">🔐 ${c.username} · ${ordCnt} داواکاری</div>
+        <div style="font-size:11px;color:var(--t2);font-weight:bold;margin-top:2px">یوزەرنیمی فەرمی بۆ لۆگین: <code style="color:var(--ruby-d);background:var(--sur);padding:2px 6px;border-radius:4px">${c.username}</code></div>
+        <div style="font-size:10px;color:var(--tm);font-family:monospace;margin-top:4px">🔐 پاسۆرد: ${c.password} · ${ordCnt} داواکاری نێردراو</div>
       </div>
       <div style="display:flex;gap:6px">
-        <button onclick="editCapPW('${c.id}')" class="btn btn-icon-sm" style="background:var(--gold-l);color:var(--gold-dd)" title="پاسۆرد">🔑</button>
+        <button onclick="editCapPW('${c.id}')" class="btn btn-icon-sm" style="background:var(--gold-l);color:var(--gold-dd)" title="گۆڕینی پاسۆرد">🔑</button>
         <button onclick="delCapConfirm('${c.id}','${c.name.replace(/'/g,"\\'")}')" class="btn btn-icon-sm" style="background:var(--ruby-l);color:var(--ruby-d)" title="سڕینەوە">✖</button>
       </div>`;
     el.appendChild(item);
@@ -1465,7 +1475,7 @@ function openPanel(){
   sv('merchant-panel');
   if(g('m-logo')){g('m-logo').src=M.logo||'';g('m-logo').style.display=M.logo?'block':'none';}
   if(g('m-name'))g('m-name').textContent=M.name;
-  if(g('m-plan-tag'))g('m-plan-tag').textContent=planL(M.plan)+' · '+dLeft(M)+'ڕ میاوە';
+  if(g('m-plan-tag'))g('m-plan-tag').textContent=planL(M.plan)+' · '+dLeft(M)+'ڕ ماوە';
   if(g('tbl-cnt'))g('tbl-cnt').value=M.tables_count;
   const hr=kurdistanHour();
   const grt=hr<12?'🌅 بەیانیت باش':(hr<18?'☀️ ڕۆژت باش':'🌙 ئێوارەت باش');
@@ -1520,7 +1530,7 @@ function startSync(){
 function notifBeep(){try{const ctx=new(window.AudioContext||window.webkitAudioContext)();[[880,.0],[1100,.15],[1320,.3]].forEach(([f,d])=>{const o=ctx.createOscillator(),gn=ctx.createGain();o.connect(gn);gn.connect(ctx.destination);o.frequency.value=f;o.type='sine';gn.gain.setValueAtTime(.22,ctx.currentTime+d);gn.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+d+.22);o.start(ctx.currentTime+d);o.stop(ctx.currentTime+d+.25);});}catch(e){}}
 function bcBeep(){try{const ctx=new(window.AudioContext||window.webkitAudioContext)();const o=ctx.createOscillator(),gn=ctx.createGain();o.connect(gn);gn.connect(ctx.destination);o.frequency.value=1760;o.type='square';gn.gain.setValueAtTime(.12,ctx.currentTime);gn.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+.07);o.start();o.stop(ctx.currentTime+.07);}catch(e){}}
 
-/* ── ACTIVE CAPTAIN ORDERS (cashier side: pull into POS) ── */
+/* ── ACTIVE CAPTAIN ORDERS ── */
 function rActiveCaptainOrders(){
   const strip=g('active-orders-strip');const container=g('active-captain-orders');if(!container||!strip)return;
   const orders=M.active_orders||[];
@@ -1552,7 +1562,7 @@ function checkTblActiveOrder(){
   else if(!found && g('pos-active-indicator')) g('pos-active-indicator').textContent='';
 }
 
-/* ── POS (CASHIER TERMINAL) ── */
+/* ── POS ── */
 function rPOSMenu(){
   const cc=g('pos-cats');if(!cc)return;
   cc.innerHTML='<button class="catbtn'+(pCat==='all'?' on':'')+'" onclick="fPOS(\'all\')">هەموو</button>';
@@ -1625,7 +1635,6 @@ async function checkout(method){
   if(!m.sales)m.sales=[];
   m.sales.push(sale);
   items.forEach(ci=>{const fi=(m.foods||[]).findIndex(f=>String(f.id)===String(ci.id));if(fi>-1&&m.foods[fi].stock!==undefined)m.foods[fi].stock=Math.max(0,m.foods[fi].stock-ci.qty);});
-  // clear any active captain order for this table since it's now checked out
   m.active_orders=(m.active_orders||[]).filter(o=>String(o.table)!==String(tbl));
   await dbSet(M.username,m);M=fix(deep(m));
   clearCart();if(g('pos-disc'))g('pos-disc').value=0;
@@ -1676,7 +1685,6 @@ async function mkFood(){
     stock:stockVal,
     barcode:(g('f-bc')?.value||'').trim()||null,
     category:chosenCat,img};
-  // Get fresh copy right before write to minimize lost-update window
   const m=dbGet(M.username);if(!m){if(btn){btn.disabled=false;btn.textContent='تۆمارکردن لە مینیودا ✓';}return;}
   if(!m.foods)m.foods=[];
   m.foods.push(food);
@@ -1733,7 +1741,7 @@ function delFood(id){
 </script>
 
 <script>
-/* ── TABLES MAP (shows bill requests AND captain pending orders) ── */
+/* ── TABLES MAP ── */
 function setTblCnt(){const n=parseInt(g('tbl-cnt')?.value)||12;const m=dbGet(M.username);if(!m)return;m.tables_count=n;dbSet(M.username,m);M=fix(deep(m));rTables();rPOSTbls();rCapTablesSelect();toast('✅ نوێکرایەوە',n+' مێز');}
 function rTables(){
   const gd=g('tbl-map');if(!gd)return;
@@ -1825,7 +1833,7 @@ function prtQR(num){
   <script>window.onload=function(){window.print();setTimeout(function(){window.close()},900);}<\/script></body></html>`);w.document.close();
 }
 
-/* ── THERMAL RECEIPT (jagged-edge stub printer style, 58/80mm friendly) ── */
+/* ── THERMAL RECEIPT ── */
 function buildRcss(){return `@import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;700;900&display=swap');
 *{box-sizing:border-box;margin:0;padding:0}
 @media print{ @page{margin:0} body{margin:0} }
@@ -1862,7 +1870,7 @@ function prtReceipt(sale){
   <div class="foot">سوپاس بۆ کڕینەکەتان 🙏<br>Powered by Kurd POS</div><div class="jagged"></div>`);
 }
 
-/* ── HISTORICAL SALES — view, edit, delete ── */
+/* ── HISTORICAL SALES ── */
 function rSalesHistoryTable(){
   const tbody=g('sales-history-tbody');if(!tbody)return;
   tbody.innerHTML='';
@@ -1965,12 +1973,7 @@ function saveTableSettings(){const cnt=parseInt(g('set-tbl')?.value)||M.tables_c
 </script>
 
 <script>
-/* ════════════════════════════════════════════════════════
-   CAPTAIN PANEL — waiter-facing ordering interface
-   Captains pick a table, add items, and submit — the order
-   lands in the merchant's active_orders[] where the cashier
-   sees it appear live and can pull it straight into the POS.
-════════════════════════════════════════════════════════════ */
+/* ── CAPTAIN PANEL ── */
 function openCaptainPanel(){
   sv('captain-panel');
   if(g('cap-current-name'))g('cap-current-name').textContent='کاپتن: '+activeCap.name;
@@ -2079,13 +2082,11 @@ async function submitCaptainOrder(){
   const btn=g('submit-cap-order-btn');
   if(btn){btn.disabled=true;btn.textContent='چاوەڕێبە...';}
 
-  // Fetch the freshest copy right before writing to minimize lost-update window
   await cloudFetch();
   const m=dbGet(activeCap.merchantUser);
   if(!m){if(btn){btn.disabled=false;btn.textContent='⚡ ناردنی داواکاری بۆ کاشێر';}return;}
   if(!m.active_orders)m.active_orders=[];
 
-  // Replace any existing pending order for this table from any captain
   m.active_orders=m.active_orders.filter(o=>String(o.table)!==String(tbl));
 
   const total=items.reduce((s,i)=>s+i.price*i.qty,0);
@@ -2107,7 +2108,6 @@ async function submitCaptainOrder(){
   toast('✅ نێردرا بۆ کاشێر','مێزی '+tbl+' · '+iq(total));
 }
 
-/* Captain side sync — keeps M (menu/stock/tables) fresh in case owner edits while captain is using it */
 let capSyncT=null;
 function startCaptainSync(){
   clearInterval(capSyncT);
@@ -2122,9 +2122,7 @@ function startCaptainSync(){
 </script>
 
 <script>
-/* ════════════════════════════════════════════════════════
-   CUSTOMER PORTAL — menu browsing & self checkout helper
-════════════════════════════════════════════════════════════ */
+/* ── CUSTOMER PORTAL ── */
 window.onload=async()=>{
   const params=new URLSearchParams(location.search);
   const shop=params.get('shop');
